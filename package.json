@@ -1,5 +1,5 @@
 {
-  "name": "lolfight",
+  "name": "happyplain-nextjs",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,9 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "axios": "^1.6.2",
     "next": "14.0.3",
     "react": "^18",
     "react-dom": "^18",
+    "react-kakao-maps-sdk": "^1.1.24",
     "swiper": "^11.0.5"
   },
   "devDependencies": {

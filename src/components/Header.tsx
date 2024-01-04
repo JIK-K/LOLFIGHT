@@ -8,8 +8,7 @@ const Header = () => {
                         </h1>
                     </div>
                     <div className="flex items-center">
-                        <button className="text-gray-800">로그인</button>
-                        <a className="flex ml-4 text-white bg-black w-20 h-10 items-center justify-center rounded-md cursor-pointer"><span>회원가입</span></a>
+                        <a className="flex ml-4 text-white bg-black w-20 h-10 items-center justify-center rounded-md cursor-pointer"><span>로그인</span></a>
                     </div>
                 </section>
         </header>

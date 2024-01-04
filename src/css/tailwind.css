@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: 'Pretendard';
-  src : url('/fonts/PretendardVariable.ttf');
+  font-family: "Pretendard";
+  src: url("../public/fonts/PretendardVariable.ttf");
 }
 
 .swiper {
