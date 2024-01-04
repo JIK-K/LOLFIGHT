@@ -31,7 +31,7 @@ const Slider = () => {
   SwiperCore.use([Navigation, Pagination, Scrollbar]);
 
   return (
-    <div className="w-full h-96 mt-4">
+    <div className="w-full h-96 mt-4 mb-16">
       <Swiper
         loop={true}
         spaceBetween={50} //  슬라이드 사이 간격
@@ -46,7 +46,7 @@ const Slider = () => {
       >
         {slideData.map((slide) => (
           <SwiperSlide key={slide.id}>
-            <div>
+            <div className="w-full h-full border-2 border-black rounded-md">
               <div>{slide.text}</div>
             </div>
           </SwiperSlide>
