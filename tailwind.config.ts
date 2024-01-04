@@ -32,6 +32,10 @@ const config: Config = {
         "32px": "32px",
         "64px": "64px",
       },
+      colors: {
+        transparent: "transparent",
+        brandcolor: "#11235A",
+      },
     },
   },
   plugins: [],

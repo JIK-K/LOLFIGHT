@@ -32,7 +32,7 @@ export default function Page() {
                   />
                 </div>
                 <div className="border-b w-full"></div>
-                <button className="flex font-medium bg-black text-white h-10 items-center justify-center rounded-md cursor-pointer my-4 w-full my-1">
+                <button className="flex font-medium bg-brandcolor text-white h-10 items-center justify-center rounded-md cursor-pointer my-4 w-full my-1">
                   이메일로 로그인
                 </button>
               </div>
