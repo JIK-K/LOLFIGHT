@@ -4,7 +4,7 @@ export default function Page() {
       <div className="w-full">
         <div className="mx-auto w-1200px">
           <div className="flex justify-center items-center pt-24 mb-8">
-            <span className="text-32px font-extrabold">훌러덩구리</span>
+            <span className="text-32px font-extrabold">롤파이트</span>
           </div>
           <div className="flex justify-center items-center">
             <div className="flex flex-col border border-gray-200 rounded-md p-20 w-540px">

@@ -27,9 +27,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    // <html lang="en" className={pretendard.className}>
-    <html lang="en">
-      <body className={`${pretendard.className}`}>{children}</body>
+    <html lang="en" className="font-['Pretendard']">
+      {/* <html lang="en"> */}
+      <body>{children}</body>
+      {/* <body className={`${pretendard.className}`}>{children}</body> */}
     </html>
   );
 }
