@@ -29,7 +29,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="font-['Pretendard']">
       {/* <html lang="en"> */}
-      <body>{children}</body>
+      <body className="">{children}</body>
       {/* <body className={`${pretendard.className}`}>{children}</body> */}
     </html>
   );
