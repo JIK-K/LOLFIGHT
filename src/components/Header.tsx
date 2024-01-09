@@ -1,5 +1,5 @@
 import Image from "next/image";
-import logo from "../public/images/흰주먹해적단.png";
+import logo from "../../public/images/흰주먹해적단.png";
 
 const Header = () => {
   return (

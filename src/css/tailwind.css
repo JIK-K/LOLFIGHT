@@ -4,7 +4,7 @@
 
 @font-face {
   font-family: "Pretendard";
-  src: url("../public/fonts/PretendardVariable.ttf");
+  src: url("/fonts/PretendardVariable.ttf");
 }
 
 .swiper {

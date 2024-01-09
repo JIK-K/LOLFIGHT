@@ -9,11 +9,6 @@ import localFont from "next/font/local";
 
 const inter = Inter({ subsets: ["latin"] });
 
-const pretendard = localFont({
-  src: "../public/fonts/PretendardVariable.ttf",
-  variable: "--font-pretendard",
-});
-
 const nanum_gothic = Nanum_Gothic({
   weight: ["400", "700", "800"],
   subsets: ["latin"],
