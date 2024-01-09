@@ -13,7 +13,9 @@ export default function RegisterLayout({
 }) {
   return (
     <>
-      <div>{children}</div>
+      <html lang="en" className="font-['Pretendard']">
+        <body>{children}</body>
+      </html>
     </>
   );
 }
