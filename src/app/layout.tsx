@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Nanum_Gothic } from "next/font/google";
 import "../css/tailwind.css";
+import Header from "../components/Header";
+import Navigation from "../components/Navigation";
+import Footer from "../components/Footer";
 import localFont from "next/font/local";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -28,8 +31,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="font-['Pretendard']">
-      {/* <html lang="en"> */}
-      <body className="">{children}</body>
+      <body>
+        <Header></Header>
+        <Navigation></Navigation>
+        {children}
+        <Footer></Footer>
+      </body>
       {/* <body className={`${pretendard.className}`}>{children}</body> */}
     </html>
   );
