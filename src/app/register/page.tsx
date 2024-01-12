@@ -1,3 +1,5 @@
+import Link from "@/src/components/Link";
+
 export default function Page() {
   return (
     <>
@@ -38,7 +40,9 @@ export default function Page() {
               </div>
               <div className="flex justify-center mt-4">
                 <span className="text-xs text-gray-700 font-bold mx-2">
-                  회원가입
+                  <Link key={"회원가입"} href="/register/signup">
+                    회원가입
+                  </Link>
                 </span>
                 <span className="h-4 w-1px mx-1 bg-gray-700"></span>
                 <span className="text-xs text-gray-700 font-bold mx-2">
