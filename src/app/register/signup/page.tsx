@@ -1,3 +1,7 @@
 export default function Page() {
-  return <>dd</>;
+  return (
+    <>
+      <span className="">dd</span>
+    </>
+  );
 }
