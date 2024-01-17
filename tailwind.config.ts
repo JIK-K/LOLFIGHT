@@ -25,15 +25,22 @@ const config: Config = {
       },
       width: {
         "1px": "1px",
+        "120px": "120px",
+        "350px": "350px",
         "540px": "540px",
         "1200px": "1200px",
       },
       fontSize: {
         "8px": "8px",
+        "12px": "12px",
+        "14px": "14px",
         "16px": "16px",
+        "22px": "22px",
         "24px": "24px",
         "32px": "32px",
         "38px": "38px",
+        "44px": "44px",
+        "54px": "54px",
         "64px": "64px",
       },
       colors: {
