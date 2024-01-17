@@ -10,13 +10,14 @@ type Props = {
 };
 export default function BaseLayout({ children }: Props) {
   const pathname = usePathname();
+  const hideDefaultLayoutPaths = pathname.startsWith("/register");
 
   return (
     <>
-      {pathname !== "/register" && <Header />}
-      {pathname !== "/register" && <Navigation />}
+      {!hideDefaultLayoutPaths && <Header />}
+      {!hideDefaultLayoutPaths && <Navigation />}
       {children}
-      {pathname !== "/register" && <Footer />}
+      {!hideDefaultLayoutPaths && <Footer />}
     </>
   );
 }
