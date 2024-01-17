@@ -22,6 +22,7 @@ const config: Config = {
         "screen-2/3": "66.666667vh",
         "screen-1/4": "25vh",
         "screen-3/4": "75vh",
+        "525px": "525px",
       },
       width: {
         "1px": "1px",
