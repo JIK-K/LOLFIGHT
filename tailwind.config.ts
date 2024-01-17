@@ -29,7 +29,11 @@ const config: Config = {
         "1200px": "1200px",
       },
       fontSize: {
+        "8px": "8px",
+        "16px": "16px",
+        "24px": "24px",
         "32px": "32px",
+        "38px": "38px",
         "64px": "64px",
       },
       colors: {
