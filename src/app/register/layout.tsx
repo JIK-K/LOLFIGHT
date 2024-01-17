@@ -20,7 +20,7 @@ export default function RegisterLayout({
               <span className="text-32px font-extrabold">롤파이트</span>
             </div>
             <div className="flex justify-center items-center">
-              <div className="flex flex-col border border-gray-200 rounded-md p-20 w-540px">
+              <div className="h-525px flex flex-col border border-gray-200 rounded-md p-20 w-540px">
                 {children}
               </div>
             </div>
