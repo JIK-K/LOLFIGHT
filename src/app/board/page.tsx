@@ -7,7 +7,7 @@ export default function Page() {
       <div className="w-full h-full">
         <div className="w-1200px h-full mx-auto flex">
           <BoardNavComponent></BoardNavComponent>
-          <BoardComponent></BoardComponent>
+          <BoardComponent title="testyaya"></BoardComponent>
         </div>
       </div>
     </>

@@ -1,7 +1,7 @@
 const boardNavLinks = [
-  { href: "/all", title: "all" },
-  { href: "/3tier", title: "3tier" },
-  { href: "/2tier", title: "2tier" },
+  { href: "/board/all", title: "전체 게시판" },
+  { href: "/board/3tier", title: "자유 게시판" },
+  { href: "/board/2tier", title: "싸움 게시팔" },
 ];
 
 export default boardNavLinks;
