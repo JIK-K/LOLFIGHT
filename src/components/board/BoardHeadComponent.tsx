@@ -1,6 +1,6 @@
 import { FaSearch } from "react-icons/fa";
 
-interface NoticeHeadComponentProps {
+interface BoardHeadComponentProps {
   head: {
     name: string;
     tap: string;
@@ -9,7 +9,7 @@ interface NoticeHeadComponentProps {
   };
 }
 
-const NoticeHeadComponent = (props: NoticeHeadComponentProps) => {
+const BoardHeadComponent = (props: BoardHeadComponentProps) => {
   return (
     <div className="notice-head">
       <div className="notice-head__title">
@@ -37,4 +37,4 @@ const NoticeHeadComponent = (props: NoticeHeadComponentProps) => {
   );
 };
 
-export default NoticeHeadComponent;
+export default BoardHeadComponent;

@@ -1,4 +1,4 @@
-interface NoticeInfoComponentProps {
+interface BoardInfoComponentProps {
   notice: {
     number: number;
     type: string;
@@ -10,7 +10,7 @@ interface NoticeInfoComponentProps {
   };
 }
 
-const NoticeInfoComponent = (props: NoticeInfoComponentProps) => {
+const BoardInfoComponent = (props: BoardInfoComponentProps) => {
   return (
     <div className="notice-info text-sm h-8 flex mt-1">
       <div className="notice-info__number w-1/12 flex items-center justify-center">
@@ -40,4 +40,4 @@ const NoticeInfoComponent = (props: NoticeInfoComponentProps) => {
   );
 };
 
-export default NoticeInfoComponent;
+export default BoardInfoComponent;
