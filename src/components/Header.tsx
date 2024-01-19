@@ -15,9 +15,12 @@ const Header = () => {
           </p>
         </div>
         <div className="flex items-center">
-          <a className="flex ml-4 text-black bg-white w-20 h-10 items-center justify-center rounded-md cursor-pointer">
-            <span>로그인</span>
-          </a>
+          <Link
+            href={"/register"}
+            className="flex ml-4 text-black bg-white w-20 h-10 items-center justify-center rounded-md cursor-pointer"
+          >
+            로그인
+          </Link>
         </div>
       </section>
     </header>

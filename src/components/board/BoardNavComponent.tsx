@@ -1,12 +1,12 @@
 import Link from "next/link";
-import noticeNavLinks from "@/src/data/noticeNavLinks";
+import boardNavLinks from "@/src/data/boardNavLinks";
 
-const NoticeNavComponent = () => {
+const BoardNavComponent = () => {
   return (
     <div className="">
       {" "}
       <div className="flex flex-col w-64 h-full leading-5">
-        {noticeNavLinks
+        {boardNavLinks
           .filter((link) => link.href !== "/")
           .map((link) => (
             <Link
@@ -22,4 +22,4 @@ const NoticeNavComponent = () => {
   );
 };
 
-export default NoticeNavComponent;
+export default BoardNavComponent;

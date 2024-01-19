@@ -1,21 +1,22 @@
-import NoticeInfoComponent from "./NoticeInfoComponent";
-import NoticeHeadComponent from "./NoticeHeadComponent";
+import BoardInfoComponent from "./BoardInfoComponent";
+import BoardHeadComponent from "./BoardHeadComponent";
 
-const NoticeComponent = () => {
+interface BoardComponentProps {
+  title: string;
+}
+
+const BoardComponent = (props: BoardComponentProps) => {
   return (
     <div className="notice w-full">
       <div className="notice__head">
-        <NoticeHeadComponent
+        <BoardHeadComponent
           head={{
-            name: "all",
-            tap: "전체",
-            filter: "말머리",
-            search: "제목+내용",
+            name: props.title,
           }}
-        ></NoticeHeadComponent>
+        ></BoardHeadComponent>
       </div>
       <div className="notice__content">
-        <NoticeInfoComponent
+        <BoardInfoComponent
           notice={{
             number: 1,
             type: "공지",
@@ -25,10 +26,10 @@ const NoticeComponent = () => {
             date: "2021.10.10",
             views: 100,
           }}
-        ></NoticeInfoComponent>
+        ></BoardInfoComponent>
       </div>
     </div>
   );
 };
 
-export default NoticeComponent;
+export default BoardComponent;
