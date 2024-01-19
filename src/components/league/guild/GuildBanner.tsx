@@ -13,19 +13,19 @@ interface Props {
 }
 
 const GuildBanner = (props: Props) => {
-  const [guildName, setGuildName] = useState<string>();
-  const [guildMembers, setGuildMembers] = useState<number>();
-  const [guildRank, setGuildRank] = useState<string>();
-  const [guildMaster, setGuildMaster] = useState<string>();
-  const [guildCreate, setGuildCreate] = useState<string>();
+  // const [guildName, setGuildName] = useState<string>();
+  // const [guildMembers, setGuildMembers] = useState<number>();
+  // const [guildRank, setGuildRank] = useState<string>();
+  // const [guildMaster, setGuildMaster] = useState<string>();
+  // const [guildCreate, setGuildCreate] = useState<string>();
 
-  useEffect(() => {
-    setGuildName(props.guildName);
-    setGuildMembers(props.guildMembers);
-    setGuildRank(props.guildRank);
-    setGuildMaster(props.guildMaster);
-    setGuildCreate(props.guildCreate);
-  }, [props]);
+  // useEffect(() => {
+  //   setGuildName(props.guildName);
+  //   setGuildMembers(props.guildMembers);
+  //   setGuildRank(props.guildRank);
+  //   setGuildMaster(props.guildMaster);
+  //   setGuildCreate(props.guildCreate);
+  // }, [props]);
 
   const handleClickRecordRenewal = () => {
     console.log("전적갱신");
@@ -46,10 +46,10 @@ const GuildBanner = (props: Props) => {
             </div>
             <div className="flex flex-col ml-3">
               <div className="font-extra text-white text-12px mt-1">
-                롤파이트 공식리그 - 1부리그 - {guildRank}위
+                롤파이트 공식리그 - 1부리그 - {props.guildRank}위
               </div>
               <div className="font-extrabold text-white text-24px">
-                {guildName}
+                {props.guildName}
               </div>
             </div>
           </div>
@@ -72,15 +72,15 @@ const GuildBanner = (props: Props) => {
         <div className="w-350px h-full flex flex-col justify-end pb-4">
           <div className="flex mt-3">
             <div className=" text-white text-14px">
-              길드 마스터: {guildMaster}
+              길드 마스터: {props.guildMaster}
             </div>
             <p className="text-white font-thin ml-2 mr-2"> | </p>
             <div className="text-white text-14px">
-              클랜원: {guildMembers} 명
+              클랜원: {props.guildMembers} 명
             </div>
           </div>
           <div className="text-white text-14px mt-3  mb-5">
-            길드 설립일: {guildCreate}
+            길드 설립일: {props.guildCreate}
           </div>
         </div>
       </section>

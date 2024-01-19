@@ -46,6 +46,7 @@ const config: Config = {
       colors: {
         transparent: "transparent",
         brandcolor: "#11235A",
+        brandbgcolor: "#EFEFEF",
       },
     },
   },
