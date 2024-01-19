@@ -27,7 +27,10 @@ const config: Config = {
         "1px": "1px",
         "120px": "120px",
         "350px": "350px",
+        "400px": "400px",
         "540px": "540px",
+        "800px": "800px",
+        "1000px": "1000px",
         "1200px": "1200px",
       },
       fontSize: {
@@ -37,6 +40,7 @@ const config: Config = {
         "16px": "16px",
         "22px": "22px",
         "24px": "24px",
+        "26px": "26px",
         "32px": "32px",
         "38px": "38px",
         "44px": "44px",

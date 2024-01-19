@@ -10,7 +10,7 @@ const GuildSummeryRecord = () => {
       <p className="font-extrabold">최근 매치</p>
 
       <div className="flex p-3 items-center">
-        <div className="flex w-540px items-center">
+        <div className="flex w-400px items-center">
           <CircularProgress
             classNames={{
               svg: "w-36 h-36 drop-shadow-md",
@@ -23,16 +23,16 @@ const GuildSummeryRecord = () => {
             showValueLabel={true}
           />
           <div className="flex flex-col items-center">
-            <p className="pl-10 text-24px">
+            <p className="pl-10 text-22px">
               20전 1승 19패
-              <span className="text-red-500 text-24px pl-2">
+              <span className="text-red-500 text-22px pl-2">
                 ( {winRate}% )
               </span>
             </p>
             <p className="text-sky-500 font-extrabold text-16px">0 연승중</p>
           </div>
         </div>
-        <div className="w-540px h-40 flex flex-col border-l-2 pl-10">
+        <div className="w-400px h-40 flex flex-col border-l-2 pl-10">
           <GuildSummeryBox />
           <GuildSummeryBox />
           <GuildSummeryBox />

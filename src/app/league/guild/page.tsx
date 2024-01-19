@@ -1,4 +1,5 @@
 import GuildBanner from "@/src/components/league/guild/GuildBanner";
+import GuildDetailRecord from "@/src/components/league/guild/GuildDetailRecord";
 import GuildSummeryRecord from "@/src/components/league/guild/GuildSummeryRecord";
 
 const blackurl = "/images/검은주먹해적단.png";
@@ -16,9 +17,10 @@ export default function Page() {
             guildMembers={1}
             guildRank="99"
           />
-          <div className="flex flex-col mt-5 mb-5">
-            <div className="w-1200px mx-auto h-full flex justify-between items-center ">
+          <div className="flex mt-5 mb-5">
+            <div className="w-1200px mx-auto h-full flex  items-center">
               <GuildSummeryRecord />
+              <GuildDetailRecord />
             </div>
           </div>
         </div>
