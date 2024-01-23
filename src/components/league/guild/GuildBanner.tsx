@@ -55,16 +55,18 @@ const GuildBanner = (props: Props) => {
           </div>
           <div className="flex gap-3">
             <button
+              aria-label="전적갱신"
               className="flex text-black bg-white w-24 h-10 items-center justify-center cursor-pointer rounded hover:bg-gray-200"
               onClick={handleClickRecordRenewal}
             >
-              <span>전적갱신</span>
+              전적갱신
             </button>
             <button
+              aria-label="즐겨찾기"
               className="flex text-black bg-white w-24 h-10 items-center justify-center cursor-pointer rounded hover:bg-gray-200"
               onClick={handleClickFavorite}
             >
-              <span>즐겨찾기</span>
+              즐겨찾기
             </button>
           </div>
         </div>
