@@ -22,13 +22,9 @@ const GuildSummeryRecord = () => {
             strokeWidth={5}
             showValueLabel={true}
           />
-          <div className="flex flex-col items-center">
-            <p className="pl-10 text-22px">
-              20전 1승 19패
-              <span className="text-red-500 text-22px pl-2">
-                ( {winRate}% )
-              </span>
-            </p>
+          <div className="flex flex-col items-center pl-5">
+            <p className="text-22px">220전 113승 129패</p>
+            <p className="text-red-500 text-22px p-2">( {winRate}% )</p>
             <p className="text-sky-500 font-extrabold text-16px">0 연승중</p>
           </div>
         </div>

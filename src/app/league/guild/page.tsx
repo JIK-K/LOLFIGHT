@@ -1,5 +1,5 @@
 import GuildBanner from "@/src/components/league/guild/GuildBanner";
-import GuildDetailRecord from "@/src/components/league/guild/GuildDetailRecord";
+import GuildDetail from "@/src/components/league/guild/GuildDetail";
 import GuildFightRecord from "@/src/components/league/guild/GuildFightRecord";
 import GuildSummeryRecord from "@/src/components/league/guild/GuildSummeryRecord";
 
@@ -22,7 +22,7 @@ export default function Page() {
             <div className="w-1200px mx-auto h-full flex flex-col items-center">
               <div className="w-full flex pb-5">
                 <GuildSummeryRecord />
-                <GuildDetailRecord />
+                <GuildDetail />
               </div>
               <div className="w-full flex flex-col">
                 <GuildFightRecord result="win" />
