@@ -2,6 +2,7 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore from "swiper";
 import { Navigation, Pagination, Scrollbar } from "swiper/modules";
+import Image from "next/image";
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -12,18 +13,26 @@ const slideData = [
   {
     id: 1,
     text: "first slide",
+    type: "image",
+    content: "/images/abcdaramgi.jpg",
   },
   {
     id: 2,
     text: "second slide",
+    type: "video",
+    content: "X2glr_HwyFk",
   },
   {
     id: 3,
     text: "third slide",
+    type: "image",
+    content: "/images/abcdetanwook.jpg",
   },
   {
     id: 4,
     text: "fourth slide",
+    type: "image",
+    content: "/images/zakum3600.png",
   },
 ];
 
@@ -47,7 +56,27 @@ const Slider = () => {
         {slideData.map((slide) => (
           <SwiperSlide key={slide.id}>
             <div className="w-full h-full border-2 border-black rounded-md">
-              <div>{slide.text}</div>
+              {slide.type === "image" && (
+                <Image
+                  src={slide.content}
+                  alt={slide.text}
+                  width={1280}
+                  height={960}
+                />
+              )}
+              {slide.type === "video" && (
+                <iframe
+                  title={slide.text}
+                  width="100%"
+                  height="100%"
+                  src={`https://www.youtube.com/embed/${slide.content}`}
+                  frameBorder="0"
+                  allowFullScreen
+                />
+              )}
+              <div className="absolute bottom-0 w-full bg-black text-white p-2 text-center">
+                {slide.text}
+              </div>
             </div>
           </SwiperSlide>
         ))}
