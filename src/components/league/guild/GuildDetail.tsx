@@ -1,6 +1,6 @@
 import React from "react";
 
-const GuildDetailRecord = () => {
+const GuildDetail = () => {
   return (
     <div className="w-full h-full rounded ml-3 p-3 flex flex-col bg-brandcolor text-white">
       <div className="border-b-2 border-white p-1 text-xl">상세정보</div>
@@ -22,4 +22,4 @@ const GuildDetailRecord = () => {
     </div>
   );
 };
-export default GuildDetailRecord;
+export default GuildDetail;
