@@ -7,7 +7,7 @@ interface BoardComponentProps {
 
 const BoardComponent = (props: BoardComponentProps) => {
   return (
-    <div className="notice w-full">
+    <div className="notice w-full bg-white ml-8 shadow-md">
       <div className="notice__head">
         <BoardHeadComponent
           head={{

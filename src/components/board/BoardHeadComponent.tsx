@@ -10,23 +10,25 @@ const BoardHeadComponent = (props: BoardHeadComponentProps) => {
   return (
     <div className="notice-head">
       <div className="notice-head__title flex flex-col">
-        <span className="text-xl font-bold ml-2">{props.head.name}</span>
+        <span className="text-xl font-bold text-center m-8">
+          {props.head.name}
+        </span>
         <div className="flex justify-between font-semibold">
-          <div className="flex my-4">
-            <button className="w-16 border-b-2 border-brandcolor m-2">
+          <div className="flex my-2 ml-2">
+            <button className="w-16 border border-brandcolor bg-brandcolor text-white m-1">
               개념글
             </button>
-            <button className="w-16 border-b-2 border-brandcolor m-2">
+            <button className="w-16 border border-brandcolor m-1">
               인기도
             </button>
-            <button className="w-16 border-b-2 border-brandcolor m-2">
-              하이랜던
+            <button className="w-16 border border-brandcolor m-1">
+              하이랜더
             </button>
-            <button className="w-16 border-b-2 border-brandcolor m-2">
+            <button className="w-16 border border-brandcolor m-1">
               일비표창
             </button>
           </div>
-          <div className="flex w-96 border border-gray-200 rounded-md my-4">
+          <div className="flex w-96 border border-gray-200 rounded-md my-2 mr-2">
             <input
               className="w-full h-10 rounded-md px-2 bg-gray-100 focus:outline-none"
               type="text"
