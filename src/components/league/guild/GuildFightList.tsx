@@ -9,7 +9,7 @@ interface Props {
 const GuildFightList = (props: Props) => {
   const result = props.result;
   return (
-    <div className="w-full h-full flex flex-col">
+    <div className="w-full h-full flex flex-col drop-shadow-md">
       {/* 1 */}
       <div
         className={`w-full h-full flex p-1 justify-between ${

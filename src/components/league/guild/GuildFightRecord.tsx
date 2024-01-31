@@ -74,7 +74,7 @@ const GuildFightRecord = (props: Props) => {
         </div>
 
         {/* 4 */}
-        <div className="w-500px p-3">
+        <div className="w-500px p-2">
           <GuildFightMember />
         </div>
 
