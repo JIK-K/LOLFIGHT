@@ -13,7 +13,7 @@ const GuildFightBox = (props: Props) => {
       }`}
     >
       {/* 플레이어 */}
-      <div className="flex h-full font-medium text-14px pb-3 pt-3 w-250px">
+      <div className="flex h-full font-medium text-14px pb-3 pt-3 w-250px gap-2">
         <Image src={TestImg2} alt="GuildBanner" width={22} height={22} />
         <p>태양같은사나이</p>
       </div>
@@ -22,13 +22,13 @@ const GuildFightBox = (props: Props) => {
       <div className="flex font-medium pb-3 pt-3 w-120px">2.42</div>
 
       {/* 피해량 */}
-      <div className="flex font-medium pb-3 pt-3 w-250px">
-        <div className="w-3/4 h-full bg-gray-400 relative">
+      <div className="flex pb-3 pt-3 w-250px">
+        <div className="w-3/4 h-full bg-gray-500 relative drop-shadow-md rounded">
           <div
-            className={`h-full bg-red-500`}
+            className={`h-full bg-red-500 rounded`}
             style={{ width: "30%" }} // 여기에 피해량에 대한 백분율 값을 동적으로 설정
           ></div>
-          <p className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white ">
+          <p className="absolute text-12px top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white ">
             12,200
           </p>
         </div>
