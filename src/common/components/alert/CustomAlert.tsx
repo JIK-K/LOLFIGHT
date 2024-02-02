@@ -18,7 +18,6 @@ const CustomAlert = ({ icon, title, text }: Props) => {
   });
 };
 
-// Utility function to call CustomAlert with predefined values
 const showAlert = (
   icon: "success" | "error" | "warning" | "info" | "question",
   title: string,
