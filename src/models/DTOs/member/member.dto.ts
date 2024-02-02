@@ -6,6 +6,5 @@ export interface MemberDTO extends BaseDTO {
   memberPw: string;
   memberName: string;
   memberPhone: string;
-  memberBirthDay: string;
   memberGuild: string;
 }
