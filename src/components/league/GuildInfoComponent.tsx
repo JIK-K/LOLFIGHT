@@ -14,7 +14,7 @@ interface GuildInfoComponentProps {
 
 const GuildInfoComponent = (props: GuildInfoComponentProps) => {
   return (
-    <div className="guild-info h-16 flex justify-around items-center bg-red-200 mt-1">
+    <div className="guild-info h-16 flex justify-around items-center bg-white mt-1">
       <div className="flex items-center">
         <Image
           className=""
