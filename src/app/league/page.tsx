@@ -1,4 +1,4 @@
-import GuildInfoComponent from "./../../components/league/GuildInfoComponent";
+import GuildInfoComponent from "./components/GuildInfoComponent";
 
 const blackurl = "/images/검은주먹해적단.png";
 
@@ -19,7 +19,8 @@ export default function Page() {
                 lose: 100,
                 leader: "흰주먹",
               }}
-            ></GuildInfoComponent>            <GuildInfoComponent
+            ></GuildInfoComponent>{" "}
+            <GuildInfoComponent
               guild={{
                 icon: blackurl,
                 name: "흰주먹해적단",
@@ -29,7 +30,8 @@ export default function Page() {
                 lose: 100,
                 leader: "흰주먹",
               }}
-            ></GuildInfoComponent>            <GuildInfoComponent
+            ></GuildInfoComponent>{" "}
+            <GuildInfoComponent
               guild={{
                 icon: blackurl,
                 name: "흰주먹해적단",
@@ -39,7 +41,8 @@ export default function Page() {
                 lose: 100,
                 leader: "흰주먹",
               }}
-            ></GuildInfoComponent>            <GuildInfoComponent
+            ></GuildInfoComponent>{" "}
+            <GuildInfoComponent
               guild={{
                 icon: blackurl,
                 name: "흰주먹해적단",

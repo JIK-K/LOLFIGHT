@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import TestImg2 from "../../../assets/image/TestImg2.png";
+import TestImg2 from "../../../../common/assets/image/TestImg2.png";
 interface Props {
   result: string;
 }
