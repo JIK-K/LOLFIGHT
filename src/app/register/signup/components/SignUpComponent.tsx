@@ -1,14 +1,14 @@
 "use client";
 import { giveMailCode, sendMailAuth } from "@/src/api/mail.api";
 import { signUp } from "@/src/api/member.api";
-import { MailDTO } from "@/src/models/DTOs/mail/mail.dto";
-import { MemberDTO } from "@/src/models/DTOs/member/member.dto";
-import Link from "next/link";
+import { MailDTO } from "@/src/common/DTOs/mail/mail.dto";
+import { MemberDTO } from "@/src/common/DTOs/member/member.dto";
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import { useRouter } from "next/navigation";
 
 const SignUpComponent = () => {
+  const router = useRouter();
   const [showVerification, setShowVerification] = useState(false);
   const [showInputMemberInfo, setshowInputMemberInfo] = useState(false);
   const [buttonText, setButtonText] = useState("인증하기");
@@ -95,6 +95,16 @@ const SignUpComponent = () => {
         if (response.data === true) {
           setButtonText("회원가입");
           setshowInputMemberInfo(true);
+        } else if (mail.mailCode === "") {
+          Swal.fire({
+            icon: "warning",
+            title: "회원가입",
+            text: "인증코드를 입력해주세요.",
+            customClass: {
+              container: "swal-container",
+            },
+          });
+          return;
         } else {
           Swal.fire({
             icon: "warning",
@@ -108,9 +118,25 @@ const SignUpComponent = () => {
         }
       }); //메일 인증코드 전송 API
     } else if (buttonText === "회원가입") {
+      if (
+        member.memberId === "" ||
+        member.memberName === "" ||
+        member.memberPw === ""
+      ) {
+        Swal.fire({
+          icon: "warning",
+          title: "회원가입",
+          text: "모든정보를 작성해주세요.",
+          customClass: {
+            container: "swal-container",
+          },
+        });
+        return;
+      }
       if (member.memberPw === checkPassword) {
         signUp(member)
           .then((response) => {
+            console.log(member);
             Swal.fire({
               icon: "success",
               title: "회원가입",
@@ -119,7 +145,7 @@ const SignUpComponent = () => {
                 container: "swal-container",
               },
             });
-            //여기서 가면됨
+            router.replace("/register");
           })
           .catch((error) => {
             Swal.fire({
@@ -130,6 +156,7 @@ const SignUpComponent = () => {
                 container: "swal-container",
               },
             });
+            router.replace("/register");
           }); //회원가입 API
       } else {
         Swal.fire({
@@ -158,6 +185,11 @@ const SignUpComponent = () => {
             type="text"
             placeholder="이메일"
             onChange={handleEmailInput}
+            disabled={buttonText === "회원가입"}
+            style={{
+              backgroundColor:
+                buttonText === "회원가입" ? "#e0e0e0" : undefined,
+            }}
           />
         </div>
         {showVerification && (
@@ -167,6 +199,11 @@ const SignUpComponent = () => {
               type="text"
               placeholder="인증번호"
               onChange={handleCodeInput}
+              disabled={buttonText === "회원가입"}
+              style={{
+                backgroundColor:
+                  buttonText === "회원가입" ? "#e0e0e0" : undefined,
+              }}
             />
           </div>
         )}
@@ -200,14 +237,12 @@ const SignUpComponent = () => {
         )}
 
         <div className="border-b w-full"></div>
-        <Link href={"/"}>
-          <button
-            onClick={handleButtonClick}
-            className="flex font-medium bg-brandcolor text-white h-10 items-center justify-center rounded-md cursor-pointer my-4 w-full my-1"
-          >
-            {buttonText}
-          </button>
-        </Link>
+        <button
+          onClick={handleButtonClick}
+          className="flex font-medium bg-brandcolor text-white h-10 items-center justify-center rounded-md cursor-pointer my-4 w-full my-1"
+        >
+          {buttonText}
+        </button>
       </div>
     </>
   );

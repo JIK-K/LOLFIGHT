@@ -1,4 +1,4 @@
-import { MailDTO } from "../models/DTOs/mail/mail.dto";
+import { MailDTO } from "../common/DTOs/mail/mail.dto";
 import axios, { AxiosResponse } from "axios";
 import constant from "../common/constant/constant";
 

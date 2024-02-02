@@ -1,9 +1,9 @@
 "use client";
 import React from "react";
 import { usePathname } from "next/navigation";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
-import Navigation from "../components/Navigation";
+import Header from "../common/components/Header";
+import Footer from "../common/components/Footer";
+import Navigation from "../common/components/Navigation";
 
 type Props = {
   children: React.ReactNode;

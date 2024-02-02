@@ -1,4 +1,4 @@
-import Link from "@/src/components/Link";
+import Link from "@/src/common/components/Link";
 
 export default function Page() {
   return (

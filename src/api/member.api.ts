@@ -1,6 +1,6 @@
 import constant from "../common/constant/constant";
-import { MemberDTO } from "../models/DTOs/member/member.dto";
-import { TokenDTO } from "../models/DTOs/member/token.dto";
+import { MemberDTO } from "../common/DTOs/member/member.dto";
+import { TokenDTO } from "../common/DTOs/member/token.dto";
 import axios, { AxiosResponse } from "axios";
 
 const baseUrl = `${constant.SERVER_URL}/member`;

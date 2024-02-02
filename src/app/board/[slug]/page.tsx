@@ -1,5 +1,5 @@
-import BoardNavComponent from "../../../components/board/BoardNavComponent";
-import BoardComponent from "../../../components/board/BoardComponent";
+import BoardNavComponent from "../components/BoardNavComponent";
+import BoardComponent from "../components/BoardComponent";
 import { useRouter } from "next/router";
 import boardNavLinks from "@/src/data/boardNavLinks";
 
