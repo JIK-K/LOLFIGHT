@@ -4,8 +4,8 @@ import { signUp } from "@/src/api/member.api";
 import { MailDTO } from "@/src/common/DTOs/mail/mail.dto";
 import { MemberDTO } from "@/src/common/DTOs/member/member.dto";
 import React, { useState } from "react";
-import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
+import CustomAlert from "@/src/common/components/alert/CustomAlert";
 
 const SignUpComponent = () => {
   const router = useRouter();
@@ -77,14 +77,7 @@ const SignUpComponent = () => {
   const handleButtonClick = () => {
     if (buttonText === "인증하기") {
       if (!isEmailValid(mail.mailAddr)) {
-        Swal.fire({
-          icon: "warning",
-          title: "회원가입",
-          text: "올바른 이메일 형식이 아닙니다",
-          customClass: {
-            container: "swal-container",
-          },
-        });
+        CustomAlert("warning", "회원가입", "올바른 이메일 형식이 아닙니다");
         return;
       }
       giveMailCode(mail); //메일 확인 코드발급 API
@@ -96,24 +89,10 @@ const SignUpComponent = () => {
           setButtonText("회원가입");
           setshowInputMemberInfo(true);
         } else if (mail.mailCode === "") {
-          Swal.fire({
-            icon: "warning",
-            title: "회원가입",
-            text: "인증코드를 입력해주세요.",
-            customClass: {
-              container: "swal-container",
-            },
-          });
+          CustomAlert("warning", "회원가입", "인증코드를 입력해주세요.");
           return;
         } else {
-          Swal.fire({
-            icon: "warning",
-            title: "회원가입",
-            text: "인증코드가 틀렸습니다.",
-            customClass: {
-              container: "swal-container",
-            },
-          });
+          CustomAlert("warning", "회원가입", "인증코드가 틀렸습니다.");
           return;
         }
       }); //메일 인증코드 전송 API
@@ -123,50 +102,37 @@ const SignUpComponent = () => {
         member.memberName === "" ||
         member.memberPw === ""
       ) {
-        Swal.fire({
-          icon: "warning",
-          title: "회원가입",
-          text: "모든정보를 작성해주세요.",
-          customClass: {
-            container: "swal-container",
-          },
-        });
+        CustomAlert("warning", "회원가입", "모든정보를 작성해주세요.");
+        return;
+      }
+      if (member.memberName.length < 1) {
+        CustomAlert("warning", "회원가입", "닉네임은 2글자 이상 작성해주세요.");
+        return;
+      }
+      if (member.memberPw.length < 8) {
+        CustomAlert(
+          "warning",
+          "회원가입",
+          "비밀번호는 8글자 이상 작성해주세요."
+        );
         return;
       }
       if (member.memberPw === checkPassword) {
         signUp(member)
           .then((response) => {
-            console.log(member);
-            Swal.fire({
-              icon: "success",
-              title: "회원가입",
-              text: "성공적으로 회원가입을 완료했습니다",
-              customClass: {
-                container: "swal-container",
-              },
-            });
+            CustomAlert(
+              "success",
+              "회원가입",
+              "성공적으로 회원가입을 완료했습니다."
+            );
             router.replace("/register");
           })
           .catch((error) => {
-            Swal.fire({
-              icon: "warning",
-              title: "회원가입",
-              text: "동일한 이메일이 존재합니다.",
-              customClass: {
-                container: "swal-container",
-              },
-            });
+            CustomAlert("warning", "회원가입", "동일한 이메일이 존재합니다.");
             router.replace("/register");
           }); //회원가입 API
       } else {
-        Swal.fire({
-          icon: "warning",
-          title: "회원가입",
-          text: "비밀번호를 확인해주세요.",
-          customClass: {
-            container: "swal-container",
-          },
-        });
+        CustomAlert("warning", "회원가입", "비밀번호를 확인해주세요.");
         return;
       }
     }
@@ -185,10 +151,10 @@ const SignUpComponent = () => {
             type="text"
             placeholder="이메일"
             onChange={handleEmailInput}
-            disabled={buttonText === "회원가입"}
+            disabled={buttonText === "인증확인" || buttonText === "회원가입"}
             style={{
               backgroundColor:
-                buttonText === "회원가입" ? "#e0e0e0" : undefined,
+                buttonText === "인증확인" || "회원가입" ? "#e0e0e0" : undefined,
             }}
           />
         </div>
