@@ -1,32 +1,11 @@
 "use client";
-import { Sign } from "crypto";
-import Link from "next/link";
 import React, { useState } from "react";
-import SignUpComponent from "@/src/components/register/signup/SignUpComponent";
-import SettingComponent from "@/src/components/register/signup/SettingComponent";
+import SignUpComponent from "@/src/app/register/signup/components/SignUpComponent";
 
 export default function Page() {
-  const [showSettingComponent, setShowSettingComponent] = useState(false);
-
-  const handleSignUpButtonClick = () => {
-    setShowSettingComponent(false);
-  };
-
-  const handleVerificationButtonClick = () => {
-    setShowSettingComponent(true);
-  };
-
   return (
     <>
-      {showSettingComponent ? (
-        <SettingComponent />
-      ) : (
-        <SignUpComponent
-          onSignUpButtonClick={handleSignUpButtonClick}
-          onVerificationButtonClick={handleVerificationButtonClick}
-        />
-      )}
-      {/* <SignUpComponent /> */}
+      <SignUpComponent />
     </>
   );
 }

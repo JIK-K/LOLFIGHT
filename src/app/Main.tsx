@@ -1,8 +1,8 @@
-import Header from "../components/Header";
-import Navigation from "./../components/Navigation";
-import Slider from "./../components/Slider";
-import Search from "./../components/Search";
-import Footer from "./../components/Footer";
+import Header from "../common/components/Header";
+import Navigation from "../common/components/Navigation";
+import Slider from "../common/components/Slider";
+import Search from "../common/components/Search";
+import Footer from "../common/components/Footer";
 
 export default function Main() {
   return <></>;

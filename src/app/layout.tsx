@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Nanum_Gothic } from "next/font/google";
 import "../css/tailwind.css";
-import Header from "../components/Header";
-import Navigation from "../components/Navigation";
-import Footer from "../components/Footer";
+import Header from "../common/components/Header";
+import Navigation from "../common/components/Navigation";
+import Footer from "../common/components/Footer";
 import localFont from "next/font/local";
 import BaseLayout from "./../layouts/BaseLayout";
 

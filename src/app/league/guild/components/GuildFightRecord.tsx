@@ -2,11 +2,11 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { SlArrowDown } from "react-icons/sl";
-import GuildFightMember from "./GuildFightMember";
 
-import TestImg from "../../../assets/image/TestImg.png";
-import TestImg2 from "../../../assets/image/TestImg2.png";
+import TestImg from "../../../../common/assets/image/TestImg.png";
+import TestImg2 from "../../../../common/assets/image/TestImg2.png";
 import GuildFightDetail from "./GuildFightDetail";
+import GuildFightMember from "./GuildFightMember";
 
 interface Props {
   result: string;

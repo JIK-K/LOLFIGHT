@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import TestImg from "../../../assets/image/TestImg.png";
+import TestImg from "../../../../common/assets/image/TestImg.png";
 
 const GuildSummeryBox = () => {
   return (

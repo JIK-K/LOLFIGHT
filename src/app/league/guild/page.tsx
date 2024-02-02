@@ -1,7 +1,7 @@
-import GuildBanner from "@/src/components/league/guild/GuildBanner";
-import GuildDetail from "@/src/components/league/guild/GuildDetail";
-import GuildFightRecord from "@/src/components/league/guild/GuildFightRecord";
-import GuildSummeryRecord from "@/src/components/league/guild/GuildSummeryRecord";
+import GuildBanner from "@/src/app/league/guild/components/GuildBanner";
+import GuildDetail from "@/src/app/league/guild/components/GuildDetail";
+import GuildFightRecord from "@/src/app/league/guild/components/GuildFightRecord";
+import GuildSummeryRecord from "@/src/app/league/guild/components/GuildSummeryRecord";
 
 const blackurl = "/images/검은주먹해적단.png";
 

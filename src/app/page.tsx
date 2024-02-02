@@ -1,6 +1,6 @@
 import Main from "./Main";
-import Search from "../components/Search";
-import Slider from "../components/Slider";
+import Search from "../common/components/Search";
+import Slider from "../common/components/Slider";
 
 export default async function Page() {
   return (

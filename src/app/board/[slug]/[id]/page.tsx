@@ -1,5 +1,5 @@
-import BoardNavComponent from "../../../../components/board/BoardNavComponent";
-import BoardPostComponent from "../../../../components/board/post/BoardPostComponent";
+import BoardNavComponent from "../../components/BoardNavComponent";
+import BoardPostComponent from "../../components/post/BoardPostComponent";
 export default function Page() {
   return (
     <>
