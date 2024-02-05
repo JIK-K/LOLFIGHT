@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import { usePathname } from "next/navigation";
 import Header from "../common/components/Header";
 import Footer from "../common/components/Footer";

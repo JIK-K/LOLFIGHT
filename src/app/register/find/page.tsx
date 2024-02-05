@@ -1,13 +1,13 @@
 "use client";
-import { giveMailCode, sendMailAuth } from "@/src/api/mail.api";
-import { signUp } from "@/src/api/member.api";
 import { MailDTO } from "@/src/common/DTOs/mail/mail.dto";
 import { MemberDTO } from "@/src/common/DTOs/member/member.dto";
-import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import CustomAlert from "@/src/common/components/alert/CustomAlert";
+import React, { useState } from "react";
+import CustomAlert from "../../../common/components/alert/CustomAlert";
+import { giveMailCode, sendMailAuth } from "@/src/api/mail.api";
+import { update } from "@/src/api/member.api";
 
-const SignUpComponent = () => {
+export default function Page() {
   const router = useRouter();
   const [showVerification, setShowVerification] = useState(false);
   const [showInputMemberInfo, setshowInputMemberInfo] = useState(false);
@@ -54,13 +54,6 @@ const SignUpComponent = () => {
     });
   };
 
-  //Nickname
-  const handleNickNameInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setMember({
-      ...member,
-      memberName: e.target.value,
-    });
-  };
   //Password
   const handlePasswordInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setMember({
@@ -77,7 +70,11 @@ const SignUpComponent = () => {
   const handleButtonClick = () => {
     if (buttonText === "인증하기") {
       if (!isEmailValid(mail.mailAddr)) {
-        CustomAlert("warning", "회원가입", "올바른 이메일 형식이 아닙니다");
+        CustomAlert(
+          "warning",
+          "비밀번호 변경",
+          "올바른 이메일 형식이 아닙니다"
+        );
         return;
       }
       giveMailCode(mail); //메일 확인 코드발급 API
@@ -86,53 +83,49 @@ const SignUpComponent = () => {
     } else if (buttonText === "인증확인") {
       sendMailAuth(mail).then((response) => {
         if (response.data === true) {
-          setButtonText("회원가입");
+          setButtonText("비밀번호 변경");
           setshowInputMemberInfo(true);
         } else if (mail.mailCode === "") {
-          CustomAlert("warning", "회원가입", "인증코드를 입력해주세요.");
+          CustomAlert("warning", "비밀번호 변경", "인증코드를 입력해주세요.");
           return;
         } else {
-          CustomAlert("warning", "회원가입", "인증코드가 틀렸습니다.");
+          CustomAlert("warning", "비밀번호 변경", "인증코드가 틀렸습니다.");
           return;
         }
       }); //메일 인증코드 전송 API
-    } else if (buttonText === "회원가입") {
-      if (
-        member.memberId === "" ||
-        member.memberName === "" ||
-        member.memberPw === ""
-      ) {
-        CustomAlert("warning", "회원가입", "모든정보를 작성해주세요.");
-        return;
-      }
-      if (member.memberName.length < 1) {
-        CustomAlert("warning", "회원가입", "닉네임은 2글자 이상 작성해주세요.");
+    } else if (buttonText === "비밀번호 변경") {
+      if (member.memberId === "" || member.memberPw === "") {
+        CustomAlert("warning", "비밀번호 변경", "모든정보를 작성해주세요.");
         return;
       }
       if (member.memberPw.length < 8) {
         CustomAlert(
           "warning",
-          "회원가입",
+          "비밀번호 변경",
           "비밀번호는 8글자 이상 작성해주세요."
         );
         return;
       }
       if (member.memberPw === checkPassword) {
-        signUp(member)
+        update(member)
           .then((response) => {
             CustomAlert(
               "success",
-              "회원가입",
-              "성공적으로 회원가입을 완료했습니다."
+              "비밀번호 변경",
+              "성공적으로 비밀번호 변경을 완료했습니다."
             );
             router.replace("/register");
           })
           .catch((error) => {
-            CustomAlert("warning", "회원가입", "동일한 이메일이 존재합니다.");
+            CustomAlert(
+              "warning",
+              "비밀번호 변경",
+              "동일한 이메일이 존재합니다."
+            );
             router.replace("/register");
-          }); //회원가입 API
+          }); //비밀번호 변경 API
       } else {
-        CustomAlert("warning", "회원가입", "비밀번호를 확인해주세요.");
+        CustomAlert("warning", "비밀번호 변경", "비밀번호를 확인해주세요.");
         return;
       }
     }
@@ -141,7 +134,7 @@ const SignUpComponent = () => {
   return (
     <>
       <span className="text-32px mb-4">
-        회원정보를 <p />
+        이메일을 <p />
         입력해주세요
       </span>
       <div className="w-full">
@@ -151,10 +144,12 @@ const SignUpComponent = () => {
             type="text"
             placeholder="이메일"
             onChange={handleEmailInput}
-            disabled={buttonText === "인증확인" || buttonText === "회원가입"}
+            disabled={
+              buttonText === "인증확인" || buttonText === "비밀번호 변경"
+            }
             style={{
               backgroundColor:
-                buttonText === "인증확인" || buttonText === "회원가입"
+                buttonText === "인증확인" || buttonText === "비밀번호 변경"
                   ? "#e0e0e0"
                   : undefined,
             }}
@@ -167,24 +162,16 @@ const SignUpComponent = () => {
               type="text"
               placeholder="인증번호"
               onChange={handleCodeInput}
-              disabled={buttonText === "회원가입"}
+              disabled={buttonText === "비밀번호 변경"}
               style={{
                 backgroundColor:
-                  buttonText === "회원가입" ? "#e0e0e0" : undefined,
+                  buttonText === "비밀번호 변경" ? "#e0e0e0" : undefined,
               }}
             />
           </div>
         )}
         {showInputMemberInfo && (
           <div>
-            <div className="border border-gray-200 rounded-md my-4">
-              <input
-                className="w-full h-12 rounded-md px-2 bg-gray-100"
-                type="text"
-                placeholder="닉네임"
-                onChange={handleNickNameInput}
-              />
-            </div>
             <div className="border border-gray-200 rounded-md my-4">
               <input
                 className="w-full h-12 rounded-md px-2 bg-gray-100"
@@ -214,6 +201,4 @@ const SignUpComponent = () => {
       </div>
     </>
   );
-};
-
-export default SignUpComponent;
+}
