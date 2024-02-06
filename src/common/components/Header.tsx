@@ -43,7 +43,8 @@ const Header = () => {
   };
 
   const handleProfileClick = () => {
-    CustomAlert("info", "사용자프로필", "미구현");
+    router.replace("/profile");
+    // CustomAlert("info", "사용자프로필", "미구현");
   };
   return (
     <header className="sticky w-full bg-brandcolor">
