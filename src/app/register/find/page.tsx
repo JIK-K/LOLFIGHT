@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import CustomAlert from "../../../common/components/alert/CustomAlert";
 import { giveMailCode, sendMailAuth } from "@/src/api/mail.api";
-import { update } from "@/src/api/member.api";
+import { findMember, update } from "@/src/api/member.api";
 
 export default function Page() {
   const router = useRouter();
@@ -77,22 +77,36 @@ export default function Page() {
         );
         return;
       }
-      giveMailCode(mail); //메일 확인 코드발급 API
-      setShowVerification(!showVerification);
-      setButtonText(showVerification ? "인증하기" : "인증확인");
+      findMember(mail.mailAddr)
+        .then((response) => {
+          giveMailCode(mail); //메일 확인 코드발급 API
+          setShowVerification(!showVerification);
+          setButtonText(showVerification ? "인증하기" : "인증확인");
+        })
+        .catch((error) => {
+          CustomAlert(
+            "warning",
+            "비밀번호 변경",
+            "존재하지 않는 이메일입니다."
+          );
+        });
     } else if (buttonText === "인증확인") {
-      sendMailAuth(mail).then((response) => {
-        if (response.data === true) {
-          setButtonText("비밀번호 변경");
-          setshowInputMemberInfo(true);
-        } else if (mail.mailCode === "") {
-          CustomAlert("warning", "비밀번호 변경", "인증코드를 입력해주세요.");
-          return;
-        } else {
-          CustomAlert("warning", "비밀번호 변경", "인증코드가 틀렸습니다.");
-          return;
-        }
-      }); //메일 인증코드 전송 API
+      sendMailAuth(mail)
+        .then((response) => {
+          if (response.data === true) {
+            setButtonText("비밀번호 변경");
+            setshowInputMemberInfo(true);
+          } else if (mail.mailCode === "") {
+            CustomAlert("warning", "비밀번호 변경", "인증코드를 입력해주세요.");
+            return;
+          } else {
+            CustomAlert("warning", "비밀번호 변경", "인증코드가 틀렸습니다.");
+            return;
+          }
+        }) //메일 인증코드 전송 API
+        .catch((error) => {
+          console.log(error);
+        });
     } else if (buttonText === "비밀번호 변경") {
       if (member.memberId === "" || member.memberPw === "") {
         CustomAlert("warning", "비밀번호 변경", "모든정보를 작성해주세요.");

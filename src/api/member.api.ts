@@ -44,6 +44,16 @@ export const update = async (
 
   return await axios.patch(url, body);
 };
+
+export const findMember = async (
+  id: string
+): Promise<AxiosResponse<ResponseDTO<MemberDTO>>> => {
+  let url = `${baseUrl}/find`;
+
+  let queryParams = `?id=${id}`;
+  url += queryParams;
+  return await axios.get(url);
+};
 // export const login = async (
 //   membername: string,
 //   password: string

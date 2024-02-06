@@ -35,7 +35,8 @@ export default function Page() {
         }
       })
       .catch((error) => {
-        CustomAlert("error", "로그인", "에러");
+        CustomAlert("warning", "로그인", "아이디 비밀번호를 확인해주세요.");
+        // CustomAlert("error", "로그인", "에러");
       });
   };
   return (
