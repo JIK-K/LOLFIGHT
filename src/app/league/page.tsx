@@ -1,4 +1,5 @@
-import GuildInfoComponent from "./components/GuildInfoComponent";
+import GuildInfoComponent from "../league/components/guildinfo/GuildInfoComponent";
+import LeagueHeaderComponent from "./components/LeagueHeaderComponent";
 
 const blackurl = "/images/검은주먹해적단.png";
 
@@ -7,7 +8,7 @@ export default function Page() {
     <>
       <div className="w-full h-full h-96 mt-16">
         <div className="w-1200px h-full mx-auto">
-          <div className="h-32 bg-gray-400">반갑구만 반가워요</div>
+          <LeagueHeaderComponent />
           <div className="flex flex-col">
             <GuildInfoComponent
               guild={{
