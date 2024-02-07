@@ -30,7 +30,6 @@ const WithdrawalPage = (props: Props) => {
           );
         })
         .catch((error) => {
-          console.log(error);
           CustomAlert("error", "회원탈퇴", "에러");
         });
     } else {

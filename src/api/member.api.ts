@@ -76,6 +76,11 @@ export const findMember = async (
   return await axios.get(url);
 };
 
+/**
+ * member 탈퇴
+ * @param id
+ * @returns
+ */
 export const deleteMember = async (
   id: string
 ): Promise<AxiosResponse<ResponseDTO<MemberDTO>>> => {
