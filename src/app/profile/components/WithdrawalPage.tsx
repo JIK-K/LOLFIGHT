@@ -3,11 +3,14 @@ import { MemberDTO } from "@/src/common/DTOs/member/member.dto";
 import { Checkbox } from "@nextui-org/react";
 import { useState } from "react";
 import CustomAlert from "../../../common/components/alert/CustomAlert";
+import { deleteMember } from "@/src/api/member.api";
+import { useRouter } from "next/navigation";
 
 interface Props {
   member: MemberDTO;
 }
 const WithdrawalPage = (props: Props) => {
+  const router = useRouter();
   const [checked, setChecked] = useState(false);
 
   const handleCheckboxChange = () => {
@@ -16,11 +19,20 @@ const WithdrawalPage = (props: Props) => {
 
   const handleWithdrawal = () => {
     if (checked) {
-      CustomAlert(
-        "success",
-        "회원탈퇴",
-        "회원 탈퇴가 성공적으로 마무리 되었습니다."
-      );
+      deleteMember(props.member.memberId)
+        .then((response) => {
+          sessionStorage.clear();
+          router.replace("/register");
+          CustomAlert(
+            "success",
+            "회원탈퇴",
+            "회원 탈퇴가 성공적으로 마무리 되었습니다."
+          );
+        })
+        .catch((error) => {
+          console.log(error);
+          CustomAlert("error", "회원탈퇴", "에러");
+        });
     } else {
       CustomAlert(
         "warning",
@@ -93,7 +105,9 @@ const WithdrawalPage = (props: Props) => {
             className="w-40 bg-red-500 rounded p-2"
             onClick={handleWithdrawal}
           >
-            회원탈퇴
+            <p className="text-white font-extrabold tracking-widest">
+              회원탈퇴
+            </p>
           </button>
         </div>
       </div>

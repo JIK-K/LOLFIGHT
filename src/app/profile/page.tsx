@@ -5,8 +5,11 @@ import { MemberDTO } from "@/src/common/DTOs/member/member.dto";
 import { findMember } from "@/src/api/member.api";
 import ChangePasswordPage from "./components/ChangePasswordPage";
 import WithdrawalPage from "./components/WithdrawalPage";
+import { useRouter } from "next/navigation";
+import CustomAlert from "../../common/components/alert/CustomAlert";
 
 export default function Page() {
+  const router = useRouter();
   const [member, setMember] = useState<MemberDTO>({
     id: "",
     memberId: "",
@@ -18,16 +21,20 @@ export default function Page() {
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      const storedMemberId = sessionStorage.getItem("memberId")!.toString();
-      findMember(storedMemberId).then((response) => {
-        const memberData: MemberDTO = response.data.data;
-        setMember(memberData);
-      });
+      const storedMemberId = sessionStorage.getItem("memberId")?.toString();
+      if (!storedMemberId) {
+        router.replace("/");
+        CustomAlert("warning", "프로필", "로그인후 이용하실 수 있습니다.");
+      } else {
+        findMember(storedMemberId).then((response) => {
+          const memberData: MemberDTO = response.data.data;
+          setMember(memberData);
+        });
+      }
     }
   }, []);
   const [currentPage, setCurrentPage] = useState("profile"); // 초기 페이지: 프로필 페이지
 
-  // 페이지를 변경하는 함수
   const changePage = (page: string) => {
     setCurrentPage(page);
   };

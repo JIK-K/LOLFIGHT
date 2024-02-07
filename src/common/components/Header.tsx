@@ -38,13 +38,12 @@ const Header = () => {
   const handleLogoutClick = () => {
     sessionStorage.clear();
     CustomAlert("success", "로그아웃", "로그아웃 되었습니다.");
-    setMemberName(null);
+    setMemberName("");
     router.replace("/");
   };
 
   const handleProfileClick = () => {
     router.replace("/profile");
-    // CustomAlert("info", "사용자프로필", "미구현");
   };
   return (
     <header className="sticky w-full bg-brandcolor">
