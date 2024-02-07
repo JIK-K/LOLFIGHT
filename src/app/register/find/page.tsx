@@ -105,7 +105,7 @@ export default function Page() {
           }
         }) //메일 인증코드 전송 API
         .catch((error) => {
-          console.log(error);
+          CustomAlert("warning", "비밀번호 변경", "에러");
         });
     } else if (buttonText === "비밀번호 변경") {
       if (member.memberId === "" || member.memberPw === "") {
