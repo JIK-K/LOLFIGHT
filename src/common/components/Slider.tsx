@@ -13,8 +13,8 @@ const slideData = [
   {
     id: 1,
     text: "first slide",
-    type: "image",
-    content: "/images/abcdaramgi.jpg",
+    type: "video",
+    content: "QP1AvGMlQT0",
   },
   {
     id: 2,
