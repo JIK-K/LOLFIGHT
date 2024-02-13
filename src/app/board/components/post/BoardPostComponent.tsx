@@ -8,9 +8,9 @@ const BoardPostComponent = () => {
         <div className="head">
           <BoardPostHeadComponent
             post={{
-              title: "여기는 제목이 들어 갈래유",
-              writer: "여기는 작성자",
-              date: "여기는 날짜욘",
+              title: "[정보]석",
+              writer: "태양같은나이",
+              date: "2022.03.02",
               views: 7,
             }}
           ></BoardPostHeadComponent>

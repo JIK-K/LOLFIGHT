@@ -38,6 +38,7 @@ export default function Page() {
         CustomAlert("error", "로그인", "에러");
       });
   };
+  
   return (
     <>
       <span className="text-32px mb-4">
