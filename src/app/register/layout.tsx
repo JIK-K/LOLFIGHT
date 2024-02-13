@@ -23,7 +23,7 @@ export default function RegisterLayout({
               </Link>
             </div>
             <div className="flex justify-center items-center">
-              <div className="h-525px flex flex-col border border-gray-200 rounded-md p-20 w-540px">
+              <div className="h-525px flex flex-col border border-gray-200 rounded-md p-20 w-540px bg-white shadow-md">
                 {children}
               </div>
             </div>
