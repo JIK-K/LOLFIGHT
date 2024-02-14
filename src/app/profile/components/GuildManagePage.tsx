@@ -15,7 +15,8 @@ const GuildManagePage = (props: Props) => {
     <div className="flex flex-col w-full h-full leading-5 pt-2 bg-white rounded ">
       <p className="font-bold text-xl p-5">길드</p>
       <div className="border-[#11235A] border-t-2 p-10">
-        {props.member.memberGuild === null ? (
+        {props.member.memberGuild === null ||
+        props.member.memberGuild === undefined ? (
           <div className="flex w-full">
             <div className="flex flex-col w-full border-2 border-black rounded-lg p-7">
               <div className="mb-10">
@@ -101,8 +102,8 @@ const GuildManagePage = (props: Props) => {
               <div className="w-40 bg-brandbgcolor p-2">
                 <p>소속길드</p>
               </div>
-              <div className="w-full border-t-2 p-2">
-                {props.member.memberGuild}
+              <div className="w-full border-t-2 p-2 pl-5">
+                {props.member.memberGuild?.guildName}
               </div>
             </div>
           </div>

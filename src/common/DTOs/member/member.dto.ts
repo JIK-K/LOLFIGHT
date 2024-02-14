@@ -1,4 +1,5 @@
 import { BaseDTO } from "../base.dto";
+import { GuildDTO } from "../guild/guild.dto";
 
 export interface MemberDTO extends BaseDTO {
   id: string;
@@ -6,5 +7,5 @@ export interface MemberDTO extends BaseDTO {
   memberPw: string;
   memberName: string;
   memberPhone: string;
-  memberGuild: string;
+  memberGuild: GuildDTO | null;
 }

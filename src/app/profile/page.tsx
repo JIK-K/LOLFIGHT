@@ -17,7 +17,7 @@ export default function Page() {
     memberPw: "",
     memberName: "",
     memberPhone: "",
-    memberGuild: "",
+    memberGuild: null,
   });
 
   useEffect(() => {
@@ -28,6 +28,7 @@ export default function Page() {
         CustomAlert("warning", "프로필", "로그인후 이용하실 수 있습니다.");
       } else {
         findMember(storedMemberId).then((response) => {
+          console.log(response);
           const memberData: MemberDTO = response.data.data;
           setMember(memberData);
         });

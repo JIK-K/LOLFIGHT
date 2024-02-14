@@ -11,15 +11,30 @@ const baseUrl = `${constant.SERVER_URL}/guild`;
  * @returns
  */
 export const createGuild = async (
-  guildDTO: GuildDTO
+  guildDTO: GuildDTO,
+  guildImage?: File | null
 ): Promise<AxiosResponse<ResponseDTO<GuildDTO>>> => {
   let url = `${baseUrl}`;
-  const body = {
-    guildMaster: guildDTO.guildMaster,
-    guildName: guildDTO.guildName,
-    guildDescription: guildDTO.guildDescription,
-    guildIcon: guildDTO.guildIcon,
-  };
 
-  return await axios.post(url, body);
+  const formData = new FormData();
+
+  formData.append("guildMaster", guildDTO.guildMaster);
+  formData.append("guildName", guildDTO.guildName);
+  formData.append("guildDescription", guildDTO.guildDescription);
+  if (guildImage) {
+    formData.append("guildImage", guildImage);
+  }
+
+  // const body = {
+  //   guildMaster: guildDTO.guildMaster,
+  //   guildName: guildDTO.guildName,
+  //   guildDescription: guildDTO.guildDescription,
+  //   guildIcon: guildDTO.guildIcon,
+  // };
+
+  return await axios.post(url, formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
 };

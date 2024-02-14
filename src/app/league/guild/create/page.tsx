@@ -5,6 +5,7 @@ import { createGuild } from "@/src/api/guild.api";
 import { GuildDTO } from "@/src/common/DTOs/guild/guild.dto";
 
 export default function Page() {
+  const [guildImage, setGuildImage] = useState<File | null>(null);
   const [guild, setGuild] = useState<GuildDTO>({
     id: "",
     guildMaster: "",
@@ -24,16 +25,9 @@ export default function Page() {
     setGuild({ ...guild, guildDescription: e.target.value });
   };
 
-  // @todo 이미지 업로드및 서버에 저장하는코드 작성
   const handleImgUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        if (event.target) {
-          setGuild({ ...guild, guildIcon: event.target.result as string });
-        }
-      };
-      reader.readAsDataURL(e.target.files[0]);
+    if (e.target.files && e.target.files.length > 0) {
+      setGuildImage(e.target.files[0]);
     }
   };
 
@@ -46,7 +40,7 @@ export default function Page() {
           "길드명은 2자 이상, 12자 이내로 작성해주세요."
         );
       } else {
-        createGuild(guild)
+        createGuild(guild, guildImage)
           .then((response) => {
             console.log(response);
             CutsomAlert("success", "길드생성", "길드생성이 완료되었습니다.");
