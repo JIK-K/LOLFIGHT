@@ -3,8 +3,10 @@ import React, { useEffect, useState } from "react";
 import CutsomAlert from "../../../../common/components/alert/CustomAlert";
 import { createGuild } from "@/src/api/guild.api";
 import { GuildDTO } from "@/src/common/DTOs/guild/guild.dto";
+import { useRouter } from "next/navigation";
 
 export default function Page() {
+  const router = useRouter();
   const [guildImage, setGuildImage] = useState<File | null>(null);
   const [guild, setGuild] = useState<GuildDTO>({
     id: "",
@@ -44,6 +46,7 @@ export default function Page() {
           .then((response) => {
             console.log(response);
             CutsomAlert("success", "길드생성", "길드생성이 완료되었습니다.");
+            router.replace("/");
           })
           .catch((error) => {
             console.log(error);

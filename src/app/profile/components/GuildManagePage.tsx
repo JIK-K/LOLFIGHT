@@ -1,11 +1,14 @@
 import { MemberDTO } from "@/src/common/DTOs/member/member.dto";
 import { useRouter } from "next/navigation";
 import { FaRegQuestionCircle, FaArrowCircleRight } from "react-icons/fa";
+import constant from "@/src/common/constant/constant";
+import { useEffect } from "react";
 
 interface Props {
   member: MemberDTO;
 }
 const GuildManagePage = (props: Props) => {
+  let urltest = "";
   const router = useRouter();
   const handleCreateGuild = () => {
     router.replace("/league/guild/create");
@@ -106,6 +109,11 @@ const GuildManagePage = (props: Props) => {
                 {props.member.memberGuild?.guildName}
               </div>
             </div>
+            <img
+              src={`${constant.SERVER_URL}/${props.member.memberGuild?.guildIcon}`}
+              alt="GuildIcon"
+              width={50}
+            />
           </div>
         )}
       </div>
