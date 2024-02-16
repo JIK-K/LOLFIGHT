@@ -62,6 +62,7 @@ const ChangePasswordPage = (props: Props) => {
     <div className="flex flex-col w-full h-full leading-5 pt-2 bg-white rounded ">
       <p className="font-bold text-xl p-5">비밀번호 변경</p>
       <div className="border-[#11235A] border-t-2 p-10">
+        <p className="pb-5 text-xl">비밀번호 변경</p>
         <div className="flex flex-col border-2 gap-2 p-5">
           <div className="flex border-y-2">
             <div className="flex w-32 bg-brandbgcolor p-2 justify-center">

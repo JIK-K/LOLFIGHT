@@ -30,7 +30,7 @@ const ProfileInfoPage = (props: Props) => {
             <div className="w-40 bg-brandbgcolor border-b p-2">
               <p>전화번호</p>
             </div>
-            <div className="w-full p-2 border-y-2">
+            <div className="w-full p-2 border-y-2 pl-5">
               {props.member.memberPhone}
             </div>
           </div>
@@ -38,8 +38,8 @@ const ProfileInfoPage = (props: Props) => {
             <div className="w-40 bg-brandbgcolor p-2">
               <p>소속길드</p>
             </div>
-            <div className="w-full border-t-2 p-2">
-              {props.member.memberGuild}
+            <div className="w-full border-t-2 p-2 pl-5">
+              {props.member.memberGuild?.guildName}
             </div>
           </div>
         </div>

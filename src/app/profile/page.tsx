@@ -7,6 +7,7 @@ import ChangePasswordPage from "./components/ChangePasswordPage";
 import WithdrawalPage from "./components/WithdrawalPage";
 import { useRouter } from "next/navigation";
 import CustomAlert from "../../common/components/alert/CustomAlert";
+import GuildManagePage from "./components/GuildManagePage";
 
 export default function Page() {
   const router = useRouter();
@@ -16,7 +17,7 @@ export default function Page() {
     memberPw: "",
     memberName: "",
     memberPhone: "",
-    memberGuild: "",
+    memberGuild: null,
   });
 
   useEffect(() => {
@@ -27,6 +28,7 @@ export default function Page() {
         CustomAlert("warning", "프로필", "로그인후 이용하실 수 있습니다.");
       } else {
         findMember(storedMemberId).then((response) => {
+          console.log(response);
           const memberData: MemberDTO = response.data.data;
           setMember(memberData);
         });
@@ -58,11 +60,18 @@ export default function Page() {
             비밀번호 변경
           </button>
           <button
+            onClick={() => changePage("guild")}
+            className="w-full p-2 hover:text-lg"
+          >
+            길드
+          </button>
+          <button
             onClick={() => changePage("withdrawal")}
             className="w-full p-2 hover:text-lg"
           >
             회원탈퇴
           </button>
+
           {/* <button onClick={() => changePage("customerService")}>고객센터</button>
           <button onClick={() => changePage("announcement")}>공지사항</button> */}
         </div>
@@ -71,6 +80,7 @@ export default function Page() {
         {currentPage === "profile" && <ProfileInfoPage member={member} />}
         {currentPage === "password" && <ChangePasswordPage member={member} />}
         {currentPage === "withdrawal" && <WithdrawalPage member={member} />}
+        {currentPage === "guild" && <GuildManagePage member={member} />}
       </div>
     </div>
   );

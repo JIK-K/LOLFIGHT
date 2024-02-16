@@ -31,8 +31,8 @@ const slideData = [
   {
     id: 4,
     text: "fourth slide",
-    type: "image",
-    content: "/images/zakum3600.png",
+    type: "video",
+    content: "k6hWBB4HTiE",
   },
 ];
 
@@ -74,9 +74,9 @@ const Slider = () => {
                   allowFullScreen
                 />
               )}
-              <div className="absolute bottom-0 w-full bg-black text-white p-2 text-center">
+              {/* <div className="absolute bottom-0 w-full bg-black text-white p-2 text-center">
                 {slide.text}
-              </div>
+              </div> */}
             </div>
           </SwiperSlide>
         ))}
