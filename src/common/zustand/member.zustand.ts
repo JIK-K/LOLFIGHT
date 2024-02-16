@@ -9,8 +9,7 @@ export interface MemberState {
   setMemberName: (name: string) => void;
   setMemberId: (id: string) => void;
   setMemberPw: (pw: string) => void;
-  setMemberPhone: (phone: string) => void;
-  setMemberGuild: (guild: string) => void;
+  // setMemberGuild: (guild: string) => void;
 }
 
 export const useMember = create<MemberState>((set) => ({
@@ -34,16 +33,10 @@ export const useMember = create<MemberState>((set) => ({
       member: state.member ? { ...state.member, memberPw: pw } : null,
     }));
   },
-  setMemberPhone: (phone) => {
-    set((state) => ({
-      ...state,
-      member: state.member ? { ...state.member, memberPhone: phone } : null,
-    }));
-  },
-  setMemberGuild: (guild) => {
-    set((state) => ({
-      ...state,
-      member: state.member ? { ...state.member, memberGuild: guild } : null,
-    }));
-  },
+  // setMemberGuild: (guild) => {
+  //   set((state) => ({
+  //     ...state,
+  //     member: state.member ? { ...state.member, memberGuild: guild } : null,
+  //   }));
+  // },
 }));

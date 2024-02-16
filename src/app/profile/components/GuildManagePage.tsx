@@ -2,16 +2,36 @@ import { MemberDTO } from "@/src/common/DTOs/member/member.dto";
 import { useRouter } from "next/navigation";
 import { FaRegQuestionCircle, FaArrowCircleRight } from "react-icons/fa";
 import constant from "@/src/common/constant/constant";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import CustomAlert from "../../../common/components/alert/CustomAlert";
 
 interface Props {
   member: MemberDTO;
 }
 const GuildManagePage = (props: Props) => {
-  let urltest = "";
+  const [currentTab, setCurrentTab] = useState("description");
+  const [checked, setChecked] = useState(false);
+
   const router = useRouter();
   const handleCreateGuild = () => {
     router.replace("/league/guild/create");
+  };
+  const changeTab = (tab: string) => {
+    setCurrentTab(tab);
+  };
+  const handleCheckboxChange = () => {
+    setChecked(!checked);
+  };
+  const deleteGuild = () => {
+    if (checked) {
+      CustomAlert("info", "길드삭제", "Checked누름 아직API연결안함");
+    } else {
+      CustomAlert(
+        "warning",
+        "길드삭제",
+        "주의사항 확인 체크를 활성화 시켜주십시오."
+      );
+    }
   };
 
   return (
@@ -76,44 +96,223 @@ const GuildManagePage = (props: Props) => {
             </div>
           </div>
         ) : (
-          <div className="flex flex-col w-full border-y-2  gap-2">
-            <div className="flex">
-              <div className="w-40 bg-brandbgcolor border-b p-2">
-                <p>아이디</p>
+          <div className="flex flex-col w-full border-2 gap-2 p-5">
+            <div className="flex items-center">
+              <div className="border-2  rounded p-2 w-100px h-100px">
+                <img
+                  src={`${constant.SERVER_URL}/${props.member.memberGuild?.guildIcon}`}
+                  alt="GuildIcon"
+                  className="h-full"
+                />
               </div>
-              <div className="w-full p-2 border-b-2 pl-5">
-                {props.member.memberId}
+              <div className="w-full flex flex-col ml-2 gap-0.5">
+                <div className="flex border-2  items-center rounded">
+                  <div className="flex h-45px items-center border-r-2  pl-5 pr-5">
+                    <p className="flex w-100px font-extrabold text-xl justify-center">
+                      길드명
+                    </p>
+                  </div>
+                  <div className="flex w-full h-45px items-center pl-5 bg-brandbgcolor">
+                    <p className="font-extrabold text-xl text-brandcolor ">
+                      {props.member.memberGuild.guildName}
+                    </p>
+                  </div>
+                </div>
+                <div className="flex border-2  items-center rounded">
+                  <div className="flex h-45px items-center border-r-2  pl-5 pr-5">
+                    <p className="flex w-100px font-extrabold text-xl justify-center">
+                      길드마스터
+                    </p>
+                  </div>
+                  <div className="flex w-full h-45px items-center pl-5 bg-brandbgcolor">
+                    <p className="font-extrabold text-xl text-brandcolor">
+                      {props.member.memberGuild.guildMaster}
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
-            <div className="flex">
-              <div className="w-40 bg-brandbgcolor border-b p-2">
-                <p>닉네임</p>
+
+            <div className="flex h-45px gap-2">
+              <div className="flex w-full border-2  rounded">
+                <div className="flex items-center border-r-2  pl-5 pr-5">
+                  <p className="flex w-100px font-extrabold text-xl justify-center">
+                    길드인원
+                  </p>
+                </div>
+                <div className="flex w-full bg-brandbgcolor items-center pl-5">
+                  <p className="font-extrabold text-xl text-brandcolor">
+                    {props.member.memberGuild.guildMaster}
+                  </p>
+                </div>
               </div>
-              <div className="w-full p-2 border-y-2 pl-5">
-                {props.member.memberName}
+              <div className="flex w-full border-2  rounded">
+                <div className="flex items-center border-r-2  pl-5 pr-5">
+                  <p className="flex w-100px font-extrabold text-xl justify-center">
+                    래더점수
+                  </p>
+                </div>
+                <div className="flex w-full bg-brandbgcolor items-center pl-5">
+                  <p className="font-extrabold text-xl text-brandcolor">
+                    1200점(더미데이터)
+                  </p>
+                </div>
               </div>
             </div>
-            <div className="flex">
-              <div className="w-40 bg-brandbgcolor border-b p-2">
-                <p>전화번호</p>
-              </div>
-              <div className="w-full p-2 border-y-2">
-                {props.member.memberPhone}
+
+            <div className="flex h-45px gap-2">
+              <div className="flex w-full border-2  rounded">
+                <div className="flex items-center border-r-2  pl-5 pr-5">
+                  <p className="flex w-100px font-extrabold text-xl justify-center">
+                    길드티어
+                  </p>
+                </div>
+                <div className="flex w-full bg-brandbgcolor items-center pl-5">
+                  <p className="font-extrabold text-xl text-brandcolor">
+                    {props.member.memberGuild.guildTier}
+                  </p>
+                </div>
               </div>
             </div>
-            <div className="flex">
-              <div className="w-40 bg-brandbgcolor p-2">
-                <p>소속길드</p>
-              </div>
-              <div className="w-full border-t-2 p-2 pl-5">
-                {props.member.memberGuild?.guildName}
+
+            <div className="flex h-45px gap-2">
+              <div className="flex w-full border-2  rounded">
+                <div className="flex items-center border-r-2  pl-5 pr-5">
+                  <p className="flex w-100px font-extrabold text-xl justify-center">
+                    길드랭킹
+                  </p>
+                </div>
+                <div className="flex w-full bg-brandbgcolor items-center pl-5">
+                  <p className="font-extrabold text-xl text-brandcolor">
+                    32425등(더미데이터)
+                  </p>
+                </div>
               </div>
             </div>
-            <img
-              src={`${constant.SERVER_URL}/${props.member.memberGuild?.guildIcon}`}
-              alt="GuildIcon"
-              width={50}
-            />
+
+            <div className="flex h-45px gap-2">
+              <div className="flex w-full border-2  rounded">
+                <div className="flex items-center border-r-2  pl-5 pr-5">
+                  <p className="flex w-100px font-extrabold text-xl justify-center">
+                    길드전적
+                  </p>
+                </div>
+                <div className="flex w-full bg-brandbgcolor items-center pl-5">
+                  <p className="font-extrabold text-xl text-brandcolor">
+                    604962전 453752승 148020패 (75%)(더미데이터)
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex flex-col border-2  rounded overflow-x-hidden">
+              <div className="flex p-2 gap-2 border-b-2 ">
+                <button
+                  className="font-extrabold text-lg rounded hover:text-xl hover:text-brandcolor"
+                  onClick={() => changeTab("description")}
+                >
+                  길드소개
+                </button>
+                <button
+                  className="font-extrabold text-lg rounded hover:text-xl hover:text-brandcolor"
+                  onClick={() => changeTab("members")}
+                >
+                  길드원
+                </button>
+                {props.member.memberName ===
+                props.member.memberGuild.guildMaster ? (
+                  <button
+                    className="font-extrabold text-lg rounded hover:text-xl hover:text-brandcolor"
+                    onClick={() => changeTab("applicants")}
+                  >
+                    가입신청자
+                  </button>
+                ) : null}
+                {props.member.memberName ===
+                props.member.memberGuild.guildMaster ? (
+                  <button
+                    className="font-extrabold text-lg rounded hover:text-xl hover:text-brandcolor"
+                    onClick={() => changeTab("delete")}
+                  >
+                    길드해체
+                  </button>
+                ) : null}
+              </div>
+              <div className="p-4">
+                {currentTab === "description" && (
+                  <div className="font-bold text-xl">
+                    {props.member.memberGuild.guildDescription}
+                  </div>
+                )}
+                {currentTab === "members" && (
+                  <div className="font-bold text-xl">멤버어케불러오노</div>
+                )}
+                {currentTab === "applicants" && (
+                  <div className="font-bold text-xl">
+                    가입신청자들여기 주르륽
+                  </div>
+                )}
+                {currentTab === "delete" && (
+                  <div className="flex flex-col items-center">
+                    <div className="p-2">
+                      <div>
+                        <span className="text-sky-950 font-bold">
+                          1. 정보 유실
+                        </span>
+                        <p className="text-sm">
+                          길드를 해체하면 해당 길드와 관련된 모든 데이터가
+                          삭제될 수 있습니다.
+                        </p>
+                      </div>
+                      <div>
+                        <span className="text-sky-950 font-bold">
+                          2. 접근 권한
+                        </span>
+                        <p className="text-sm">
+                          길드를 해체하면 해당 길드에 대한 접근 권한을 잃게
+                          됩니다.
+                        </p>
+                      </div>
+                      <div>
+                        <span className="text-sky-950 font-bold">
+                          3. 서비스 이용 중단
+                        </span>
+                        <p className="text-sm">
+                          길드를 해체한 후에는 해당 길드의 서비스 및 혜택을 더
+                          이상 이용할 수 없게 됩니다.
+                        </p>
+                      </div>
+                      <div>
+                        <span className="text-sky-950 font-bold">
+                          4. 서비스 연관성
+                        </span>
+                        <p className="text-sm">
+                          길드를 해체할 경우 해당 길드와 연관된 모든 서비스와
+                          기능에 대한 접근 권한이 손실될 수 있습니다. 이는 길드
+                          멤버 간의 활동 및 협업에 영향을 줄 수 있습니다.
+                        </p>
+                      </div>
+                    </div>
+                    <label>
+                      <input
+                        type="checkbox"
+                        checked={checked}
+                        onChange={handleCheckboxChange}
+                      />
+                      주의사항을 모두 확인하였습니다.
+                    </label>
+                    <button
+                      className="w-full bg-red-500 rounded p-2"
+                      onClick={deleteGuild}
+                    >
+                      <p className="text-white font-extrabold tracking-widest">
+                        길드해체
+                      </p>
+                    </button>
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
         )}
       </div>

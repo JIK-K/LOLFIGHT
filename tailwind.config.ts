@@ -26,6 +26,9 @@ const config: Config = {
         "25px": "25px",
         "30px": "30px",
         "45px": "45px",
+        "48px": "48px",
+        "50px": "50px",
+        "100px": "100px",
         "130px": "130px",
         "525px": "525px",
       },
@@ -34,6 +37,7 @@ const config: Config = {
         "20px": "20px",
         "30px": "30px",
         "45px": "45px",
+        "50px": "50px",
         "80px": "80px",
         "100px": "100px",
         "120px": "120px",
@@ -62,6 +66,9 @@ const config: Config = {
         "44px": "44px",
         "54px": "54px",
         "64px": "64px",
+      },
+      minHeight: {
+        "525px": "525px",
       },
       colors: {
         transparent: "transparent",
