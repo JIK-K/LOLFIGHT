@@ -2,11 +2,12 @@ import constant from "../common/constant/constant";
 import axios, { AxiosResponse } from "axios";
 import { ResponseDTO } from "../common/DTOs/response.dto";
 import { GuildDTO } from "../common/DTOs/guild/guild.dto";
+import { MemberDTO } from "../common/DTOs/member/member.dto";
 
 const baseUrl = `${constant.SERVER_URL}/guild`;
 
 /**
- * guild 생성
+ * Guild 생성
  * @param guildDTO
  * @returns
  */
@@ -25,16 +26,51 @@ export const createGuild = async (
     formData.append("guildImage", guildImage);
   }
 
-  // const body = {
-  //   guildMaster: guildDTO.guildMaster,
-  //   guildName: guildDTO.guildName,
-  //   guildDescription: guildDTO.guildDescription,
-  //   guildIcon: guildDTO.guildIcon,
-  // };
-
   return await axios.post(url, formData, {
     headers: {
       "Content-Type": "multipart/form-data",
     },
   });
+};
+
+/**
+ * Guild 길드 리스트
+ * @returns
+ */
+export const getGuildList = async (): Promise<
+  AxiosResponse<ResponseDTO<GuildDTO[]>>
+> => {
+  let url = `${baseUrl}/list`;
+  return await axios.get(url);
+};
+
+/**
+ * Guild 길드원 리스트
+ * @param guildName
+ * @returns
+ */
+export const getGuildMemberList = async (
+  guildName: string
+): Promise<AxiosResponse<ResponseDTO<MemberDTO[]>>> => {
+  let url = `${baseUrl}/guildMember`;
+
+  const queryParams = `?name=${guildName}`;
+  url += queryParams;
+
+  return await axios.get(url);
+};
+
+/**
+ * Guild 해체
+ * @param guildName
+ * @returns
+ */
+export const destroyGuild = async (
+  guildName: string
+): Promise<AxiosResponse<ResponseDTO<GuildDTO>>> => {
+  let url = `${baseUrl}`;
+
+  const queryParams = `?name=${guildName}`;
+  url += queryParams;
+  return await axios.delete(url);
 };
