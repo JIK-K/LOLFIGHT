@@ -27,8 +27,7 @@ const SignUpComponent = () => {
     memberId: "",
     memberPw: "",
     memberName: "",
-    memberPhone: "",
-    memberGuild: "",
+    memberGuild: null,
   });
 
   // 타이머 표시 함수
@@ -172,7 +171,11 @@ const SignUpComponent = () => {
             router.replace("/register");
           })
           .catch((error) => {
-            CustomAlert("warning", "회원가입", "동일한 이메일이 존재합니다.");
+            CustomAlert(
+              "warning",
+              "회원가입",
+              "동일한 이메일이 존재하거나, 동일한 닉네임이 존재합니다"
+            );
             router.replace("/register");
           }); //회원가입 API
       } else {

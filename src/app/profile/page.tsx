@@ -16,7 +16,6 @@ export default function Page() {
     memberId: "",
     memberPw: "",
     memberName: "",
-    memberPhone: "",
     memberGuild: null,
   });
 
@@ -28,7 +27,6 @@ export default function Page() {
         CustomAlert("warning", "프로필", "로그인후 이용하실 수 있습니다.");
       } else {
         findMember(storedMemberId).then((response) => {
-          console.log(response);
           const memberData: MemberDTO = response.data.data;
           setMember(memberData);
         });
@@ -42,7 +40,7 @@ export default function Page() {
   };
 
   return (
-    <div className="w-1200px mx-auto h-525px flex gap-5 rounded">
+    <div className="w-1200px mx-auto h-full flex gap-5 rounded">
       <div className="flex flex-col w-56 h-full leading-5 bg-white items-center pt-2 rounded">
         <p className="font-bold text-xl p-5">내정보관리</p>
         <div className="w-full flex flex-col items-center pt-3 border-[#11235A] border-t-2">
@@ -76,7 +74,7 @@ export default function Page() {
           <button onClick={() => changePage("announcement")}>공지사항</button> */}
         </div>
       </div>
-      <div className="w-full bg-white rounded">
+      <div className="w-full h-full bg-white rounded">
         {currentPage === "profile" && <ProfileInfoPage member={member} />}
         {currentPage === "password" && <ChangePasswordPage member={member} />}
         {currentPage === "withdrawal" && <WithdrawalPage member={member} />}

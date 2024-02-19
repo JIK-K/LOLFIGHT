@@ -44,12 +44,10 @@ export default function Page() {
       } else {
         createGuild(guild, guildImage)
           .then((response) => {
-            console.log(response);
             CutsomAlert("success", "길드생성", "길드생성이 완료되었습니다.");
             router.replace("/");
           })
           .catch((error) => {
-            console.log(error);
             CutsomAlert(
               "warning",
               "길드생성",

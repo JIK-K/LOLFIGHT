@@ -24,8 +24,7 @@ export default function Page() {
     memberId: "",
     memberPw: "",
     memberName: "",
-    memberPhone: "",
-    memberGuild: "",
+    memberGuild: null,
   });
 
   //==============================================================////Email
