@@ -11,7 +11,7 @@ const LeagueHeaderComponent = () => {
         {/* <button className="w-16 h-8 border rounded-sm">눌러보기</button> */}
       </div>
       <div className="w-full h-30px flex justify-around items-center bg-slate-200">
-        <div className="w-1/6 text-center">길드이름</div>
+        <div className="w-220px text-center">길드이름</div>
         <div className="w-1/4 text-center">길드소개</div>
         <div className="w-1/12 text-center">길드원</div>
         <div className="w-1/12 text-center">승</div>

@@ -45,6 +45,21 @@ export const getGuildList = async (): Promise<
 };
 
 /**
+ * Guild 정보
+ * @param guildName
+ * @returns
+ */
+export const getGuildInfo = async (
+  guildName: string
+): Promise<AxiosResponse<ResponseDTO<GuildDTO>>> => {
+  let url = `${baseUrl}/info`;
+
+  const queryParams = `?name=${guildName}`;
+  url += queryParams;
+  return await axios.get(url);
+};
+
+/**
  * Guild 길드원 리스트
  * @param guildName
  * @returns

@@ -4,14 +4,20 @@ import { FaRegQuestionCircle, FaArrowCircleRight } from "react-icons/fa";
 import constant from "@/src/common/constant/constant";
 import { useEffect, useState } from "react";
 import CustomAlert from "../../../common/components/alert/CustomAlert";
-import { destroyGuild, getGuildMemberList } from "@/src/api/guild.api";
+import {
+  destroyGuild,
+  getGuildInfo,
+  getGuildMemberList,
+} from "@/src/api/guild.api";
 import GuildMemberBox from "./GuildMemberBox";
+import { GuildDTO } from "@/src/common/DTOs/guild/guild.dto";
 
 interface Props {
   member: MemberDTO;
 }
 const GuildManagePage = (props: Props) => {
   const [guildMembers, setGuildMembers] = useState<MemberDTO[]>([]);
+  const [guild, setGuild] = useState<GuildDTO>();
   const [currentTab, setCurrentTab] = useState("description");
   const [checked, setChecked] = useState(false);
 
@@ -51,6 +57,11 @@ const GuildManagePage = (props: Props) => {
       getGuildMemberList(props.member.memberGuild!.guildName)
         .then((response) => {
           setGuildMembers(response.data.data);
+        })
+        .catch((error) => {});
+      getGuildInfo(props.member.memberGuild.guildName)
+        .then((response) => {
+          setGuild(response.data.data);
         })
         .catch((error) => {});
     }
@@ -176,7 +187,7 @@ const GuildManagePage = (props: Props) => {
                 </div>
                 <div className="flex w-full bg-brandbgcolor items-center pl-5">
                   <p className="font-extrabold text-xl text-brandcolor">
-                    1200점(더미데이터)
+                    {guild?.guildRecord.recordLadder}
                   </p>
                 </div>
               </div>
@@ -206,7 +217,7 @@ const GuildManagePage = (props: Props) => {
                 </div>
                 <div className="flex w-full bg-brandbgcolor items-center pl-5">
                   <p className="font-extrabold text-xl text-brandcolor">
-                    32425등(더미데이터)
+                    {guild?.guildRecord.recordRanking}
                   </p>
                 </div>
               </div>
@@ -221,7 +232,17 @@ const GuildManagePage = (props: Props) => {
                 </div>
                 <div className="flex w-full bg-brandbgcolor items-center pl-5">
                   <p className="font-extrabold text-xl text-brandcolor">
-                    604962전 453752승 148020패 (75%)(더미데이터)
+                    {guild?.guildRecord.recordDefeat! +
+                      guild?.guildRecord.recordVictory!}
+                    전 {guild?.guildRecord.recordVictory}승{" "}
+                    {guild?.guildRecord.recordDefeat}패{" "}
+                    {(
+                      (guild?.guildRecord.recordVictory! /
+                        (guild?.guildRecord.recordDefeat! +
+                          guild?.guildRecord.recordVictory!)) *
+                      100
+                    ).toFixed(2)}
+                    %
                   </p>
                 </div>
               </div>

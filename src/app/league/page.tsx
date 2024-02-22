@@ -27,18 +27,7 @@ export default function Page() {
           <LeagueHeaderComponent />
           <div className="flex flex-col">
             {guildList.map((guild) => (
-              <GuildInfoComponent
-                guild={{
-                  icon: guild.guildIcon,
-                  name: guild.guildName,
-                  tier: guild.guildTier,
-                  members: guild.guildMembers,
-                  description: guild.guildDescription,
-                  win: 0,
-                  lose: 0,
-                  leader: guild.guildMaster,
-                }}
-              />
+              <GuildInfoComponent key={guild.id} guild={guild} />
             ))}
           </div>
         </div>

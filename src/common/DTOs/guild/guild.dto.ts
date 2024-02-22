@@ -1,4 +1,5 @@
 import { BaseDTO } from "../base.dto";
+import { GuildRecrodDTO } from "./guild_record.dto";
 
 export interface GuildDTO extends BaseDTO {
   id: string;
@@ -8,4 +9,5 @@ export interface GuildDTO extends BaseDTO {
   guildDescription: string;
   guildTier: string;
   guildIcon: string;
+  guildRecord: GuildRecrodDTO;
 }
