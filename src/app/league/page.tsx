@@ -13,7 +13,6 @@ export default function Page() {
   useEffect(() => {
     getGuildList()
       .then((response) => {
-        console.log(response);
         setGuildList(response.data.data);
       })
       .catch((error) => {

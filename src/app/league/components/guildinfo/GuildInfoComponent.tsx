@@ -11,7 +11,7 @@ interface GuildInfoComponentProps {
 const GuildInfoComponent = (props: GuildInfoComponentProps) => {
   const router = useRouter();
   const handleGuildInfo = () => {
-    router.replace("/league/guild/이곳에길드이름을전달");
+    router.replace(`/league/${props.guild.guildName}`);
   };
 
   return (
@@ -45,10 +45,10 @@ const GuildInfoComponent = (props: GuildInfoComponentProps) => {
         {props.guild.guildMembers}
       </div>
       <div className="guild-info__win w-1/12 text-center">
-        {props.guild.guildRecord.recordVictory}승
+        {props.guild.guildRecord!.recordVictory}승
       </div>
       <div className="guild-info__lose w-1/12 text-center">
-        {props.guild.guildRecord.recordDefeat}패
+        {props.guild.guildRecord!.recordDefeat}패
       </div>
       <div className="guild-info__lose w-1/12 text-center">
         {props.guild.guildTier}

@@ -16,6 +16,7 @@ export default function Page() {
     guildDescription: "",
     guildTier: "",
     guildIcon: "",
+    guildRecord: null,
   });
 
   const handleGuildNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {

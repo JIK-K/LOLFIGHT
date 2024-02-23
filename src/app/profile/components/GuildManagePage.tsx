@@ -187,7 +187,7 @@ const GuildManagePage = (props: Props) => {
                 </div>
                 <div className="flex w-full bg-brandbgcolor items-center pl-5">
                   <p className="font-extrabold text-xl text-brandcolor">
-                    {guild?.guildRecord.recordLadder}
+                    {guild?.guildRecord?.recordLadder}
                   </p>
                 </div>
               </div>
@@ -217,7 +217,7 @@ const GuildManagePage = (props: Props) => {
                 </div>
                 <div className="flex w-full bg-brandbgcolor items-center pl-5">
                   <p className="font-extrabold text-xl text-brandcolor">
-                    {guild?.guildRecord.recordRanking}
+                    {guild?.guildRecord?.recordRanking}
                   </p>
                 </div>
               </div>
@@ -232,14 +232,14 @@ const GuildManagePage = (props: Props) => {
                 </div>
                 <div className="flex w-full bg-brandbgcolor items-center pl-5">
                   <p className="font-extrabold text-xl text-brandcolor">
-                    {guild?.guildRecord.recordDefeat! +
-                      guild?.guildRecord.recordVictory!}
-                    전 {guild?.guildRecord.recordVictory}승{" "}
-                    {guild?.guildRecord.recordDefeat}패{" "}
+                    {guild?.guildRecord?.recordDefeat! +
+                      guild?.guildRecord?.recordVictory!}
+                    전 {guild?.guildRecord?.recordVictory}승{" "}
+                    {guild?.guildRecord?.recordDefeat}패{" "}
                     {(
-                      (guild?.guildRecord.recordVictory! /
-                        (guild?.guildRecord.recordDefeat! +
-                          guild?.guildRecord.recordVictory!)) *
+                      (guild?.guildRecord?.recordVictory! /
+                        (guild?.guildRecord?.recordDefeat! +
+                          guild?.guildRecord?.recordVictory!)) *
                       100
                     ).toFixed(2)}
                     %

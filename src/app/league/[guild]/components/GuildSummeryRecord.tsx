@@ -1,10 +1,14 @@
 import { CircularProgress } from "@nextui-org/react";
 import React, { useEffect, useState } from "react";
 import GuildSummeryBox from "./GuildSummeryBox";
+import { GuildDTO } from "@/src/common/DTOs/guild/guild.dto";
 
-const GuildSummeryRecord = () => {
-  const winRate = 10; // 승률
+interface Props {
+  guildVictory: number | undefined;
+  guildDefeat: number | undefined;
+}
 
+const GuildSummeryRecord = (props: Props) => {
   return (
     <div className="h-full w-full flex flex-col p-3 rounded bg-white">
       <p className="font-extrabold">최근 매치</p>
@@ -18,14 +22,31 @@ const GuildSummeryRecord = () => {
               track: "stroke-red-500",
               value: "text-3xl font-semibold text-black",
             }}
-            value={winRate}
+            value={
+              (props.guildVictory! /
+                (props.guildDefeat! + props.guildVictory!)) *
+              100
+            }
             strokeWidth={5}
             showValueLabel={true}
           />
           <div className="flex flex-col items-center pl-5">
-            <p className="text-22px">220전 113승 129패</p>
-            <p className="text-red-500 text-22px p-2">( {winRate}% )</p>
-            <p className="text-sky-500 font-extrabold text-16px">0 연승중</p>
+            <p className="text-22px">
+              {props.guildVictory! + props.guildDefeat!}전 {props.guildVictory}
+              승 {props.guildDefeat}패
+            </p>
+            <p className="text-red-500 text-22px p-2">
+              ({" "}
+              {(
+                (props.guildVictory! /
+                  (props.guildDefeat! + props.guildVictory!)) *
+                100
+              ).toFixed(2)}
+              % )
+            </p>
+            <p className="text-sky-500 font-extrabold text-16px">
+              0 연승중(더미데이터)
+            </p>
           </div>
         </div>
         <div className="w-400px h-40 flex flex-col border-l-2 pl-10">
