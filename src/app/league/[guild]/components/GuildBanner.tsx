@@ -4,12 +4,12 @@ import Image from "next/image";
 import TestImg from "../../../../common/assets/image/TestImg.png";
 
 interface Props {
-  guildName: string;
-  guildMembers: number;
-  guildRank: string;
-  guildMaster: string;
-  guildCreate: string;
-  guildBanner: string;
+  guildName: string | undefined;
+  guildMembers: number | undefined;
+  guildRank: string | undefined;
+  guildMaster: string | undefined;
+  guildCreate: string | undefined;
+  guildIcon: string;
 }
 
 const GuildBanner = (props: Props) => {
@@ -42,7 +42,12 @@ const GuildBanner = (props: Props) => {
         <div className="w-1200px flex flex-col justify-center">
           <div className="flex flex-row mb-3">
             <div className="">
-              <Image src={TestImg} alt="GuildBanner" width={50} height={50} />
+              <img
+                src={props.guildIcon}
+                alt="GuildIcon"
+                width={50}
+                height={50}
+              />
             </div>
             <div className="flex flex-col ml-3">
               <div className="font-extra text-white text-12px mt-1">
@@ -82,7 +87,7 @@ const GuildBanner = (props: Props) => {
             </div>
           </div>
           <div className="text-white text-14px mt-3  mb-5">
-            길드 설립일: {props.guildCreate}
+            길드 설립일: {props.guildCreate?.split("T")[0]}
           </div>
         </div>
       </section>

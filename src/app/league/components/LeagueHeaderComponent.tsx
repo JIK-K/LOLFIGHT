@@ -1,4 +1,8 @@
-const LeagueHeaderComponent = () => {
+interface Props {
+  guildLength: number;
+}
+
+const LeagueHeaderComponent = (props: Props) => {
   return (
     <>
       <div className="flex w-full h-32 items-center bg-brandcolor text-white">
@@ -7,7 +11,7 @@ const LeagueHeaderComponent = () => {
           <p className="pl-1 pr-1 font-extrabold text-sm">공식</p>
           <div className="flex w-8px h-8px bg-green-500 rounded-full rounded" />
         </div>
-        <div className="pl-5">22개의 길드 참여중(더미데이터)</div>
+        <div className="pl-5">{props.guildLength}개의 길드 참여중</div>
         {/* <button className="w-16 h-8 border rounded-sm">눌러보기</button> */}
       </div>
       <div className="w-full h-30px flex justify-around items-center bg-slate-200">

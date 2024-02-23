@@ -9,5 +9,5 @@ export interface GuildDTO extends BaseDTO {
   guildDescription: string;
   guildTier: string;
   guildIcon: string;
-  guildRecord: GuildRecrodDTO;
+  guildRecord: GuildRecrodDTO | null;
 }
