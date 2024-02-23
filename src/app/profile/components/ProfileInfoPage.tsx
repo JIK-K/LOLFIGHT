@@ -31,8 +31,24 @@ const ProfileInfoPage = (props: Props) => {
               <div className="w-40 bg-brandbgcolor p-2">
                 <p>소속길드</p>
               </div>
-              <div className="w-full border-t-2 p-2 pl-5">
+              <div className="w-full p-2 border-y-2 pl-5">
                 {props.member.memberGuild?.guildName}
+              </div>
+            </div>
+            <div className="flex">
+              <div className="w-40 bg-brandbgcolor p-2">
+                <p>롤 닉네임</p>
+              </div>
+              <div className="w-full p-2 border-y-2 pl-5">
+                {props.member.memberGame?.gameName}
+              </div>
+            </div>
+            <div className="flex">
+              <div className="w-40 bg-brandbgcolor p-2">
+                <p>롤 티어</p>
+              </div>
+              <div className="w-full border-t-2 p-2 pl-5">
+                {props.member.memberGame?.gameTier}
               </div>
             </div>
           </div>

@@ -20,11 +20,16 @@ const GuildDetail = (props: Props) => {
           <span className="text-sm text-white">
             {props.guildVictory}승 {props.guildDefeat}패
           </span>{" "}
-          {(
+          {isNaN(
             (props.guildVictory! / (props.guildDefeat! + props.guildVictory!)) *
-            100
-          ).toFixed(2)}
-          %
+              100
+          )
+            ? "기록없음"
+            : `(${(
+                (props.guildVictory! /
+                  (props.guildDefeat! + props.guildVictory!)) *
+                100
+              ).toFixed(2)}%)`}
         </p>
       </div>
       <div className="flex border-b-2 border-white p-1 text-32px justify-between">

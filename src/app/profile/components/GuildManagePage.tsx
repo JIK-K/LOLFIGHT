@@ -236,13 +236,19 @@ const GuildManagePage = (props: Props) => {
                       guild?.guildRecord?.recordVictory!}
                     전 {guild?.guildRecord?.recordVictory}승{" "}
                     {guild?.guildRecord?.recordDefeat}패{" "}
-                    {(
+                    {isNaN(
                       (guild?.guildRecord?.recordVictory! /
                         (guild?.guildRecord?.recordDefeat! +
                           guild?.guildRecord?.recordVictory!)) *
-                      100
-                    ).toFixed(2)}
-                    %
+                        100
+                    )
+                      ? "기록없음"
+                      : `(${(
+                          (guild?.guildRecord?.recordVictory! /
+                            (guild?.guildRecord?.recordDefeat! +
+                              guild?.guildRecord?.recordVictory!)) *
+                          100
+                        ).toFixed(2)}%)`}
                   </p>
                 </div>
               </div>

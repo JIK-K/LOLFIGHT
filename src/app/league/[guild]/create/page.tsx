@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 export default function Page() {
   const router = useRouter();
   const [guildImage, setGuildImage] = useState<File | null>(null);
+  const [previewImage, setPreviewImage] = useState<string>("");
   const [guild, setGuild] = useState<GuildDTO>({
     id: "",
     guildMaster: "",
@@ -31,6 +32,12 @@ export default function Page() {
   const handleImgUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
       setGuildImage(e.target.files[0]);
+
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreviewImage(reader.result as string);
+      };
+      reader.readAsDataURL(e.target.files[0]);
     }
   };
 
@@ -41,6 +48,12 @@ export default function Page() {
           "warning",
           "길드생성",
           "길드명은 2자 이상, 12자 이내로 작성해주세요."
+        );
+      } else if (guildImage === null) {
+        CutsomAlert(
+          "warning",
+          "길드생성",
+          "50x50 사이즈의 길드이미지를 등록해주세요."
         );
       } else {
         createGuild(guild, guildImage)
@@ -76,13 +89,13 @@ export default function Page() {
             <div className="items-center pb-3">
               <p className="text-xl font-extrabold">길드 이미지</p>
               <div className="flex flex-col p-3 items-center border border-brandcolor gap-3">
-                {guild.guildIcon === "" ? (
+                {guildImage === null ? (
                   <div>
                     <img src="http://via.placeholder.com/50x50" alt="" />
                   </div>
                 ) : (
                   <div>
-                    <img src={guild.guildIcon} alt="Guild Icon" width={50} />
+                    <img src={previewImage} alt="Guild Icon" width={50} />
                   </div>
                 )}
 

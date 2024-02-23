@@ -23,26 +23,37 @@ const GuildSummeryRecord = (props: Props) => {
               value: "text-3xl font-semibold text-black",
             }}
             value={
-              (props.guildVictory! /
-                (props.guildDefeat! + props.guildVictory!)) *
-              100
+              isNaN(
+                (props.guildVictory! /
+                  (props.guildDefeat! + props.guildVictory!)) *
+                  100
+              )
+                ? 0 // NaN 대신 표시할 값 설정
+                : (props.guildVictory! /
+                    (props.guildDefeat! + props.guildVictory!)) *
+                  100
             }
             strokeWidth={5}
             showValueLabel={true}
           />
+
           <div className="flex flex-col items-center pl-5">
             <p className="text-22px">
               {props.guildVictory! + props.guildDefeat!}전 {props.guildVictory}
               승 {props.guildDefeat}패
             </p>
             <p className="text-red-500 text-22px p-2">
-              ({" "}
-              {(
+              {isNaN(
                 (props.guildVictory! /
                   (props.guildDefeat! + props.guildVictory!)) *
-                100
-              ).toFixed(2)}
-              % )
+                  100
+              )
+                ? "기록없음"
+                : `(${(
+                    (props.guildVictory! /
+                      (props.guildDefeat! + props.guildVictory!)) *
+                    100
+                  ).toFixed(2)}%)`}
             </p>
             <p className="text-sky-500 font-extrabold text-16px">
               0 연승중(더미데이터)

@@ -14,13 +14,13 @@ const slideData = [
     id: 1,
     text: "first slide",
     type: "video",
-    content: "QP1AvGMlQT0",
+    content: "IgU0hkCuOM0",
   },
   {
     id: 2,
     text: "second slide",
     type: "video",
-    content: "X2glr_HwyFk",
+    content: "z3IKYa_vHG8",
   },
   {
     id: 3,

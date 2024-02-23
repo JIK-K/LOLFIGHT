@@ -11,12 +11,14 @@ import GuildManagePage from "./components/GuildManagePage";
 
 export default function Page() {
   const router = useRouter();
+  const [currentPage, setCurrentPage] = useState("profile"); // 초기 페이지: 프로필 페이지
   const [member, setMember] = useState<MemberDTO>({
     id: "",
     memberId: "",
     memberPw: "",
     memberName: "",
     memberGuild: null,
+    memberGame: null,
   });
 
   useEffect(() => {
@@ -33,8 +35,10 @@ export default function Page() {
       }
     }
   }, []);
-  const [currentPage, setCurrentPage] = useState("profile"); // 초기 페이지: 프로필 페이지
 
+  useEffect(() => {
+    console.log(member);
+  }, [member]);
   const changePage = (page: string) => {
     setCurrentPage(page);
   };
