@@ -1,29 +1,23 @@
 import { GuildDTO } from "@/src/common/DTOs/guild/guild.dto";
 import constant from "@/src/common/constant/constant";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 interface GuildInfoComponentProps {
-  // guild: {
-  //   icon: string;
-  //   name: string;
-  //   tier: string;
-  //   members: number;
-  //   description: string;
-  //   win: number;
-  //   lose: number;
-  //   leader: string;
-  // };
   guild: GuildDTO;
 }
 
 const GuildInfoComponent = (props: GuildInfoComponentProps) => {
-  const handleGuildInfo = () => {};
+  const router = useRouter();
+  const handleGuildInfo = () => {
+    router.replace("/league/guild/이곳에길드이름을전달");
+  };
 
   return (
     <div className="guild-info h-16 flex justify-around items-center bg-white mt-1">
       <div
-        className="flex items-center w-220px text-center gap-1"
+        className="flex items-center w-220px text-center gap-1 hover:cursor-pointer"
         onClick={handleGuildInfo}
       >
         <img
@@ -40,7 +34,7 @@ const GuildInfoComponent = (props: GuildInfoComponentProps) => {
           src={`${constant.SERVER_URL}/${props.guild.guildIcon}`}
           alt="길드 아이콘"
         />
-        <div className="guild-info__name text-sm pl-2">
+        <div className="guild-info__name font-semibold pl-2">
           {props.guild.guildName}
         </div>
       </div>

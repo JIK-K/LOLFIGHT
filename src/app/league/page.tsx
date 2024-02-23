@@ -24,7 +24,7 @@ export default function Page() {
     <>
       <div className="w-full h-full h-96 mt-16">
         <div className="w-1200px h-full mx-auto">
-          <LeagueHeaderComponent />
+          <LeagueHeaderComponent guildLength={guildList.length} />
           <div className="flex flex-col">
             {guildList.map((guild) => (
               <GuildInfoComponent key={guild.id} guild={guild} />

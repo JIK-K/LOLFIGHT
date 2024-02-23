@@ -1,11 +1,16 @@
+"use client";
 import GuildBanner from "@/src/app/league/guild/components/GuildBanner";
 import GuildDetail from "@/src/app/league/guild/components/GuildDetail";
 import GuildFightRecord from "@/src/app/league/guild/components/GuildFightRecord";
 import GuildSummeryRecord from "@/src/app/league/guild/components/GuildSummeryRecord";
-
-const blackurl = "/images/검은주먹해적단.png";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 export default function Page() {
+  const router = useRouter();
+  useEffect(() => {
+    console.log(router.query);
+  }, []);
   return (
     <>
       <div className="w-full h-full">
