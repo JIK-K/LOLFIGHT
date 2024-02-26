@@ -36,9 +36,6 @@ export default function Page() {
     }
   }, []);
 
-  useEffect(() => {
-    console.log(member);
-  }, [member]);
   const changePage = (page: string) => {
     setCurrentPage(page);
   };

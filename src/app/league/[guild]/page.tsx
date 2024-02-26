@@ -1,5 +1,9 @@
 "use client";
-import { getGuildInfo, getGuildMemberList } from "@/src/api/guild.api";
+import {
+  getGuildInfo,
+  getGuildMemberList,
+  inviteGuild,
+} from "@/src/api/guild.api";
 import GuildBanner from "./components/GuildBanner";
 import GuildDetail from "./components/GuildDetail";
 import GuildFightRecord from "./components/GuildFightRecord";
@@ -10,12 +14,15 @@ import { GuildDTO } from "@/src/common/DTOs/guild/guild.dto";
 import constant from "@/src/common/constant/constant";
 import GuildMemberBox from "../../profile/components/GuildMemberBox";
 import { MemberDTO } from "@/src/common/DTOs/member/member.dto";
+import CustomAlert from "@/src/common/components/alert/CustomAlert";
+import { GuildInviteSendDTO } from "@/src/common/DTOs/guild/guild_invite_send.dto";
 
 export default function GuildPage() {
   const router = useRouter();
   const [guildData, setGuildData] = useState<GuildDTO>();
   const [currentTab, setCurrentTab] = useState("guildInfo");
   const [guildMembers, setGuildMembers] = useState<MemberDTO[]>([]);
+  const [memberId, setMemberId] = useState<string>();
   const guild = usePathname();
 
   useEffect(() => {
@@ -36,19 +43,31 @@ export default function GuildPage() {
       .catch((error) => {});
   }, []);
 
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const storedMemberId = sessionStorage.getItem("id");
+      if (storedMemberId) {
+        setMemberId(storedMemberId);
+      }
+    }
+  }, []);
+
   const changeTab = (tab: string) => {
     setCurrentTab(tab);
   };
+
   return (
     <>
       <div className="w-full h-full">
         <GuildBanner
+          guildId={guildData?.id}
           guildName={guildData?.guildName}
           guildIcon={`${constant.SERVER_URL}/${guildData?.guildIcon}`}
           guildCreate={guildData?.createAt?.toString()}
           guildMaster={guildData?.guildMaster}
           guildMembers={guildData?.guildMembers}
           guildRank={guildData?.guildRecord?.recordRanking}
+          memberId={memberId}
         />
         <div className="w-full h-full mx-auto">
           <div className="flex mt-5 mb-5">

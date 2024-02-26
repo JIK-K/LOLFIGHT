@@ -25,6 +25,7 @@ export default function Page() {
     memberPw: "",
     memberName: "",
     memberGuild: null,
+    memberGame: null,
   });
 
   //==============================================================////Email
