@@ -3,7 +3,7 @@ const headerNavLinks = [
   { href: "/league", title: "리그" },
   // { href: "/league/guild", title: "길드정보" },
   { href: "/board/all", title: "게시판" },
-  { href: "/register", title: "Register" },
+  // { href: "/register", title: "Register" },
 ];
 
 export default headerNavLinks;

@@ -8,15 +8,20 @@ import {
   destroyGuild,
   getGuildInfo,
   getGuildMemberList,
+  getInviteGuildList,
+  inviteAccept,
+  inviteGuild,
 } from "@/src/api/guild.api";
 import GuildMemberBox from "./GuildMemberBox";
 import { GuildDTO } from "@/src/common/DTOs/guild/guild.dto";
+import { GuildInviteDTO } from "@/src/common/DTOs/guild/guild_invite.dto";
 
 interface Props {
   member: MemberDTO;
 }
 const GuildManagePage = (props: Props) => {
   const [guildMembers, setGuildMembers] = useState<MemberDTO[]>([]);
+  const [inviteMembers, setInviteMembers] = useState<GuildInviteDTO[]>([]);
   const [guild, setGuild] = useState<GuildDTO>();
   const [currentTab, setCurrentTab] = useState("description");
   const [checked, setChecked] = useState(false);
@@ -34,7 +39,6 @@ const GuildManagePage = (props: Props) => {
   const deleteGuild = () => {
     if (checked) {
       destroyGuild(props.member.memberGuild!.guildName).then((response) => {
-        console.log(response);
         CustomAlert("success", "길드해체", "성공적으로 길드가 해체되었습니다.");
         router.replace("/");
       });
@@ -46,6 +50,18 @@ const GuildManagePage = (props: Props) => {
       );
     }
   };
+  const acceptMember = (member: GuildInviteDTO) => {
+    inviteAccept(member.memberId!.id, member.guildId!.id)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  const rejectMember = (member: GuildInviteDTO) => {
+    alert("길드가입신청거절(미구현)" + member.guildId?.id);
+  };
 
   useEffect(() => {
     if (
@@ -56,6 +72,7 @@ const GuildManagePage = (props: Props) => {
     ) {
       getGuildMemberList(props.member.memberGuild!.guildName)
         .then((response) => {
+          console.log(response);
           setGuildMembers(response.data.data);
         })
         .catch((error) => {});
@@ -64,6 +81,13 @@ const GuildManagePage = (props: Props) => {
           setGuild(response.data.data);
         })
         .catch((error) => {});
+      getInviteGuildList(props.member.memberGuild.guildName)
+        .then((response) => {
+          setInviteMembers(response.data.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
   }, []);
 
@@ -312,8 +336,47 @@ const GuildManagePage = (props: Props) => {
                   </div>
                 )}
                 {currentTab === "applicants" && (
-                  <div className="font-bold text-xl">
-                    가입신청자들여기 주르륽
+                  <div>
+                    <div className="flex w-full bg-slate-200 h-20px">
+                      <p className="w-250px text-light text-sm ml-2">닉네임</p>
+                      <p className="w-250px text-light text-sm">소환사명</p>
+                      <p className="w-250px text-light text-sm">티어</p>
+                    </div>
+
+                    <div className="font-bold text-xl">
+                      {inviteMembers.map((invite) => (
+                        <div
+                          className="w-full bg-brandbgcolor hover:bg-sky-100 rounded"
+                          key={invite.id}
+                        >
+                          <div className="flex">
+                            <div className="flex w-250px items-center text-16px font-semibold pl-2">
+                              {invite.memberId?.memberName}
+                            </div>
+                            <div className="flex w-250px items-center text-16px font-semibold pl-2">
+                              {invite.memberId?.memberGame?.gameName}
+                            </div>
+                            <div className="flex w-250px items-center text-16px font-semibold pl-2">
+                              {invite.memberId?.memberGame?.gameTier}
+                            </div>
+                            <button
+                              aria-label="수락"
+                              onClick={() => acceptMember(invite)}
+                              className="flex items-center text-16px font-semibold pl-2 hover:text-blue-700"
+                            >
+                              수락
+                            </button>
+                            <button
+                              aria-label="거절"
+                              onClick={() => rejectMember(invite)}
+                              className="flex items-center text-16px font-semibold pl-2 hover:text-red-500"
+                            >
+                              거절
+                            </button>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 )}
                 {currentTab === "delete" && (
