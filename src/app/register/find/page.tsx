@@ -121,7 +121,14 @@ export default function Page() {
         return;
       }
       if (member.memberPw === checkPassword) {
-        update(member)
+        update(
+          member.id,
+          member.memberId,
+          member.memberPw,
+          member.memberName,
+          member.memberGuild,
+          member.memberGame
+        )
           .then((response) => {
             CustomAlert(
               "success",

@@ -15,6 +15,7 @@ import {
 import GuildMemberBox from "./GuildMemberBox";
 import { GuildDTO } from "@/src/common/DTOs/guild/guild.dto";
 import { GuildInviteDTO } from "@/src/common/DTOs/guild/guild_invite.dto";
+import { leaveMember } from "@/src/api/member.api";
 
 interface Props {
   member: MemberDTO;
@@ -25,6 +26,7 @@ const GuildManagePage = (props: Props) => {
   const [guild, setGuild] = useState<GuildDTO>();
   const [currentTab, setCurrentTab] = useState("description");
   const [checked, setChecked] = useState(false);
+  const [memberChecked, setMemberChecked] = useState(false);
 
   const router = useRouter();
   const handleCreateGuild = () => {
@@ -34,12 +36,34 @@ const GuildManagePage = (props: Props) => {
     setCurrentTab(tab);
   };
   const handleCheckboxChange = () => {
+    // 길드마스터 길드해체 체크박스
     setChecked(!checked);
   };
+  const handleMemberCheckboxChange = () => {
+    //길드원 길드탈퇴 체크박스
+    setMemberChecked(!memberChecked);
+  };
   const deleteGuild = () => {
+    //길드마스터 길드해체
     if (checked) {
       destroyGuild(props.member.memberGuild!.guildName).then((response) => {
         CustomAlert("success", "길드해체", "성공적으로 길드가 해체되었습니다.");
+        router.replace("/");
+      });
+    } else {
+      CustomAlert(
+        "warning",
+        "길드해체",
+        "주의사항 확인 체크를 활성화 시켜주십시오."
+      );
+    }
+  };
+  const leaveGuild = () => {
+    //길드원 길드탈퇴
+    if (memberChecked) {
+      leaveMember(props.member.memberId).then((response) => {
+        console.log(response);
+        CustomAlert("success", "길드탈퇴", "성공적으로 길드를 탈퇴했습니다.");
         router.replace("/");
       });
     } else {
@@ -54,9 +78,12 @@ const GuildManagePage = (props: Props) => {
     inviteAccept(member.memberId!.id, member.guildId!.id)
       .then((response) => {
         console.log(response);
+        CustomAlert("success", "신청수락", "길드 신청을 수락하셨습니다.");
+        router.back();
       })
       .catch((error) => {
         console.log(error);
+        router.refresh();
       });
   };
   const rejectMember = (member: GuildInviteDTO) => {
@@ -72,7 +99,6 @@ const GuildManagePage = (props: Props) => {
     ) {
       getGuildMemberList(props.member.memberGuild!.guildName)
         .then((response) => {
-          console.log(response);
           setGuildMembers(response.data.data);
         })
         .catch((error) => {});
@@ -292,6 +318,15 @@ const GuildManagePage = (props: Props) => {
                 >
                   길드원
                 </button>
+                {props.member.memberName !==
+                props.member.memberGuild.guildMaster ? (
+                  <button
+                    className="font-extrabold text-lg rounded hover:text-xl hover:text-brandcolor"
+                    onClick={() => changeTab("leave")}
+                  >
+                    길드탈퇴
+                  </button>
+                ) : null}
                 {props.member.memberName ===
                 props.member.memberGuild.guildMaster ? (
                   <button
@@ -333,6 +368,55 @@ const GuildManagePage = (props: Props) => {
                         />
                       ))}
                     </div>
+                  </div>
+                )}
+                {currentTab === "leave" && (
+                  <div className="flex flex-col w-full items-center">
+                    <div className="p-2">
+                      <div>
+                        <span className="text-sky-950 font-bold">
+                          1. 정보 유실
+                        </span>
+                        <p className="text-sm">
+                          길드를 탈퇴하면 해당 길드와 관련된 모든 데이터가
+                          삭제됩니다.
+                        </p>
+                      </div>
+                      <div>
+                        <span className="text-sky-950 font-bold">
+                          2. 접근 권한
+                        </span>
+                        <p className="text-sm">
+                          길드를 탈퇴하면 해당 길드에 대한 접근 권한을 잃게
+                          됩니다.
+                        </p>
+                      </div>
+                      <div>
+                        <span className="text-sky-950 font-bold">
+                          3. 서비스 이용 중단
+                        </span>
+                        <p className="text-sm">
+                          길드를 탈퇴한 후에는 해당 길드의 서비스 및 혜택을 더
+                          이상 이용할 수 없게 됩니다.
+                        </p>
+                      </div>
+                    </div>
+                    <label>
+                      <input
+                        type="checkbox"
+                        checked={memberChecked}
+                        onChange={handleMemberCheckboxChange}
+                      />
+                      주의사항을 모두 확인하였습니다.
+                    </label>
+                    <button
+                      className="w-full bg-red-500 rounded p-2"
+                      onClick={leaveGuild}
+                    >
+                      <p className="text-white font-extrabold tracking-widest">
+                        길드탈퇴
+                      </p>
+                    </button>
                   </div>
                 )}
                 {currentTab === "applicants" && (
