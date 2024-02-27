@@ -35,7 +35,14 @@ const ChangePasswordPage = (props: Props) => {
             } else {
               const member: MemberDTO = props.member;
               member.memberPw = newPassword;
-              update(member)
+              update(
+                member.id,
+                member.memberId,
+                member.memberPw,
+                member.memberName,
+                member.memberGuild,
+                member.memberGame
+              )
                 .then((response) => {
                   CustomAlert(
                     "success",

@@ -40,6 +40,9 @@ const GuildBanner = (props: Props) => {
             "이미 신청한 길드이거나, 가입된 길드가 있습니다."
           );
         });
+    } else {
+      CustomAlert("warning", "길드가입", "로그인후 이용할 수 있습니다.");
+      router.replace("/register");
     }
   };
 
