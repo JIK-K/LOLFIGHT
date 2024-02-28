@@ -11,6 +11,7 @@ import {
   getInviteGuildList,
   inviteAccept,
   inviteGuild,
+  inviteReject,
 } from "@/src/api/guild.api";
 import GuildMemberBox from "./GuildMemberBox";
 import { GuildDTO } from "@/src/common/DTOs/guild/guild.dto";
@@ -75,19 +76,22 @@ const GuildManagePage = (props: Props) => {
     }
   };
   const acceptMember = (member: GuildInviteDTO) => {
+    //길드신청 수락
     inviteAccept(member.memberId!.id, member.guildId!.id)
       .then((response) => {
-        console.log(response);
-        CustomAlert("success", "신청수락", "길드 신청을 수락하셨습니다.");
-        router.back();
-      })
-      .catch((error) => {
-        console.log(error);
+        CustomAlert("success", "신청수락", "길드 가입신청을 수락하셨습니다.");
         router.refresh();
-      });
+      })
+      .catch((error) => {});
   };
   const rejectMember = (member: GuildInviteDTO) => {
-    alert("길드가입신청거절(미구현)" + member.guildId?.id);
+    //길드신청 거절
+    inviteReject(member.memberId!.id, member.guildId!.id)
+      .then((response) => {
+        CustomAlert("success", "신청거설", "길드 가입신청을 거절하셨습니다.");
+        router.refresh();
+      })
+      .catch((error) => {});
   };
 
   useEffect(() => {
@@ -365,13 +369,15 @@ const GuildManagePage = (props: Props) => {
                           key={member.id}
                           guildIcon={`${constant.SERVER_URL}/${props.member.memberGuild?.guildIcon}`}
                           guildMember={member}
+                          guild={guild!}
+                          user={props.member.memberName}
                         />
                       ))}
                     </div>
                   </div>
                 )}
                 {currentTab === "leave" && (
-                  <div className="flex flex-col w-full items-center">
+                  <div className="flex flex-col items-center">
                     <div className="p-2">
                       <div>
                         <span className="text-sky-950 font-bold">
@@ -397,7 +403,9 @@ const GuildManagePage = (props: Props) => {
                         </span>
                         <p className="text-sm">
                           길드를 탈퇴한 후에는 해당 길드의 서비스 및 혜택을 더
-                          이상 이용할 수 없게 됩니다.
+                          이상 이용할 수 없게 됩니다. 이는 길드 멤버 간의 활동
+                          및 협업에 영향을 줄 수 있으며, 데이터 또한 다시 복구,
+                          이용할 수 없습니다.
                         </p>
                       </div>
                     </div>

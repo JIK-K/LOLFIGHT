@@ -20,19 +20,19 @@ const slideData = [
     id: 2,
     text: "second slide",
     type: "video",
-    content: "z3IKYa_vHG8",
+    content: "6RX6bser66k",
   },
   {
     id: 3,
-    text: "third slide",
-    type: "image",
-    content: "/images/abcdetanwook.jpg",
-  },
-  {
-    id: 4,
     text: "fourth slide",
     type: "video",
     content: "k6hWBB4HTiE",
+  },
+  {
+    id: 4,
+    text: "third slide",
+    type: "image",
+    content: "/images/yayaman.png",
   },
 ];
 

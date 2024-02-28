@@ -28,6 +28,7 @@ const SignUpComponent = () => {
     memberPw: "",
     memberName: "",
     memberGuild: null,
+    memberGame: null,
   });
 
   // 타이머 표시 함수

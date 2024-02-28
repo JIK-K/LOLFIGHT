@@ -78,6 +78,25 @@ export const getGuildMemberList = async (
 };
 
 /**
+ * guild 길드원 추방
+ * @param memberName
+ * @param guildName
+ * @returns
+ */
+export const expulsionGuildMember = async (
+  memberName: string,
+  guildName: string
+): Promise<AxiosResponse<ResponseDTO<MemberDTO>>> => {
+  let url = `${baseUrl}/expulsion`;
+
+  const queryParams = `?member_name=${memberName}&guild_name=${guildName}`;
+
+  url += queryParams;
+
+  return await axios.patch(url);
+};
+
+/**
  * Guild 해체
  * @param guildName
  * @returns
@@ -127,11 +146,35 @@ export const getInviteGuildList = async (
   return await axios.get(url);
 };
 
+/**
+ * Guild-Invite 길드 가입신청 수락
+ * @param memberId
+ * @param guildId
+ * @returns
+ */
 export const inviteAccept = async (
   memberId: string,
   guildId: string
 ): Promise<AxiosResponse<ResponseDTO<MemberDTO>>> => {
   let url = `${baseUrl}/invite/accept`;
+
+  const queryParams = `?memberId=${memberId}&guildId=${guildId}`;
+  url += queryParams;
+
+  return await axios.get(url);
+};
+
+/**
+ * Guild-Invite 길드 가입신청 거절
+ * @param memberId
+ * @param guildId
+ * @returns
+ */
+export const inviteReject = async (
+  memberId: string,
+  guildId: string
+): Promise<AxiosResponse<ResponseDTO<MemberDTO>>> => {
+  let url = `${baseUrl}/invite/reject`;
 
   const queryParams = `?memberId=${memberId}&guildId=${guildId}`;
   url += queryParams;
