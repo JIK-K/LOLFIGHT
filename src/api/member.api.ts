@@ -71,6 +71,11 @@ export const update = async (
   return await axios.patch(url, body);
 };
 
+/**
+ * member 길드 탈퇴
+ * @param id
+ * @returns
+ */
 export const leaveMember = async (
   id: string
 ): Promise<AxiosResponse<ResponseDTO<MemberDTO>>> => {
