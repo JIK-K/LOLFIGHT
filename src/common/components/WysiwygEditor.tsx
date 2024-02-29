@@ -11,8 +11,13 @@ import { writePost } from "@/src/api/post.api";
 import constant from "@/src/common/constant/constant";
 import { useState } from "react";
 import { PostDTO } from "@/src/common/DTOs/board/post.dto";
+import axios from "axios";
+import { blob } from "stream/consumers";
 
 const WysiwygEditor = () => {
+  const [title, setTitle] = useState("");
+  const [category, setCategory] = useState("");
+  const [image, setImage] = useState("");
   const editorRef = useRef<Editor>(null);
   const toolbarItems = [
     ["heading", "bold", "italic", "strike"],
@@ -24,6 +29,16 @@ const WysiwygEditor = () => {
     ["scrollSync"],
   ];
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTitle(e.target.value);
+    console.log(title);
+  };
+
+  const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setCategory(e.target.value);
+    console.log(category);
+  };
+
   const handleCancleClick = () => {
     console.log("취소");
     console.log(constant.SERVER_URL);
@@ -31,28 +46,40 @@ const WysiwygEditor = () => {
 
   const handleSaveClick = async () => {
     const editorIns = editorRef.current?.getInstance().getHTML() || "";
-    console.log(editorIns);
-    const postDTO: PostDTO = {
-      postTitle: "제목",
-      postContent: editorIns,
-      postWriter: "작성자",
-      postDate: "2021-10-10",
-      postBoard: "자유게시판",
-      postViews: 0,
-      postLikes: 0,
-      postComments: 0,
-    };
-    writePost({
-      ...postDTO,
-    }).then((response) => {
+    writePost(title, editorIns, "작성자", category).then((response) => {
       console.log(response);
       return;
     });
   };
 
+  const onUploadImage = async (blob, callback) => {
+    console.log(blob);
+    const formData = new FormData();
+    formData.append("image", blob);
+    try {
+      const imageRes = await axios.post(
+        `${constant.SERVER_URL}/post/image`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      const imageUrl = imageRes.data.imageURL;
+      setImage(imageUrl);
+      callback(imageUrl, "image");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="flex flex-col h-full">
-      <select className="w-32 h-10 border rounded-md mb-4">
+      <select
+        className="w-32 h-10 border rounded-md mb-4"
+        onChange={handleCategoryChange}
+      >
         {boardNavLinks
           .filter((link) => link.href !== "/")
           .map((link) => (
@@ -65,6 +92,7 @@ const WysiwygEditor = () => {
         className="w-full h-10 mb-4 border rounded-md px-2 bg-gray-100"
         type="text"
         placeholder="제목을 입력하세요"
+        onChange={handleChange}
       ></input>
       <div className="w-full overflow-hidden overflow-y-scroll">
         <Editor
@@ -76,6 +104,7 @@ const WysiwygEditor = () => {
           height="60rem"
           plugins={[colorSyntax]}
           toolbarItems={toolbarItems}
+          hooks={{ addImageBlobHook: onUploadImage }}
         />
       </div>
       <div className="w-full flex justify-between">
