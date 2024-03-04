@@ -125,6 +125,8 @@ export default function GuildPage() {
                         key={member.id}
                         guildIcon={`${constant.SERVER_URL}/${guildData?.guildIcon}`}
                         guildMember={member}
+                        guild={guildData!}
+                        user={member.memberName}
                       />
                     ))}
                   </div>
