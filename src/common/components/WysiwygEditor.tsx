@@ -10,12 +10,14 @@ import { useEffect, useRef } from "react";
 import { writePost } from "@/src/api/post.api";
 import constant from "@/src/common/constant/constant";
 import { useState } from "react";
+import { PostDTO } from "@/src/common/DTOs/board/post.dto";
 import axios from "axios";
 import { blob } from "stream/consumers";
 import { on } from "events";
 import { useRouter } from "next/navigation";
 
 const WysiwygEditor = () => {
+  const router = useRouter();
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("");
   const [image, setImage] = useState("");
@@ -29,6 +31,7 @@ const WysiwygEditor = () => {
     ["code"],
     ["scrollSync"],
   ];
+
   useEffect(() => {
     if (editorRef.current) {
       editorRef.current.getInstance().removeHook("addImageBlobHook");
@@ -68,9 +71,6 @@ const WysiwygEditor = () => {
             router.replace(link.href + "/" + response.data.data.id);
           }
         });
-    const editorIns = editorRef.current?.getInstance().getHTML() || "";
-    writePost(title, editorIns, "작성자", category).then((response) => {
-      console.log(response);
       return;
     });
   };
@@ -79,10 +79,6 @@ const WysiwygEditor = () => {
     console.log(blob);
     const formData = new FormData();
     formData.append("file", blob);
-  const onUploadImage = async (blob, callback) => {
-    console.log(blob);
-    const formData = new FormData();
-    formData.append("image", blob);
     try {
       const imageRes = await axios.post(
         `${constant.SERVER_URL}/post/image`,
@@ -93,14 +89,10 @@ const WysiwygEditor = () => {
           },
         }
       );
-
       console.log("imageRes", imageRes);
       console.log("imageRes", imageRes.data.data);
       const imageUrl = `${constant.SERVER_URL}/` + imageRes.data.data;
       console.log("imgurl", imageUrl);
-
-      const imageUrl = imageRes.data.imageURL;
-
       setImage(imageUrl);
       callback(imageUrl, "image");
     } catch (error) {
