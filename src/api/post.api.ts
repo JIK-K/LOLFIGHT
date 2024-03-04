@@ -10,7 +10,6 @@ const baseUrl = `${constant.SERVER_URL}/post`;
  * @param postDTO
  * @returns
  */
-
 export const writePost = async (
   postTitle: string,
   postContent: string,
@@ -37,3 +36,11 @@ export const writePost = async (
  * @param postDTO
  * @returns
  */
+export const getPostList = async (
+  board: string
+): Promise<AxiosResponse<ResponseDTO<PostDTO[]>>> => {
+  let url = `${baseUrl}/list` + `?board=${board}`;
+  console.log(url);
+  //이게이게 게시판 별로 있어야하는데~
+  return await axios.get(url);
+};

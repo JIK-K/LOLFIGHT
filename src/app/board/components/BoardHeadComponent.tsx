@@ -1,21 +1,41 @@
+"use client";
+
 import { FaSearch } from "react-icons/fa";
+import { getPostList } from "@/src/api/post.api";
+import boardNavLinks from "@/src/data/boardNavLinks";
 
 interface BoardHeadComponentProps {
   head: {
-    name: string;
+    slug: string;
   };
 }
 
+function getTitleFromSlug(slug: string) {
+  const link = boardNavLinks.find((link) => link.href === `/board/${slug}`);
+  return link?.title ?? "";
+}
+
 const BoardHeadComponent = (props: BoardHeadComponentProps) => {
+  const handleOnClick = () => {
+    console.log("클릭");
+    console.log(`${getTitleFromSlug(props.head.slug)}`);
+    getPostList(`${getTitleFromSlug(props.head.slug)}`).then((res) => {
+      console.log(res);
+    });
+  };
+
   return (
     <div className="notice-head">
       <div className="notice-head__title flex flex-col">
         <span className="text-xl font-bold text-center m-8">
-          {props.head.name}
+          {getTitleFromSlug(props.head.slug)}
         </span>
         <div className="flex justify-between font-semibold">
           <div className="flex my-2 ml-2">
-            <button className="w-16 border border-brandcolor bg-brandcolor text-white m-1">
+            <button
+              className="w-16 border border-brandcolor bg-brandcolor text-white m-1"
+              onClick={handleOnClick}
+            >
               개념글
             </button>
             <button className="w-16 border border-brandcolor m-1">

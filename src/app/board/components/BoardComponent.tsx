@@ -2,7 +2,7 @@ import BoardInfoComponent from "./BoardInfoComponent";
 import BoardHeadComponent from "./BoardHeadComponent";
 
 interface BoardComponentProps {
-  title: string;
+  slug: string;
 }
 
 const BoardComponent = (props: BoardComponentProps) => {
@@ -11,7 +11,7 @@ const BoardComponent = (props: BoardComponentProps) => {
       <div className="notice__head">
         <BoardHeadComponent
           head={{
-            name: props.title,
+            slug: props.slug,
           }}
         ></BoardHeadComponent>
       </div>
