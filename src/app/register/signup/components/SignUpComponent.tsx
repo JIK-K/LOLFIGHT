@@ -3,12 +3,15 @@ import { giveMailCode, sendMailAuth } from "@/src/api/mail.api";
 import { signUp } from "@/src/api/member.api";
 import { MailDTO } from "@/src/common/DTOs/mail/mail.dto";
 import { MemberDTO } from "@/src/common/DTOs/member/member.dto";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import CustomAlert from "@/src/common/components/alert/CustomAlert";
 
 const SignUpComponent = () => {
   const router = useRouter();
+  const [reissuance, setReissuance] = useState(false);
+  const [remainingTime, setRemainingTime] = useState("03:00");
+  const [timer, setTimer] = useState(180);
   const [showVerification, setShowVerification] = useState(false);
   const [showInputMemberInfo, setshowInputMemberInfo] = useState(false);
   const [buttonText, setButtonText] = useState("인증하기");
@@ -24,9 +27,50 @@ const SignUpComponent = () => {
     memberId: "",
     memberPw: "",
     memberName: "",
-    memberPhone: "",
-    memberGuild: "",
+    memberGuild: null,
+    memberGame: null,
   });
+
+  // 타이머 표시 함수
+  const formatTime = (seconds: number): string => {
+    if (seconds <= 0) {
+      return "00:00";
+    }
+    const minutes = Math.floor(seconds / 60);
+    const secondsLeft = seconds % 60;
+    const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
+    const formattedSeconds = secondsLeft < 10 ? `0${secondsLeft}` : secondsLeft;
+    return `${formattedMinutes}:${formattedSeconds}`;
+  };
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+    if (showVerification) {
+      interval = setInterval(() => {
+        setTimer((prevTimer) => {
+          if (prevTimer === 0) {
+            clearInterval(interval);
+            setMail({
+              ...mail,
+              mailCode: "",
+            });
+          }
+          return prevTimer - 1;
+        });
+      }, 1000);
+    }
+    return () => clearInterval(interval);
+  }, [showVerification, reissuance]);
+
+  // 타이머 갱신 시간 갱신
+  useEffect(() => {
+    setRemainingTime(formatTime(timer));
+  }, [timer]);
+
+  const sendAuthCode = () => {
+    setReissuance(!reissuance);
+    giveMailCode(mail); //메일 확인 코드발급 API
+    setTimer(180);
+  };
 
   //==============================================================////Email
   const handleEmailInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -128,7 +172,11 @@ const SignUpComponent = () => {
             router.replace("/register");
           })
           .catch((error) => {
-            CustomAlert("warning", "회원가입", "동일한 이메일이 존재합니다.");
+            CustomAlert(
+              "warning",
+              "회원가입",
+              "동일한 이메일이 존재하거나, 동일한 닉네임이 존재합니다"
+            );
             router.replace("/register");
           }); //회원가입 API
       } else {
@@ -161,11 +209,11 @@ const SignUpComponent = () => {
           />
         </div>
         {showVerification && (
-          <div className="border border-gray-200 rounded-md my-4">
+          <div className="flex border border-gray-200 rounded-md my-4">
             <input
               className="w-full h-12 rounded-md px-2 bg-gray-100"
               type="text"
-              placeholder="인증번호"
+              placeholder={`인증번호(${remainingTime} 남음)`}
               onChange={handleCodeInput}
               disabled={buttonText === "회원가입"}
               style={{
@@ -173,6 +221,18 @@ const SignUpComponent = () => {
                   buttonText === "회원가입" ? "#e0e0e0" : undefined,
               }}
             />
+            <button
+              disabled={buttonText === "회원가입"}
+              style={{
+                cursor: buttonText === "회원가입" ? "not-allowed" : "pointer",
+              }}
+              onClick={sendAuthCode}
+              className={`flex font-medium bg-brandcolor text-white  items-center justify-center rounded-md cursor-pointer w-32 ${
+                showInputMemberInfo ? "my-1" : ""
+              }`}
+            >
+              재발급
+            </button>
           </div>
         )}
         {showInputMemberInfo && (

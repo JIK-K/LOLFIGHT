@@ -1,40 +1,51 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import Image from "next/image";
-import TestImg from "../../../../common/assets/image/TestImg.png";
+import { inviteGuild } from "@/src/api/guild.api";
+import { useRouter } from "next/navigation";
+import CustomAlert from "../../../../common/components/alert/CustomAlert";
+import { GuildInviteSendDTO } from "@/src/common/DTOs/guild/guild_invite_send.dto";
 
 interface Props {
-  guildName: string;
-  guildMembers: number;
-  guildRank: string;
-  guildMaster: string;
-  guildCreate: string;
-  guildBanner: string;
+  guildId: string | undefined;
+  guildName: string | undefined;
+  guildMembers: number | undefined;
+  guildRank: string | undefined;
+  guildMaster: string | undefined;
+  guildCreate: string | undefined;
+  guildIcon: string;
+  memberId: string | undefined;
 }
 
 const GuildBanner = (props: Props) => {
-  // const [guildName, setGuildName] = useState<string>();
-  // const [guildMembers, setGuildMembers] = useState<number>();
-  // const [guildRank, setGuildRank] = useState<string>();
-  // const [guildMaster, setGuildMaster] = useState<string>();
-  // const [guildCreate, setGuildCreate] = useState<string>();
-
-  // useEffect(() => {
-  //   setGuildName(props.guildName);
-  //   setGuildMembers(props.guildMembers);
-  //   setGuildRank(props.guildRank);
-  //   setGuildMaster(props.guildMaster);
-  //   setGuildCreate(props.guildCreate);
-  // }, [props]);
+  const router = useRouter();
 
   const handleClickRecordRenewal = () => {
-    console.log("전적갱신");
     alert("전적갱신 미구현");
   };
-  const handleClickFavorite = () => {
-    console.log("즐겨찾기");
-    alert("즐겨찾기 미구현");
+  const handleClickInviteGuild = () => {
+    if (
+      props.memberId !== null &&
+      props.memberId !== undefined &&
+      props.guildId !== null &&
+      props.guildId !== undefined
+    ) {
+      inviteGuild(props.memberId, props.guildId)
+        .then((response) => {
+          CustomAlert("success", "길드가입", "길드 가입신청이 완료되었습니다.");
+        })
+        .catch((error) => {
+          CustomAlert(
+            "warning",
+            "길드가입",
+            "이미 신청한 길드이거나, 가입된 길드가 있습니다."
+          );
+        });
+    } else {
+      CustomAlert("warning", "길드가입", "로그인후 이용할 수 있습니다.");
+      router.replace("/register");
+    }
   };
+
   return (
     <div className="w-full bg-brandcolor">
       <section className="w-1200px mx-auto h-44 flex justify-between items-center bg-brandcolor">
@@ -42,7 +53,12 @@ const GuildBanner = (props: Props) => {
         <div className="w-1200px flex flex-col justify-center">
           <div className="flex flex-row mb-3">
             <div className="">
-              <Image src={TestImg} alt="GuildBanner" width={50} height={50} />
+              <img
+                src={props.guildIcon}
+                alt="GuildIcon"
+                width={50}
+                height={50}
+              />
             </div>
             <div className="flex flex-col ml-3">
               <div className="font-extra text-white text-12px mt-1">
@@ -62,11 +78,11 @@ const GuildBanner = (props: Props) => {
               전적갱신
             </button>
             <button
-              aria-label="즐겨찾기"
+              aria-label="길드가입"
               className="flex text-black bg-white w-24 h-10 items-center justify-center cursor-pointer rounded hover:bg-gray-200"
-              onClick={handleClickFavorite}
+              onClick={handleClickInviteGuild}
             >
-              즐겨찾기
+              길드가입
             </button>
           </div>
         </div>
@@ -82,7 +98,7 @@ const GuildBanner = (props: Props) => {
             </div>
           </div>
           <div className="text-white text-14px mt-3  mb-5">
-            길드 설립일: {props.guildCreate}
+            길드 설립일: {props.guildCreate?.split("T")[0]}
           </div>
         </div>
       </section>

@@ -26,8 +26,6 @@ export default function Page() {
           sessionStorage.setItem("id", response.data.data.id);
           sessionStorage.setItem("memberId", response.data.data.memberId);
           sessionStorage.setItem("memberName", response.data.data.memberName);
-          sessionStorage.setItem("memberPhone", response.data.data.memberPhone);
-          sessionStorage.setItem("memberGuild", response.data.data.memberGuild);
 
           router.replace("/");
         } else {
@@ -35,10 +33,11 @@ export default function Page() {
         }
       })
       .catch((error) => {
-        CustomAlert("error", "로그인", "에러");
+        CustomAlert("warning", "로그인", "아이디 비밀번호를 확인해주세요.");
+        // CustomAlert("error", "로그인", "에러");
       });
   };
-  
+
   return (
     <>
       <span className="text-32px mb-4">

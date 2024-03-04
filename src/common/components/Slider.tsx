@@ -14,25 +14,25 @@ const slideData = [
     id: 1,
     text: "first slide",
     type: "video",
-    content: "QP1AvGMlQT0",
+    content: "IgU0hkCuOM0",
   },
   {
     id: 2,
     text: "second slide",
     type: "video",
-    content: "X2glr_HwyFk",
+    content: "6RX6bser66k",
   },
   {
     id: 3,
-    text: "third slide",
-    type: "image",
-    content: "/images/abcdetanwook.jpg",
+    text: "fourth slide",
+    type: "video",
+    content: "k6hWBB4HTiE",
   },
   {
     id: 4,
-    text: "fourth slide",
+    text: "third slide",
     type: "image",
-    content: "/images/zakum3600.png",
+    content: "/images/yayaman.png",
   },
 ];
 
@@ -74,9 +74,9 @@ const Slider = () => {
                   allowFullScreen
                 />
               )}
-              <div className="absolute bottom-0 w-full bg-black text-white p-2 text-center">
+              {/* <div className="absolute bottom-0 w-full bg-black text-white p-2 text-center">
                 {slide.text}
-              </div>
+              </div> */}
             </div>
           </SwiperSlide>
         ))}

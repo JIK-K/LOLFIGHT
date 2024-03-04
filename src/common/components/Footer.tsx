@@ -11,14 +11,6 @@ const Footer = () => {
       href: "javascript:void()",
       name: "개인정보처리방침",
     },
-    {
-      href: "javascript:void()",
-      name: "어쩔텔레비전",
-    },
-    {
-      href: "javascript:void()",
-      name: "저쩔코드비전",
-    },
   ];
 
   return (
