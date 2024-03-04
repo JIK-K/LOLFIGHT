@@ -5,6 +5,12 @@ import { ResponseDTO } from "../common/DTOs/response.dto";
 
 const baseUrl = `${constant.SERVER_URL}/post`;
 
+/*
+ * 게시글 작성
+ * @param postDTO
+ * @returns
+ */
+
 export const writePost = async (
   postTitle: string,
   postContent: string,
@@ -26,23 +32,8 @@ export const writePost = async (
   return await axios.post(url, formData);
 };
 
-/**
- * 게시글 작성
+/*
+ * 게시글 목록 조회
  * @param postDTO
  * @returns
  */
-// export const writePost = async (
-//   postDTO: PostDTO
-// ): Promise<AxiosResponse<PostDTO>> => {
-//   let url = `${baseUrl}`;
-
-//   const body = {
-//     postTitle: postDTO.postTitle,
-//     postContent: postDTO.postContent,
-//     postWriter: postDTO.postWriter,
-//     postDate: postDTO.postDate,
-//     postBoard: postDTO.postBoard,
-//   };
-
-//   return await axios.post(url, body);
-// };

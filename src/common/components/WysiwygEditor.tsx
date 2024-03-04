@@ -6,13 +6,14 @@ import "@toast-ui/editor/dist/theme/toastui-editor-dark.css";
 // import "@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css";
 import colorSyntax from "@toast-ui/editor-plugin-color-syntax";
 import boardNavLinks from "@/src/data/boardNavLinks";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { writePost } from "@/src/api/post.api";
 import constant from "@/src/common/constant/constant";
 import { useState } from "react";
-import { PostDTO } from "@/src/common/DTOs/board/post.dto";
 import axios from "axios";
 import { blob } from "stream/consumers";
+import { on } from "events";
+import { useRouter } from "next/navigation";
 
 const WysiwygEditor = () => {
   const [title, setTitle] = useState("");
@@ -28,6 +29,17 @@ const WysiwygEditor = () => {
     ["code"],
     ["scrollSync"],
   ];
+  useEffect(() => {
+    if (editorRef.current) {
+      editorRef.current.getInstance().removeHook("addImageBlobHook");
+
+      editorRef.current
+        .getInstance()
+        .addHook("addImageBlobHook", (blob: any, callback: any) => {
+          onUploadImage(blob, callback);
+        });
+    }
+  }, [editorRef]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
@@ -45,6 +57,17 @@ const WysiwygEditor = () => {
   };
 
   const handleSaveClick = async () => {
+    const link = "";
+    const editorIns = editorRef.current?.getInstance().getHTML() || "";
+    writePost(title, editorIns, "작성자", category).then((response) => {
+      console.log(response);
+      boardNavLinks
+        .filter((link) => link.href !== "/")
+        .map((link) => {
+          if (link.title === category) {
+            router.replace(link.href + "/" + response.data.data.id);
+          }
+        });
     const editorIns = editorRef.current?.getInstance().getHTML() || "";
     writePost(title, editorIns, "작성자", category).then((response) => {
       console.log(response);
@@ -52,6 +75,10 @@ const WysiwygEditor = () => {
     });
   };
 
+  const onUploadImage = async (blob: any, callback: any) => {
+    console.log(blob);
+    const formData = new FormData();
+    formData.append("file", blob);
   const onUploadImage = async (blob, callback) => {
     console.log(blob);
     const formData = new FormData();
@@ -66,7 +93,14 @@ const WysiwygEditor = () => {
           },
         }
       );
+
+      console.log("imageRes", imageRes);
+      console.log("imageRes", imageRes.data.data);
+      const imageUrl = `${constant.SERVER_URL}/` + imageRes.data.data;
+      console.log("imgurl", imageUrl);
+
       const imageUrl = imageRes.data.imageURL;
+
       setImage(imageUrl);
       callback(imageUrl, "image");
     } catch (error) {
