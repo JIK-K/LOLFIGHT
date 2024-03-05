@@ -44,3 +44,16 @@ export const getPostList = async (
   //이게이게 게시판 별로 있어야하는데~
   return await axios.get(url);
 };
+
+/*
+  * 게시글 내용 보기
+  * @param board, postId
+  * @returns
+  */
+ export const getPostContent = async (
+  board: string,
+  postId: string
+): Promise<AxiosResponse<ResponseDTO<PostDTO>>> => {
+  let url = `${baseUrl}/${board}/${postId}`;
+  return await axios.get(url);
+}
