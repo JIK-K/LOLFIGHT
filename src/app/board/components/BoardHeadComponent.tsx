@@ -1,5 +1,5 @@
 "use client";
-
+// 버튼쓸거면 놔두고 버튼 안쓸거면 지우기
 import { FaSearch } from "react-icons/fa";
 import { getPostList } from "@/src/api/post.api";
 import boardNavLinks from "@/src/data/boardNavLinks";

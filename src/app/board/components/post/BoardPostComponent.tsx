@@ -1,22 +1,27 @@
 import BoardPostHeadComponent from "./BoardPostHeadComponent";
 import BoardPostBodyComponent from "./BoardPostBodyComponent";
+import { PostDTO } from "@/src/common/DTOs/board/post.dto";
 
-const BoardPostComponent = () => {
+interface PostProps {
+  data: PostDTO;
+}
+
+const BoardPostComponent = (props: PostProps) => {
   return (
     <div className="w-full bg-white ml-8 shadow-md">
       <div className="">
         <div className="head">
           <BoardPostHeadComponent
             post={{
-              title: "[정보]석",
-              writer: "태양같은나이",
-              date: "2022.03.02",
-              views: 7,
+              title: props.data?.postTitle,
+              writer: props.data?.postWriter,
+              date: props.data?.postDate,
+              views: props.data?.postViews,
             }}
           ></BoardPostHeadComponent>
         </div>
         <div className="body">
-          <BoardPostBodyComponent />
+          <BoardPostBodyComponent data={props.data} />
         </div>
       </div>
     </div>

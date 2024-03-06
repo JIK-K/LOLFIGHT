@@ -12,8 +12,6 @@ import constant from "@/src/common/constant/constant";
 import { useState } from "react";
 import { PostDTO } from "@/src/common/DTOs/board/post.dto";
 import axios from "axios";
-import { blob } from "stream/consumers";
-import { on } from "events";
 import { useRouter } from "next/navigation";
 
 const WysiwygEditor = () => {

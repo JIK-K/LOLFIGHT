@@ -3,15 +3,8 @@
 import { PostDTO } from "@/src/common/DTOs/board/post.dto";
 
 interface BoardInfoComponentProps {
-  // number: number;
-  // type: string;
-  // title: string;
-  // comment: number;
-  // writer: string;
-  // date: string;
-  // views: number;
+  slug: string;
   data: PostDTO;
-  // onClick?: () => void;
 }
 
 const handleClick = () => {
@@ -19,20 +12,26 @@ const handleClick = () => {
 };
 
 const BoardInfoComponent = (props: BoardInfoComponentProps) => {
+  const link = `${props.slug}/${props.data.id}`;
+
   return (
     <div className="notice-info text-sm h-8 flex mt-1" onClick={handleClick}>
       <div className="notice-info__number w-1/12 flex items-center justify-center">
         {props.data.id}
       </div>
       <div className="notice-info__type w-1/12 flex items-center justify-center">
-        여기뭐넣지
+        {props.data.postBoard}
       </div>
       <div className="flex w-1/2 pl-4">
         <div className="notice-info__title flex items-center">
-          {props.data.postTitle}
+          <a className="hover:underline" href={`${link}`}>
+            {props.data.postTitle}
+          </a>
         </div>
-        <div className="notice-info__comment flex items-center">
-          [{props.data.postComments}]
+        <div className="notice-info__comment flex items-center text-gray-400">
+          <a className="hover:underline" href="">
+            [{props.data.postComments}]
+          </a>
         </div>
       </div>
       <div className="notice-info__writer w-1/12 flex items-center justify-center">

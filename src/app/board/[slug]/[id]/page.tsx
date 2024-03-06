@@ -1,16 +1,39 @@
-import React, { useEffect } from "react";
+"use client";
+
+import React, { useEffect, useState } from "react";
 import { getPostContent } from "@/src/api/post.api";
 import BoardNavComponent from "../../components/BoardNavComponent";
 import BoardPostComponent from "../../components/post/BoardPostComponent";
+import { PostDTO } from "@/src/common/DTOs/board/post.dto";
+import boardNavLinks from "@/src/data/boardNavLinks";
 
-export default function Page() {
+type PageProps = {
+  slug: string;
+  id: string;
+};
+
+function getTitleFromSlug(slug: string) {
+  const link = boardNavLinks.find((link) => link.href === `/board/${slug}`);
+  return link?.title ?? "";
+}
+
+export default function Page({ params }: { params: PageProps }) {
+  const [post, setPost] = useState<PostDTO>();
+
+  useEffect(() => {
+    getPostContent(getTitleFromSlug(params.slug), params.id).then((res) => {
+      console.log(res);
+      setPost(res.data.data);
+      console.log("post", post);
+    });
+  }, []);
 
   return (
     <>
       <div className="w-full h-full my-16">
         <div className="w-1200px h-full mx-auto flex">
           <BoardNavComponent></BoardNavComponent>
-          <BoardPostComponent></BoardPostComponent>
+          <BoardPostComponent data={post as PostDTO}></BoardPostComponent>
         </div>
       </div>
     </>

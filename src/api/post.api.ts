@@ -41,19 +41,19 @@ export const getPostList = async (
 ): Promise<AxiosResponse<ResponseDTO<PostDTO[]>>> => {
   let url = `${baseUrl}/list` + `?board=${board}`;
   console.log(url);
-  //이게이게 게시판 별로 있어야하는데~
   return await axios.get(url);
 };
 
 /*
-  * 게시글 내용 보기
-  * @param board, postId
-  * @returns
-  */
- export const getPostContent = async (
+ * 게시글 내용 보기
+ * @param board, postId
+ * @returns
+ */
+export const getPostContent = async (
   board: string,
   postId: string
 ): Promise<AxiosResponse<ResponseDTO<PostDTO>>> => {
-  let url = `${baseUrl}/${board}/${postId}`;
+  let url = `${baseUrl}/?board=${board}&postId=${postId}`;
+  console.log(url);
   return await axios.get(url);
-}
+};
