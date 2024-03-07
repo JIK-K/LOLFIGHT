@@ -3,6 +3,7 @@
 import { FaSearch } from "react-icons/fa";
 import { getPostList } from "@/src/api/post.api";
 import boardNavLinks from "@/src/data/boardNavLinks";
+import { useRouter } from "next/navigation";
 
 interface BoardHeadComponentProps {
   head: {
@@ -16,6 +17,8 @@ function getTitleFromSlug(slug: string) {
 }
 
 const BoardHeadComponent = (props: BoardHeadComponentProps) => {
+  const router = useRouter();
+
   const handleOnClick = () => {
     console.log("클릭");
     console.log(`${getTitleFromSlug(props.head.slug)}`);
@@ -24,12 +27,26 @@ const BoardHeadComponent = (props: BoardHeadComponentProps) => {
     });
   };
 
+  const handleWriteClick = () => {
+    console.log("글쓰기 클릭");
+    router.replace(`/board/${props.head.slug}/write`);
+  };
+
   return (
     <div className="notice-head">
       <div className="notice-head__title flex flex-col">
-        <span className="text-xl font-bold text-center m-8">
-          {getTitleFromSlug(props.head.slug)}
-        </span>
+        <div className="flex justify-between m-8">
+          <span className="text-xl font-bold text-center">
+            {getTitleFromSlug(props.head.slug)}
+          </span>
+          <button
+            className="h-8 w-16 border border-brandcolor bg-brandcolor text-white m-1"
+            onClick={handleWriteClick}
+          >
+            글쓰기
+          </button>
+        </div>
+
         <div className="flex justify-between font-semibold">
           <div className="flex my-2 ml-2">
             <button

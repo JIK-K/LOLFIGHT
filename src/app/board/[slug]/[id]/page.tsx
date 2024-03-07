@@ -21,11 +21,14 @@ export default function Page({ params }: { params: PageProps }) {
   const [post, setPost] = useState<PostDTO>();
 
   useEffect(() => {
-    getPostContent(getTitleFromSlug(params.slug), params.id).then((res) => {
-      console.log(res);
-      setPost(res.data.data);
-      console.log("post", post);
-    });
+    if (!post) {
+      getPostContent(getTitleFromSlug(params.slug), params.id).then((res) => {
+        console.log("res", res);
+        setPost(res.data.data);
+        // console.log("post", post);
+        // console.log("postContent", res.data.data.postContent);
+      });
+    }
   }, []);
 
   return (

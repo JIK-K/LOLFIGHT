@@ -1,6 +1,7 @@
 "use client";
 
 import { PostDTO } from "@/src/common/DTOs/board/post.dto";
+import { useRouter } from "next/navigation";
 
 interface BoardInfoComponentProps {
   slug: string;
@@ -12,7 +13,13 @@ const handleClick = () => {
 };
 
 const BoardInfoComponent = (props: BoardInfoComponentProps) => {
+  const router = useRouter();
   const link = `${props.slug}/${props.data.id}`;
+
+  const handleOnClick = () => {
+    console.log("우리손주글함보자");
+    router.push(link);
+  };
 
   return (
     <div className="notice-info text-sm h-8 flex mt-1" onClick={handleClick}>
@@ -24,7 +31,10 @@ const BoardInfoComponent = (props: BoardInfoComponentProps) => {
       </div>
       <div className="flex w-1/2 pl-4">
         <div className="notice-info__title flex items-center">
-          <a className="hover:underline" href={`${link}`}>
+          {/* <a className="hover:underline" href={`${link}`}>
+            {props.data.postTitle}
+          </a> */}
+          <a className="hover:underline cursor-pointer" onClick={handleOnClick}>
             {props.data.postTitle}
           </a>
         </div>
