@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import logo from "../../../public/images/흰주먹해적단.png";
+import logo from "../../../public/icon.png";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
