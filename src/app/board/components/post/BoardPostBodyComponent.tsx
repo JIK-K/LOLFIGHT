@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import { getPostContent } from "@/src/api/post.api";
+import { writeComment } from "@/src/api/comment.api";
 import { PostDTO } from "@/src/common/DTOs/board/post.dto";
 import { Editor } from "@toast-ui/react-editor";
 import { Viewer } from "@toast-ui/react-editor";
@@ -28,6 +29,14 @@ const BoardPostBodyComponent = (props: BoardPostBodyComponentProps) => {
 
   const handleOnClick = () => {
     console.log("죽고싶냐?", content);
+    console.log("죽고잡냐?", props.data.postBoard);
+  };
+
+  const handleCommentSaveClick = () => {
+    console.log("댓글 저장");
+    writeComment(props.data, "memberId", "commentContent").then((res) => {
+      console.log(res);
+    });
   };
 
   return (
@@ -74,7 +83,10 @@ const BoardPostBodyComponent = (props: BoardPostBodyComponentProps) => {
           </div>
           <div className="border-b w-full mt-4"></div>
           <div className="flex justify-end m-2">
-            <button className="border rounded-md bg-brandcolor text-white w-20 h-8">
+            <button
+              className="border rounded-md bg-brandcolor text-white w-20 h-8"
+              onClick={handleCommentSaveClick}
+            >
               작성하기
             </button>
           </div>

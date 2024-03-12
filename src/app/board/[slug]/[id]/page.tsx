@@ -29,7 +29,7 @@ export default function Page({ params }: { params: PageProps }) {
         // console.log("postContent", res.data.data.postContent);
       });
     }
-  }, []);
+  });
 
   return (
     <>

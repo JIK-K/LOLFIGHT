@@ -1,7 +1,7 @@
 import { BaseDTO } from "../base.dto";
 
 export interface PostDTO extends BaseDTO {
-  id?: string;
+  id: number;
   postTitle: string;
   postContent: string;
   postWriter: string;
