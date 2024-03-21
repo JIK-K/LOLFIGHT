@@ -41,3 +41,18 @@ export const writeComment = async (
 
   return await axios.post(url, body);
 };
+
+/*
+ * 댓글 리스트 조회
+ * @param commentDTO
+ * @returns
+ */
+export const getCommentList = async (
+  post: PostDTO
+): Promise<AxiosResponse<ResponseDTO<CommentDTO[]>>> => {
+  let url = `${baseUrl}`;
+  const queryParams = `?postId=${post.id}&postBoard=${post.postBoard}`;
+  url += queryParams;
+
+  return await axios.get(url);
+};

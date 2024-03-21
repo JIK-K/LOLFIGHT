@@ -8,8 +8,10 @@ export interface CommentDTO extends BaseDTO {
   orderNumber: number;
   deltedTrue: boolean;
   deltedAt?: Date;
+  parentComment: string;
   isCommentForComment: boolean;
   postId: number;
   postBoardId: PostDTO;
-  memberId: string;
+  writer: string;
+  writerId: string;
 }

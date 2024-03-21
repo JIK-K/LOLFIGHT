@@ -14,6 +14,7 @@ import "@toast-ui/editor-plugin-code-syntax-highlight/dist/toastui-editor-plugin
 import "@toast-ui/editor/toastui-editor-viewer.css";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import CommentBoxComponent from "./comment/CommentBoxComponent";
 
 interface BoardPostBodyComponentProps {
   data: PostDTO;
@@ -73,6 +74,7 @@ const BoardPostBodyComponent = (props: BoardPostBodyComponentProps) => {
       </div>
       <div className="board-post-body__comment">
         <div className="my-8">댓글 {props.data?.postComments}</div>
+        <CommentBoxComponent data={props.data}></CommentBoxComponent>
         <div className="w-full rounded-md px-2 border">
           {/* <span>니아이디props.id어쩌고</span> */}
           <div className="w-full h-36">
