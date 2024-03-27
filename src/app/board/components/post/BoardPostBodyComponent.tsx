@@ -22,11 +22,17 @@ interface BoardPostBodyComponentProps {
 
 const BoardPostBodyComponent = (props: BoardPostBodyComponentProps) => {
   const [content, setContent] = useState<String>();
+  const [commentContent, setCommentContent] = useState("");
 
   useEffect(() => {
     console.log("editorRef.current", props.data?.postContent);
     setContent(props.data?.postContent);
   }, [props.data]);
+
+  const handleChangeComment = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCommentContent(e.target.value);
+    console.log(commentContent);
+  };
 
   const handleOnClick = () => {
     console.log("죽고싶냐?", content);
@@ -35,9 +41,15 @@ const BoardPostBodyComponent = (props: BoardPostBodyComponentProps) => {
 
   const handleCommentSaveClick = () => {
     console.log("댓글 저장");
-    writeComment(props.data, "memberId", "commentContent").then((res) => {
-      console.log(res);
-    });
+
+    const storedMemberId = sessionStorage.getItem("memberId")?.toString();
+    if (storedMemberId) {
+      writeComment(props.data, storedMemberId, commentContent).then((res) => {
+        console.log(res);
+      });
+    } else {
+      console.log("로그인이 필요합니다.");
+    }
   };
 
   return (
@@ -81,6 +93,7 @@ const BoardPostBodyComponent = (props: BoardPostBodyComponentProps) => {
             <input
               className="w-full h-12 mx-2 focus:outline-none"
               placeholder="댓글을 입력하세요."
+              onChange={handleChangeComment}
             />
           </div>
           <div className="border-b w-full mt-4"></div>

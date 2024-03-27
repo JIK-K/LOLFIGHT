@@ -20,8 +20,6 @@ const BoardComponent = (props: BoardComponentProps) => {
   const [postList, setPostList] = useState<PostDTO[]>([]);
 
   useEffect(() => {
-    console.log("가져왔디~");
-    console.log(`${getTitleFromSlug(props.slug)}`);
     getPostList(`${getTitleFromSlug(props.slug)}`).then((res) => {
       console.log(res);
       setPostList(res.data.data);
