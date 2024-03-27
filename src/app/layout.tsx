@@ -29,7 +29,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="font-['Pretendard'] bg-brandbgcolor">
+    <html lang="en" className="font-['Pretendard'] bg-brandbgcolor h-screen">
       <body>
         <BaseLayout>{children}</BaseLayout>
       </body>

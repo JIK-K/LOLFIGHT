@@ -46,7 +46,7 @@ const Header = () => {
     router.replace("/profile");
   };
   return (
-    <header className="sticky w-full bg-brandcolor">
+    <header className="sticky w-full bg-brandcolor top-0">
       <section className="w-1200px mx-auto h-16 flex justify-between items-center">
         <div className="flex items-center">
           <Image width={64} height={64} src={logo} alt="logo" />
