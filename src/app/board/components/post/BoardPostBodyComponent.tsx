@@ -42,9 +42,9 @@ const BoardPostBodyComponent = (props: BoardPostBodyComponentProps) => {
   const handleCommentSaveClick = () => {
     console.log("댓글 저장");
 
-    const storedMemberId = sessionStorage.getItem("memberId")?.toString();
-    if (storedMemberId) {
-      writeComment(props.data, storedMemberId, commentContent).then((res) => {
+    const storedId = sessionStorage.getItem("id")?.toString();
+    if (storedId) {
+      writeComment(props.data, storedId, commentContent).then((res) => {
         console.log(res);
       });
     } else {
