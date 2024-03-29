@@ -32,7 +32,7 @@ const BoardHeadComponent = (props: BoardHeadComponentProps) => {
         </span>
         <div className="flex justify-between font-semibold">
           <div className="flex my-2 ml-2">
-            <button
+            {/* <button
               className="w-16 border border-brandcolor bg-brandcolor text-white m-1"
               onClick={handleOnClick}
             >
@@ -46,7 +46,7 @@ const BoardHeadComponent = (props: BoardHeadComponentProps) => {
             </button>
             <button className="w-16 border border-brandcolor m-1">
               일비표창
-            </button>
+            </button> */}
           </div>
           <div className="flex w-96 border border-gray-200 rounded-md my-2 mr-2">
             <input

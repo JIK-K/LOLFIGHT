@@ -16,7 +16,11 @@ export default function BaseLayout({ children }: Props) {
     <>
       {!hideDefaultLayoutPaths && <Header />}
       {!hideDefaultLayoutPaths && <Navigation />}
+<<<<<<< Updated upstream
       {children}
+=======
+      <div className="main">{children}</div>
+>>>>>>> Stashed changes
       {!hideDefaultLayoutPaths && <Footer />}
     </>
   );
