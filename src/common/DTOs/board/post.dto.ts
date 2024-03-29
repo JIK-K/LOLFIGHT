@@ -5,7 +5,7 @@ export interface PostDTO extends BaseDTO {
   postTitle: string;
   postContent: string;
   postWriter: string;
-  postDate: string;
+  postDate: Date;
   postViews: number;
   postLikes: number;
   postComments: number;

@@ -16,7 +16,7 @@ export default function BaseLayout({ children }: Props) {
     <div className="dd">
       {!hideDefaultLayoutPaths && <Header />}
       {!hideDefaultLayoutPaths && <Navigation />}
-      <div className="main h-screen">{children}</div>
+      <div className="main">{children}</div>
       {!hideDefaultLayoutPaths && <Footer />}
     </div>
   );

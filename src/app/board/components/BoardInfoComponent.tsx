@@ -2,6 +2,7 @@
 
 import { PostDTO } from "@/src/common/DTOs/board/post.dto";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 interface BoardInfoComponentProps {
   slug: string;
@@ -15,10 +16,32 @@ const handleClick = () => {
 const BoardInfoComponent = (props: BoardInfoComponentProps) => {
   const router = useRouter();
   const link = `${props.slug}/${props.data.id}`;
+  const [postDate, setPostDate] = useState<String>();
 
   const handleOnClick = () => {
     console.log("우리손주글함보자");
     router.push(link);
+  };
+
+  const getDate = (date: string | number | Date) => {
+    const today = new Date();
+    const postDateTime = new Date(date);
+
+    if (
+      postDateTime.getDate() === today.getDate() &&
+      postDateTime.getMonth() === today.getMonth() &&
+      postDateTime.getFullYear() === today.getFullYear()
+    ) {
+      return `${postDateTime.getHours()}:${postDateTime.getMinutes()}`;
+      // return postDateTime.toLocaleTimeString();
+    } else {
+      // const formattedDate = `${postDateTime.getFullYear()}-${
+      //   postDateTime.getMonth() + 1
+      // }-${postDateTime.getDate()}`;
+      const month = (postDateTime.getMonth() + 1).toString().padStart(2, "0");
+      const day = postDateTime.getDate().toString().padStart(2, "0");
+      return `${month}.${day}`; // 오늘이 아니면 MM.DD 형태로 출력
+    }
   };
 
   return (
@@ -48,7 +71,7 @@ const BoardInfoComponent = (props: BoardInfoComponentProps) => {
         {props.data.postWriter}
       </div>
       <div className="notice-info__date w-1/6 flex items-center justify-center">
-        {props.data.createAt?.getDate().toString()}
+        {getDate(props.data.postDate)}
       </div>
       <div className="notice-info__views w-1/12 flex items-center justify-center">
         {props.data.postViews}
