@@ -127,13 +127,16 @@ const CommentBoxComponent = (props: CommentBoxComponentProps) => {
             <span className="font-normal text-base">
               {comment.commentContent}
             </span>
-            <div className="my-1">
-              <button onClick={() => handleReplyButtonClick(comment)}>
-                <span className="text-gray-400 py-1 hover:bg-gray-100">
-                  답글 쓰기
-                </span>
-              </button>
-            </div>
+            {comment.depth == 0 && (
+              <div className="my-1">
+                <button onClick={() => handleReplyButtonClick(comment)}>
+                  <span className="text-gray-400 py-1 hover:bg-gray-100">
+                    답글 쓰기
+                  </span>
+                </button>
+              </div>
+            )}
+
             {isOpen && comment.id == openCommentId && (
               <div className="my-4 p-2">
                 <div className="rounded-md ml-8 border">
