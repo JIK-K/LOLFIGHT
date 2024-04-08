@@ -43,6 +43,42 @@ export const writeComment = async (
 };
 
 /*
+ * 대댓글 작성
+ * @param postDTO, memberId, commentContent, parentCommentId
+ * @returns
+ */
+export const writeReplyComment = async (
+  post: PostDTO,
+  memberId: string,
+  commentContent: string,
+  parentCommentId: string
+): Promise<AxiosResponse<ResponseDTO<CommentDTO>>> => {
+  let url = `${baseUrl}`;
+  const formData = new FormData();
+
+  formData.append("postId", post.id.toString());
+  formData.append("postBoard", post.postBoard);
+  formData.append("memberId", memberId);
+  formData.append("commentContent", commentContent);
+  formData.append("parentCommentId", parentCommentId);
+
+  console.log("FormData contents:", formData);
+
+  const body = {
+    postId: post.id,
+    postBoard: post.postBoard,
+    post: post,
+    memberId: memberId,
+    commentContent: commentContent,
+    parentComment: parentCommentId,
+  };
+
+  console.log("body:", body);
+
+  return await axios.post(url, body);
+};
+
+/*
  * 댓글 리스트 조회
  * @param commentDTO
  * @returns

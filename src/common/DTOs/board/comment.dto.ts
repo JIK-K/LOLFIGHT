@@ -12,6 +12,7 @@ export interface CommentDTO extends BaseDTO {
   isCommentForComment: boolean;
   postId: number;
   postBoardId: PostDTO;
+  commentDate: Date;
   writer: string;
   writerId: string;
 }

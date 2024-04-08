@@ -15,14 +15,17 @@ import "@toast-ui/editor/toastui-editor-viewer.css";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import CommentBoxComponent from "./comment/CommentBoxComponent";
+import { useRouter } from "next/navigation";
 
 interface BoardPostBodyComponentProps {
   data: PostDTO;
 }
 
 const BoardPostBodyComponent = (props: BoardPostBodyComponentProps) => {
+  const router = useRouter();
   const [content, setContent] = useState<String>();
   const [commentContent, setCommentContent] = useState("");
+  const [commentBoxKey, setCommentBoxKey] = useState(0); // State for key prop
 
   useEffect(() => {
     console.log("editorRef.current", props.data?.postContent);
@@ -39,13 +42,17 @@ const BoardPostBodyComponent = (props: BoardPostBodyComponentProps) => {
     console.log("죽고잡냐?", props.data.postBoard);
   };
 
-  const handleCommentSaveClick = () => {
+  const handleSaveCommentClick = () => {
     console.log("댓글 저장");
 
     const storedId = sessionStorage.getItem("id")?.toString();
     if (storedId) {
       writeComment(props.data, storedId, commentContent).then((res) => {
         console.log(res);
+        router.refresh();
+        setCommentBoxKey((prevKey) => prevKey + 1);
+        setCommentContent("");
+        // window.location.reload();
       });
     } else {
       console.log("로그인이 필요합니다.");
@@ -86,13 +93,17 @@ const BoardPostBodyComponent = (props: BoardPostBodyComponentProps) => {
       </div>
       <div className="board-post-body__comment">
         <div className="my-8">댓글 {props.data?.postComments}</div>
-        <CommentBoxComponent data={props.data}></CommentBoxComponent>
+        <CommentBoxComponent
+          key={commentBoxKey}
+          data={props.data}
+        ></CommentBoxComponent>
         <div className="w-full rounded-md px-2 border">
           {/* <span>니아이디props.id어쩌고</span> */}
           <div className="w-full h-36">
             <input
               className="w-full h-12 mx-2 focus:outline-none"
               placeholder="댓글을 입력하세요."
+              value={commentContent}
               onChange={handleChangeComment}
             />
           </div>
@@ -100,7 +111,7 @@ const BoardPostBodyComponent = (props: BoardPostBodyComponentProps) => {
           <div className="flex justify-end m-2">
             <button
               className="border rounded-md bg-brandcolor text-white w-20 h-8"
-              onClick={handleCommentSaveClick}
+              onClick={handleSaveCommentClick}
             >
               작성하기
             </button>
