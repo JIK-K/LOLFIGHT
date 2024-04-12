@@ -21,17 +21,20 @@ export default function Page({ params }: { params: PageProps }) {
   const [post, setPost] = useState<PostDTO>();
 
   useEffect(() => {
-    getPostContent(getTitleFromSlug(params.slug), params.id).then((res) => {
-      console.log(res);
-      setPost(res.data.data);
-      console.log("post", post);
-    });
-  }, []);
+    if (!post) {
+      getPostContent(getTitleFromSlug(params.slug), params.id).then((res) => {
+        console.log("res", res);
+        setPost(res.data.data);
+        // console.log("post", post);
+        // console.log("postContent", res.data.data.postContent);
+      });
+    }
+  });
 
   return (
     <>
-      <div className="w-full h-full my-16">
-        <div className="w-1200px h-full mx-auto flex">
+      <div className="w-full my-16">
+        <div className="w-1200px mx-auto flex">
           <BoardNavComponent></BoardNavComponent>
           <BoardPostComponent data={post as PostDTO}></BoardPostComponent>
         </div>

@@ -13,11 +13,11 @@ export default function BaseLayout({ children }: Props) {
   const hideDefaultLayoutPaths = pathname.startsWith("/register");
 
   return (
-    <>
+    <div className="dd">
       {!hideDefaultLayoutPaths && <Header />}
       {!hideDefaultLayoutPaths && <Navigation />}
-      {children}
+      <div className="main">{children}</div>
       {!hideDefaultLayoutPaths && <Footer />}
-    </>
+    </div>
   );
 }

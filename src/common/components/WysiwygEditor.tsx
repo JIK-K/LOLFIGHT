@@ -60,7 +60,12 @@ const WysiwygEditor = () => {
   const handleSaveClick = async () => {
     const link = "";
     const editorIns = editorRef.current?.getInstance().getHTML() || "";
-    writePost(title, editorIns, "작성자", category).then((response) => {
+    const storedMemberName = sessionStorage.getItem("memberName")?.toString();
+    if (!storedMemberName) {
+      console.log("로그인이 필요합니다.");
+      return;
+    }
+    writePost(title, editorIns, storedMemberName, category).then((response) => {
       console.log(response);
       boardNavLinks
         .filter((link) => link.href !== "/")
