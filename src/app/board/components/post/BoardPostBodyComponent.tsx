@@ -61,7 +61,7 @@ const BoardPostBodyComponent = (props: BoardPostBodyComponentProps) => {
 
   return (
     <div className="board-post-body flex flex-col m-12">
-      <div className="board-post-body__body w-full">
+      <div className="board-post-body__body w-full mb-12">
         {/* <p className="">{props.data?.postContent}</p> */}
         {/* <Viewer height="60rem" initialValue={props.data?.postContent} /> */}
         {/* <ReactMarkdown
