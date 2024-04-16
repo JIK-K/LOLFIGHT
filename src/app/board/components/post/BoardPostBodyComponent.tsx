@@ -83,12 +83,12 @@ const BoardPostBodyComponent = (props: BoardPostBodyComponentProps) => {
         >
           추천
         </button>
-        <button className="border border-black bg-brandcolor text-white">
+        {/* <button className="border border-black bg-brandcolor text-white">
           공유
-        </button>
-        <button className="border border-black bg-brandcolor text-white">
+        </button> */}
+        {/* <button className="border border-black bg-brandcolor text-white">
           스크랩
-        </button>
+        </button> */}
         <div className="border-b w-full mt-4"></div>
       </div>
       <div className="board-post-body__comment">
