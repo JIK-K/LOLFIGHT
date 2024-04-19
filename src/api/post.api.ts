@@ -2,6 +2,7 @@ import constant from "../common/constant/constant";
 import axios, { AxiosResponse } from "axios";
 import { PostDTO } from "../common/DTOs/board/post.dto";
 import { ResponseDTO } from "../common/DTOs/response.dto";
+import { LikeDTO } from "../common/DTOs/board/like.dto";
 
 const baseUrl = `${constant.SERVER_URL}/post`;
 
@@ -56,4 +57,23 @@ export const getPostContent = async (
   let url = `${baseUrl}/?board=${board}&postId=${postId}`;
 
   return await axios.get(url);
+};
+
+/*
+ * 게시글 추천
+ * @param
+ * @returns
+ */
+export const likePost = async (
+  postDTO: PostDTO,
+  memberId: string
+): Promise<AxiosResponse<ResponseDTO<LikeDTO>>> => {
+  let url = `${baseUrl}/like`;
+
+  const body = {
+    postDTO: postDTO,
+    memberId: memberId,
+  };
+
+  return await axios.post(url, body);
 };
