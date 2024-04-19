@@ -47,7 +47,7 @@ const BoardInfoComponent = (props: BoardInfoComponentProps) => {
   return (
     <div className="notice-info text-sm h-8 flex mt-1" onClick={handleClick}>
       <div className="notice-info__number w-1/12 flex items-center justify-center">
-        {props.data.id}
+        {props.data.postLikes}
       </div>
       <div className="notice-info__type w-1/12 flex items-center justify-center">
         {props.data.postBoard}

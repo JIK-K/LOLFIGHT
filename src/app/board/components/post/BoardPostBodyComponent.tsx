@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import { getPostContent } from "@/src/api/post.api";
+import { getPostContent, likePost } from "@/src/api/post.api";
 import { writeComment } from "@/src/api/comment.api";
 import { PostDTO } from "@/src/common/DTOs/board/post.dto";
 import { Editor } from "@toast-ui/react-editor";
@@ -40,6 +40,9 @@ const BoardPostBodyComponent = (props: BoardPostBodyComponentProps) => {
   const handleOnClick = () => {
     console.log("죽고싶냐?", content);
     console.log("죽고잡냐?", props.data.postBoard);
+    // likePost(props.data.postBoard, props.data.id.toString()).then((res) => {
+    //   console.log(res);
+    // });
   };
 
   const handleSaveCommentClick = () => {
@@ -76,12 +79,12 @@ const BoardPostBodyComponent = (props: BoardPostBodyComponentProps) => {
           }}
         ></div>
       </div>
-      <div className="board-post-body__status">
+      <div className="board-post-body__status m-auto">
         <button
-          className="border border-black bg-brandcolor text-white"
+          className="border border-gray-400 h-10 text-gray-400 rounded transition hover:bg-brandcolor hover:text-white w-20 m-1"
           onClick={handleOnClick}
         >
-          추천
+          <span className="">추천</span>
         </button>
         {/* <button className="border border-black bg-brandcolor text-white">
           공유
@@ -89,9 +92,9 @@ const BoardPostBodyComponent = (props: BoardPostBodyComponentProps) => {
         {/* <button className="border border-black bg-brandcolor text-white">
           스크랩
         </button> */}
-        <div className="border-b w-full mt-4"></div>
       </div>
       <div className="board-post-body__comment">
+        <div className="border-b w-full mt-4"></div>
         <div className="my-8">댓글 {props.data?.postComments}</div>
         <CommentBoxComponent
           key={commentBoxKey}
