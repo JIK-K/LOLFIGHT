@@ -2,6 +2,7 @@
 
 import { PostDTO } from "@/src/common/DTOs/board/post.dto";
 import { useRouter } from "next/navigation";
+import boardNavLinks from "@/src/data/boardNavLinks";
 import { useState } from "react";
 
 interface BoardInfoComponentProps {
@@ -13,14 +14,27 @@ const handleClick = () => {
   console.log("클릭");
 };
 
+function getSlugFromTitle(title: string) {
+  const link = boardNavLinks.find((link) => link.title === title);
+  return link?.slug ?? "";
+}
+
 const BoardInfoComponent = (props: BoardInfoComponentProps) => {
   const router = useRouter();
   const link = `${props.slug}/${props.data.id}`;
+  // const link = `${props.data.postBoard}/${props.data.id}`;
   const [postDate, setPostDate] = useState<String>();
 
   const handleOnClick = () => {
     console.log("우리손주글함보자");
-    router.push(link);
+    console.log(link);
+    if (props.slug == "all") {
+      // router.push(`${props.data.postBoard}/${props.data.id}`);
+      console.log(getSlugFromTitle(props.data.postBoard) + "/" + props.data.id);
+      router.push(getSlugFromTitle(props.data.postBoard) + "/" + props.data.id);
+    } else {
+      router.push(link);
+    }
   };
 
   const getDate = (date: string | number | Date) => {

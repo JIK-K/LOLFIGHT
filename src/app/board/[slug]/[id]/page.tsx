@@ -6,22 +6,38 @@ import BoardNavComponent from "../../components/BoardNavComponent";
 import BoardPostComponent from "../../components/post/BoardPostComponent";
 import { PostDTO } from "@/src/common/DTOs/board/post.dto";
 import boardNavLinks from "@/src/data/boardNavLinks";
+import { useRouter } from "next/router";
 
 type PageProps = {
   slug: string;
   id: string;
 };
 
+interface postProps {
+  data: PostDTO;
+}
+
 function getTitleFromSlug(slug: string) {
   const link = boardNavLinks.find((link) => link.href === `/board/${slug}`);
   return link?.title ?? "";
 }
 
-export default function Page({ params }: { params: PageProps }) {
+function getSlugFromTitle(title: string) {
+  const link = boardNavLinks.find((link) => link.title === title);
+  return link?.slug ?? "";
+}
+
+export default function Page(
+  { params }: { params: PageProps },
+  props: postProps
+) {
+  // const router = useRouter();
+  // const { postDTO } = router.query;
   const [post, setPost] = useState<PostDTO>();
 
   useEffect(() => {
     if (!post) {
+      // 전체 게시판인 경우 slug에서 문제가 생김
       getPostContent(getTitleFromSlug(params.slug), params.id).then((res) => {
         console.log("res", res);
         setPost(res.data.data);

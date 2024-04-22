@@ -40,9 +40,15 @@ const BoardPostBodyComponent = (props: BoardPostBodyComponentProps) => {
   const handleOnClick = () => {
     console.log("죽고싶냐?", content);
     console.log("죽고잡냐?", props.data.postBoard);
-    // likePost(props.data.postBoard, props.data.id.toString()).then((res) => {
-    //   console.log(res);
-    // });
+
+    const storedId = sessionStorage.getItem("id")?.toString();
+    if (storedId) {
+      likePost(props.data, storedId).then((res) => {
+        console.log(res);
+      });
+    } else {
+      console.log("로그인이 필요합니다.");
+    }
   };
 
   const handleSaveCommentClick = () => {
