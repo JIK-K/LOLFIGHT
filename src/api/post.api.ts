@@ -75,5 +75,7 @@ export const likePost = async (
     memberId: memberId,
   };
 
+  console.log("body: ", body);
+
   return await axios.post(url, body);
 };
