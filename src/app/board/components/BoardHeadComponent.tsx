@@ -36,7 +36,7 @@ const BoardHeadComponent = (props: BoardHeadComponentProps) => {
     <div className="notice-head">
       <div className="notice-head__title flex flex-col">
         <div className="flex justify-between m-8">
-          <span className="text-xl font-bold text-center">
+          <span className="text-xl font-bold text-center justify-center items-center flex">
             {getTitleFromSlug(props.head.slug)}
           </span>
           <button
