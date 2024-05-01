@@ -46,8 +46,10 @@ const BoardInfoComponent = (props: BoardInfoComponentProps) => {
       postDateTime.getMonth() === today.getMonth() &&
       postDateTime.getFullYear() === today.getFullYear()
     ) {
-      return `${postDateTime.getHours()}:${postDateTime.getMinutes()}`;
-      // return postDateTime.toLocaleTimeString();
+      const hour = postDateTime.getHours().toString().padStart(2, "0");
+      const minute = postDateTime.getMinutes().toString().padStart(2, "0");
+      return `${hour}:${minute}`;
+      // return `${postDateTime.getHours()}:${postDateTime.getMinutes()}`;
     } else {
       // const formattedDate = `${postDateTime.getFullYear()}-${
       //   postDateTime.getMonth() + 1

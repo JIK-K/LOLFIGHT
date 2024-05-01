@@ -98,3 +98,20 @@ export const getLike = async (
 
   return await axios.post(url, body);
 };
+
+/*
+ * 게시글 조회수 증가
+ * @param
+ * @returns
+ */
+export const increaseView = async (
+  postDTO: PostDTO
+): Promise<AxiosResponse<ResponseDTO<PostDTO>>> => {
+  let url = `${baseUrl}/view`;
+
+  const body = {
+    postDTO: postDTO,
+  };
+
+  return await axios.post(url, body);
+};

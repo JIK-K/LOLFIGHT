@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { getPostContent } from "@/src/api/post.api";
+import { getPostContent, increaseView } from "@/src/api/post.api";
 import BoardNavComponent from "../../components/BoardNavComponent";
 import BoardPostComponent from "../../components/post/BoardPostComponent";
 import { PostDTO } from "@/src/common/DTOs/board/post.dto";
@@ -13,10 +13,6 @@ type PageProps = {
   id: string;
 };
 
-interface postProps {
-  data: PostDTO;
-}
-
 function getTitleFromSlug(slug: string) {
   const link = boardNavLinks.find((link) => link.href === `/board/${slug}`);
   return link?.title ?? "";
@@ -27,10 +23,7 @@ function getSlugFromTitle(title: string) {
   return link?.slug ?? "";
 }
 
-export default function Page(
-  { params }: { params: PageProps },
-  props: postProps
-) {
+export default function Page({ params }: { params: PageProps }) {
   // const router = useRouter();
   // const { postDTO } = router.query;
   const [post, setPost] = useState<PostDTO>();
@@ -41,11 +34,20 @@ export default function Page(
       getPostContent(getTitleFromSlug(params.slug), params.id).then((res) => {
         console.log("res", res);
         setPost(res.data.data);
+        // if (res.data.data) {
+        //   increaseView(res.data.data);
+        // }
         // console.log("post", post);
         // console.log("postContent", res.data.data.postContent);
       });
     }
   });
+
+  useEffect(() => {
+    if (post) {
+      increaseView(post);
+    }
+  }, [post]);
 
   return (
     <>
