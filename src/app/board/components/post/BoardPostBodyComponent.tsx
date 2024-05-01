@@ -37,16 +37,18 @@ const BoardPostBodyComponent = (props: BoardPostBodyComponentProps) => {
     const storedId = sessionStorage.getItem("id")?.toString();
 
     if (storedId) {
-      getLike(props.data, storedId).then((res) => {
-        console.log("교촌마을", res);
-        if (res.data.data) {
-          setLike(1);
-        } else {
-          setLike(0);
-        }
-      });
+      if (props.data) {
+        getLike(props.data, storedId).then((res) => {
+          console.log("교촌마을", res);
+          if (res.data.data) {
+            setLike(1);
+          } else {
+            setLike(0);
+          }
+        });
+      }
     }
-  });
+  }, [props.data]);
 
   const handleChangeComment = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCommentContent(e.target.value);
@@ -62,6 +64,11 @@ const BoardPostBodyComponent = (props: BoardPostBodyComponentProps) => {
       likePost(props.data, storedId).then((res) => {
         console.log(res);
         router.refresh();
+        if (like === 0) {
+          setLike(1);
+        } else {
+          setLike(0);
+        }
       });
     } else {
       console.log("로그인이 필요합니다.");
