@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import { getPostContent, likePost } from "@/src/api/post.api";
+import { getPostContent, likePost, getLike } from "@/src/api/post.api";
 import { writeComment } from "@/src/api/comment.api";
 import { PostDTO } from "@/src/common/DTOs/board/post.dto";
 import { Editor } from "@toast-ui/react-editor";
@@ -26,11 +26,27 @@ const BoardPostBodyComponent = (props: BoardPostBodyComponentProps) => {
   const [content, setContent] = useState<String>();
   const [commentContent, setCommentContent] = useState("");
   const [commentBoxKey, setCommentBoxKey] = useState(0); // State for key prop
+  const [like, setLike] = useState(0);
 
   useEffect(() => {
     console.log("editorRef.current", props.data?.postContent);
     setContent(props.data?.postContent);
   }, [props.data]);
+
+  useEffect(() => {
+    const storedId = sessionStorage.getItem("id")?.toString();
+
+    if (storedId) {
+      getLike(props.data, storedId).then((res) => {
+        console.log("교촌마을", res);
+        if (res.data.data) {
+          setLike(1);
+        } else {
+          setLike(0);
+        }
+      });
+    }
+  });
 
   const handleChangeComment = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCommentContent(e.target.value);
@@ -45,6 +61,7 @@ const BoardPostBodyComponent = (props: BoardPostBodyComponentProps) => {
     if (storedId) {
       likePost(props.data, storedId).then((res) => {
         console.log(res);
+        router.refresh();
       });
     } else {
       console.log("로그인이 필요합니다.");
@@ -86,12 +103,23 @@ const BoardPostBodyComponent = (props: BoardPostBodyComponentProps) => {
         ></div>
       </div>
       <div className="board-post-body__status m-auto">
-        <button
-          className="border border-gray-400 h-10 text-gray-400 rounded transition hover:bg-brandcolor hover:text-white w-20 m-1"
-          onClick={handleOnClick}
-        >
-          <span className="">추천</span>
-        </button>
+        {/* 만약 like가 1이면 검정색 버튼 */}
+        {/* 만약 like가 0이면 회색 버튼 */}
+        {like === 0 ? (
+          <button
+            className="border border-gray-400 h-10 text-gray-400 rounded transition hover:bg-brandcolor hover:text-white w-20 m-1"
+            onClick={handleOnClick}
+          >
+            <span className="">추천</span>
+          </button>
+        ) : (
+          <button
+            className="border border-gray-400 h-10 text-white rounded bg-brandcolor transition hover:bg-white hover:text-gray-400 w-20 m-1"
+            onClick={handleOnClick}
+          >
+            <span className="">추천</span>
+          </button>
+        )}
         {/* <button className="border border-black bg-brandcolor text-white">
           공유
         </button> */}

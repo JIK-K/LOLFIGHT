@@ -79,3 +79,39 @@ export const likePost = async (
 
   return await axios.post(url, body);
 };
+
+/*
+ * 게시글 추천 여부 조회
+ * @param
+ * @returns
+ */
+export const getLike = async (
+  postDTO: PostDTO,
+  memberId: string
+): Promise<AxiosResponse<ResponseDTO<LikeDTO>>> => {
+  let url = `${baseUrl}/getLike`;
+
+  const body = {
+    postDTO: postDTO,
+    memberId: memberId,
+  };
+
+  return await axios.post(url, body);
+};
+
+/*
+ * 게시글 조회수 증가
+ * @param
+ * @returns
+ */
+export const increaseView = async (
+  postDTO: PostDTO
+): Promise<AxiosResponse<ResponseDTO<PostDTO>>> => {
+  let url = `${baseUrl}/view`;
+
+  const body = {
+    postDTO: postDTO,
+  };
+
+  return await axios.post(url, body);
+};
