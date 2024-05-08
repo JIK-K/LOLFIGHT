@@ -115,3 +115,20 @@ export const increaseView = async (
 
   return await axios.post(url, body);
 };
+
+/*
+ * 게시글 삭제
+ * @param
+ * @returns
+ */
+export const deletePost = async (
+  postDTO: PostDTO
+): Promise<AxiosResponse<ResponseDTO<PostDTO>>> => {
+  let url = `${baseUrl}/delete`;
+
+  const body = {
+    postDTO: postDTO,
+  };
+
+  return await axios.post(url, body);
+};

@@ -11,14 +11,7 @@ const BoardPostComponent = (props: PostProps) => {
     <div className="w-full bg-white ml-8 shadow-md">
       <div className="">
         <div className="head">
-          <BoardPostHeadComponent
-            post={{
-              title: props.data?.postTitle,
-              writer: props.data?.postWriter,
-              date: props.data?.postDate,
-              views: props.data?.postViews,
-            }}
-          ></BoardPostHeadComponent>
+          <BoardPostHeadComponent post={props.data}></BoardPostHeadComponent>
         </div>
         <div className="body">
           <BoardPostBodyComponent data={props.data} />
