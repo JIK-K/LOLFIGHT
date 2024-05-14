@@ -55,9 +55,9 @@ const GuildSummeryRecord = (props: Props) => {
                     100
                   ).toFixed(2)}%)`}
             </p>
-            <p className="text-sky-500 font-extrabold text-16px">
+            {/* <p className="text-sky-500 font-extrabold text-16px">
               0 연승중(더미데이터)
-            </p>
+            </p> */}
           </div>
         </div>
         <div className="w-400px h-40 flex flex-col border-l-2 pl-10">
