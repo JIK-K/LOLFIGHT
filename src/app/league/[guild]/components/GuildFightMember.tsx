@@ -1,101 +1,77 @@
+import { BattleDTO } from "@/src/common/DTOs/battle/battle.dto";
+import constant from "@/src/common/constant/constant";
 import React from "react";
 
-const GuildFightMember = () => {
+interface Props {
+  battleData: BattleDTO;
+}
+
+const renderPlayerInfo = (
+  championId: number | null | undefined,
+  playerName: string | null | undefined
+) => {
+  if (championId == null || undefined || playerName == null || undefined) {
+    return <div></div>;
+  }
+  return (
+    <div className="w-full flex gap-1">
+      <img
+        src={`${constant.SERVER_URL}/public/champions/${championId}.png`}
+        alt="Champion"
+        width={20}
+        height={20}
+      />
+      <p className="text-14px">{playerName}</p>
+    </div>
+  );
+};
+
+const GuildFightMember = (props: Props) => {
   return (
     <div className="flex">
       <div className="flex flex-col w-250px gap-0.5">
-        <div className="w-full flex gap-1">
-          <img
-            src="https://opgg-static.akamaized.net/meta/images/lol/14.1.1/champion/Malphite.png?image=c_crop,h_103,w_103,x_9,y_9/q_auto,f_webp,w_160,h_160&v=1705738385020"
-            alt="Champion"
-            width={20}
-            height={20}
-          />
-          <p className="text-14px">일이삼사오육칠팔구십일이삼사오육</p>
-        </div>
-        <div className="w-full flex gap-1">
-          <img
-            src="https://opgg-static.akamaized.net/meta/images/lol/14.1.1/champion/Aatrox.png?image=c_crop,h_103,w_103,x_9,y_9/q_auto,f_webp,w_160,h_160&v=1705738385020"
-            alt="Champion"
-            width={20}
-            height={20}
-          />
-          <p className="text-14px">롤의최대닉네임길이는열여섯자리수</p>
-        </div>
-        <div className="w-full flex gap-1">
-          <img
-            src="https://opgg-static.akamaized.net/meta/images/lol/14.1.1/champion/Corki.png?image=c_crop,h_103,w_103,x_9,y_9/q_auto,f_webp,w_160,h_160&v=1705738385020"
-            alt="Champion"
-            width={20}
-            height={20}
-          />
-          <p className="text-14px">짧은놈</p>
-        </div>
-        <div className="w-full flex gap-1">
-          <img
-            src="https://opgg-static.akamaized.net/meta/images/lol/14.1.1/champion/Heimerdinger.png?image=c_crop,h_103,w_103,x_9,y_9/q_auto,f_webp,w_160,h_160&v=1705738385020"
-            alt="Champion"
-            width={20}
-            height={20}
-          />
-          <p className="text-14px">제로거</p>
-        </div>
-        <div className="w-full flex gap-1">
-          <img
-            src="https://opgg-static.akamaized.net/meta/images/lol/14.1.1/champion/Twitch.png?image=c_crop,h_103,w_103,x_9,y_9/q_auto,f_webp,w_160,h_160&v=1705738385020"
-            alt="Champion"
-            width={20}
-            height={20}
-          />
-          <p className="text-14px">롤의최대닉네임길이는열여섯자리수</p>
-        </div>
+        {renderPlayerInfo(
+          props.battleData.teamA.player1?.championId,
+          props.battleData.teamA.player1?.summonerName
+        )}
+        {renderPlayerInfo(
+          props.battleData.teamA.player2?.championId,
+          props.battleData.teamA.player2?.summonerName
+        )}
+        {renderPlayerInfo(
+          props.battleData.teamA.player3?.championId,
+          props.battleData.teamA.player3?.summonerName
+        )}
+        {renderPlayerInfo(
+          props.battleData.teamA.player4?.championId,
+          props.battleData.teamA.player4?.summonerName
+        )}
+        {renderPlayerInfo(
+          props.battleData.teamA.player5?.championId,
+          props.battleData.teamA.player5?.summonerName
+        )}
       </div>
       <div className="flex flex-col w-250px gap-0.5">
-        <div className="w-full flex gap-1">
-          <img
-            src="https://opgg-static.akamaized.net/meta/images/lol/14.1.1/champion/Jax.png?image=c_crop,h_103,w_103,x_9,y_9/q_auto,f_webp,w_160,h_160&v=1705738385020"
-            alt="Champion"
-            width={20}
-            height={20}
-          />
-          <p className="text-14px">일이삼사오육칠팔구십일이삼사오육</p>
-        </div>
-        <div className="w-full flex gap-1">
-          <img
-            src="https://opgg-static.akamaized.net/meta/images/lol/14.1.1/champion/Taric.png?image=c_crop,h_103,w_103,x_9,y_9/q_auto,f_webp,w_160,h_160&v=1705738385020"
-            alt="Champion"
-            width={20}
-            height={20}
-          />
-          <p className="text-14px">롤의최대닉네임길이는열여섯자리수</p>
-        </div>
-        <div className="w-full flex gap-1">
-          <img
-            src="https://opgg-static.akamaized.net/meta/images/lol/14.1.1/champion/Evelynn.png?image=c_crop,h_103,w_103,x_9,y_9/q_auto,f_webp,w_160,h_160&v=1705738385020"
-            alt="Champion"
-            width={20}
-            height={20}
-          />
-          <p className="text-14px">짧은놈</p>
-        </div>
-        <div className="w-full flex gap-1">
-          <img
-            src="https://opgg-static.akamaized.net/meta/images/lol/14.1.1/champion/Zilean.png?image=c_crop,h_103,w_103,x_9,y_9/q_auto,f_webp,w_160,h_160&v=1705738385020"
-            alt="Champion"
-            width={20}
-            height={20}
-          />
-          <p className="text-14px">제로거</p>
-        </div>
-        <div className="w-full flex gap-1">
-          <img
-            src="https://opgg-static.akamaized.net/meta/images/lol/14.1.1/champion/Galio.png?image=c_crop,h_103,w_103,x_9,y_9/q_auto,f_webp,w_160,h_160&v=1705738385020"
-            alt="Champion"
-            width={20}
-            height={20}
-          />
-          <p className="text-14px">롤의최대닉네임길이는열여섯자리수</p>
-        </div>
+        {renderPlayerInfo(
+          props.battleData.teamB.player1?.championId,
+          props.battleData.teamB.player1?.summonerName
+        )}
+        {renderPlayerInfo(
+          props.battleData.teamB.player2?.championId,
+          props.battleData.teamB.player2?.summonerName
+        )}
+        {renderPlayerInfo(
+          props.battleData.teamB.player3?.championId,
+          props.battleData.teamB.player3?.summonerName
+        )}
+        {renderPlayerInfo(
+          props.battleData.teamB.player4?.championId,
+          props.battleData.teamB.player4?.summonerName
+        )}
+        {renderPlayerInfo(
+          props.battleData.teamB.player5?.championId,
+          props.battleData.teamB.player5?.summonerName
+        )}
       </div>
     </div>
   );

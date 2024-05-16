@@ -16,6 +16,9 @@ import GuildMemberBox from "../../profile/components/GuildMemberBox";
 import { MemberDTO } from "@/src/common/DTOs/member/member.dto";
 import CustomAlert from "@/src/common/components/alert/CustomAlert";
 import { GuildInviteSendDTO } from "@/src/common/DTOs/guild/guild_invite_send.dto";
+import { BattleDTO } from "@/src/common/DTOs/battle/battle.dto";
+import { getBattleList } from "@/src/api/battle.api";
+import { BattleTeamDTO } from "@/src/common/DTOs/battle/battle_team.dto";
 
 export default function GuildPage() {
   const router = useRouter();
@@ -23,10 +26,12 @@ export default function GuildPage() {
   const [currentTab, setCurrentTab] = useState("guildInfo");
   const [guildMembers, setGuildMembers] = useState<MemberDTO[]>([]);
   const [memberId, setMemberId] = useState<string>();
+  const [battleDataList, setBattleDataList] = useState<BattleDTO[]>([]);
   const guild = usePathname();
 
   useEffect(() => {
-    const guildName = guild.replace(/^\/league\//, "");
+    // const guildName = guild.replace(/^\/league\//, "");
+    const guildName = decodeURIComponent(guild.replace(/^\/league\//, ""));
 
     getGuildInfo(guildName)
       .then((response) => {
@@ -41,6 +46,22 @@ export default function GuildPage() {
         setGuildMembers(response.data.data);
       })
       .catch((error) => {});
+
+    getBattleList(guildName).then((response) => {
+      console.log(guildName);
+      console.log(response);
+      let tempBattle: BattleDTO[] = response.data.data;
+      let tempBattleTeam: BattleTeamDTO;
+      tempBattle.forEach((battle) => {
+        if (battle.teamA.guildName !== guildName) {
+          console.log(battle);
+          tempBattleTeam = battle.teamA;
+          battle.teamA = battle.teamB;
+          battle.teamB = tempBattleTeam;
+        }
+      });
+      setBattleDataList(tempBattle);
+    });
   }, []);
 
   useEffect(() => {
@@ -102,13 +123,9 @@ export default function GuildPage() {
                     />
                   </div>
                   <div className="w-full flex flex-col">
-                    <GuildFightRecord result="win" />
-                    <GuildFightRecord result="win" />
-                    <GuildFightRecord result="lose" />
-                    <GuildFightRecord result="win" />
-                    <GuildFightRecord result="lose" />
-                    <GuildFightRecord result="win" />
-                    <GuildFightRecord result="lose" />
+                    {battleDataList.map((battle) => (
+                      <GuildFightRecord key={battle.id} battleData={battle} />
+                    ))}
                   </div>
                 </div>
               )}

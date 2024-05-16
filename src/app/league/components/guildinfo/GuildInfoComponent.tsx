@@ -10,8 +10,10 @@ interface GuildInfoComponentProps {
 
 const GuildInfoComponent = (props: GuildInfoComponentProps) => {
   const router = useRouter();
+
   const handleGuildInfo = () => {
-    router.replace(`/league/${props.guild.guildName}`);
+    const encodedGuildName = encodeURIComponent(props.guild.guildName);
+    router.replace(`/league/${encodedGuildName}`);
   };
 
   return (

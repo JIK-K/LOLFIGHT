@@ -89,7 +89,7 @@ export const leaveMember = async (
 };
 
 /**
- * member 찾기
+ * member 찾기 (id)
  * @param id
  * @returns
  */
@@ -99,6 +99,21 @@ export const findMember = async (
   let url = `${baseUrl}/find`;
 
   let queryParams = `?id=${id}`;
+  url += queryParams;
+  return await axios.get(url);
+};
+
+/**
+ * member 찾기 (name)
+ * @param id
+ * @returns
+ */
+export const findMemberByName = async (
+  name: string
+): Promise<AxiosResponse<ResponseDTO<MemberDTO>>> => {
+  let url = `${baseUrl}/findByName`;
+
+  let queryParams = `?name=${name}`;
   url += queryParams;
   return await axios.get(url);
 };
