@@ -136,7 +136,7 @@ const GuildFightRecord = (props: Props) => {
 
         {/* 4 */}
         <div className="w-500px p-2">
-          <GuildFightMember />
+          <GuildFightMember battleData={props.battleData} />
         </div>
 
         {/* 5 */}
@@ -157,7 +157,7 @@ const GuildFightRecord = (props: Props) => {
       </div>
       {showDetails && (
         <div className="w-full h-full pb-2">
-          <GuildFightDetail />
+          <GuildFightDetail battleData={props.battleData} />
         </div>
       )}
     </div>

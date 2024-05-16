@@ -24,4 +24,6 @@ export interface BattlePlayerDTO extends BaseDTO {
   perk3: number;
   perk4: number;
   perk5: number;
+
+  perkSub: number;
 }
