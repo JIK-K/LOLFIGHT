@@ -48,13 +48,10 @@ export default function GuildPage() {
       .catch((error) => {});
 
     getBattleList(guildName).then((response) => {
-      console.log(guildName);
-      console.log(response);
       let tempBattle: BattleDTO[] = response.data.data;
       let tempBattleTeam: BattleTeamDTO;
       tempBattle.forEach((battle) => {
         if (battle.teamA.guildName !== guildName) {
-          console.log(battle);
           tempBattleTeam = battle.teamA;
           battle.teamA = battle.teamB;
           battle.teamB = tempBattleTeam;
