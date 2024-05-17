@@ -1,11 +1,43 @@
-import React from "react";
-import Image from "next/image";
-import TestImg2 from "../../../../common/assets/image/TestImg2.png";
+import React, { useEffect } from "react";
+import { BattlePlayerDTO } from "@/src/common/DTOs/battle/battle_player.dto";
+import constant from "@/src/common/constant/constant";
 interface Props {
-  result: string;
+  battlePlayerData: BattlePlayerDTO;
+  result: boolean;
+  guildName: string;
+  highestDamage: number;
 }
+
 const GuildFightBox = (props: Props) => {
-  const result = props.result;
+  const result = props.result ? "win" : "lose";
+  const kda =
+    props.battlePlayerData?.deaths === 0
+      ? "Perfect"
+      : (
+          (props.battlePlayerData?.killed + props.battlePlayerData?.assists) /
+          props.battlePlayerData?.deaths
+        ).toFixed(2);
+
+  // KDA에 따라 색상을 동적으로 지정하는 함수
+  const getKDABackgroundColor = (kda: number | string) => {
+    if (
+      kda === "Perfect" ||
+      (typeof kda === "string" && parseFloat(kda) >= 4.0)
+    ) {
+      return "text-red-500 font-bold underline"; // Perfect일 경우 빨간색
+    } else if (typeof kda === "string" && parseFloat(kda) >= 3.0) {
+      return "text-blue-500 font-bold"; // 4.0 이상일 경우 초록색
+    } else if (typeof kda === "string" && parseFloat(kda) >= 2.0) {
+      return "text-green-500"; // 3.0 이상일 경우 파란색
+    } else {
+      return "text-gray-500"; // 그 외의 경우 회색
+    }
+  };
+
+  if (props.battlePlayerData == null || undefined) {
+    return <div></div>;
+  }
+
   return (
     <div
       className={`w-full h-45px flex text-14px pl-2 pr-2 gap-3 ${
@@ -14,69 +46,110 @@ const GuildFightBox = (props: Props) => {
     >
       {/* 플레이어 */}
       <div className="flex h-full font-medium text-14px pb-3 pt-3 w-250px gap-2">
-        <Image src={TestImg2} alt="GuildBanner" width={22} height={22} />
-        <p>태양같은사나이</p>
+        <img
+          src={`${constant.SERVER_URL}/public/guild/${props.guildName}.png`}
+          alt="GuildBanner"
+          width={22}
+          height={22}
+        />
+        <img
+          src={`${constant.SERVER_URL}/public/champions/${props.battlePlayerData.championId}.png`}
+          alt="Champion"
+          width={20}
+          height={20}
+        />
+        <p>{props.battlePlayerData.summonerName}</p>
       </div>
 
+      {/* Spell/Rune */}
+      <div className="flex w-50px gap-1">
+        <div className="flex flex-col">
+          <img
+            src={`${constant.SERVER_URL}/public/spell/${props.battlePlayerData.spell1Id}.png`}
+            alt="spell1"
+            width={20}
+          />
+          <img
+            src={`${constant.SERVER_URL}/public/spell/${props.battlePlayerData.spell2Id}.png`}
+            alt="spell2"
+            width={20}
+          />
+        </div>
+        <div className="flex flex-col">
+          <img
+            src={`${constant.SERVER_URL}/public/rune/${props.battlePlayerData.perk0}.png`}
+            alt="rune"
+            width={20}
+          />
+          <img
+            src={`${constant.SERVER_URL}/public/rune/${props.battlePlayerData.perkSub}.png`}
+            alt="sub_rune"
+            width={18}
+          />
+        </div>
+      </div>
       {/* KDA */}
-      <div className="flex font-medium pb-3 pt-3 w-120px">2.42</div>
+      <div className={`flex flex-col justify-center font-medium w-120px `}>
+        <div className={`text-12px ${getKDABackgroundColor(kda)}`}>
+          평점 {kda}
+        </div>
+        <div className="font-light">
+          {props.battlePlayerData.killed} / {props.battlePlayerData.deaths} /{" "}
+          {props.battlePlayerData.assists}
+        </div>
+      </div>
 
       {/* 피해량 */}
-      <div className="flex pb-3 pt-3 w-250px">
-        <div className="w-3/4 h-full bg-gray-500 relative drop-shadow-md rounded">
+      <div className="flex pb-3 pt-3 w-220px">
+        <div className="w-200px h-full bg-gray-500 relative drop-shadow-md rounded">
           <div
             className={`h-full bg-red-500 rounded`}
-            style={{ width: "30%" }} // 여기에 피해량에 대한 백분율 값을 동적으로 설정
+            style={{
+              width: `${
+                (props.battlePlayerData.totalChampionsDamage /
+                  props.highestDamage) *
+                100
+              }%`,
+            }}
           ></div>
           <p className="absolute text-12px top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white ">
-            12,200
+            {props.battlePlayerData.totalChampionsDamage}
           </p>
         </div>
       </div>
 
       {/* CS */}
-      <div className="flex flex-col pb-1 pt-2 w-100px text-12px">
-        <p className="h-full font-extrabold">100</p>
-        <p className="h-full text-12px text-gray-500"> 분당 5.2</p>
+      <div className="flex flex-col pb-1 pt-2 w-60px text-12px">
+        <p className="h-full font-normal">
+          레벨 {props.battlePlayerData.level}
+        </p>
+        <p className="h-full font-extrabold ">
+          CS {props.battlePlayerData.minionsKilled}
+        </p>
+      </div>
+
+      {/* 시야점수 */}
+      <div className="flex flex-col pb-1 pt-2 w-60px text-14px">
+        <p className="font-light pl-2 pt-1">
+          {props.battlePlayerData.visionScore}
+        </p>
       </div>
 
       {/* 아이템 */}
       <div className="flex w-300px pt-2 pb-2 text-12px gap-1">
-        <img
-          src="https://opgg-static.akamaized.net/meta/images/lol/14.1.1/item/6653.png?image=q_auto,f_webp,w_64,h_64&amp;v=1705738385020"
-          className="object-contain w-30px"
-          alt="리안드리의 고통"
-        />
-        <img
-          src="https://opgg-static.akamaized.net/meta/images/lol/14.1.1/item/2055.png?image=q_auto,f_webp,w_64,h_64&amp;v=1705738385020"
-          className="object-contain w-30px"
-          alt="제어 와드"
-        />
-        <img
-          src="https://opgg-static.akamaized.net/meta/images/lol/14.1.1/item/3145.png?image=q_auto,f_webp,w_64,h_64&amp;v=1705738385020"
-          className="object-contain w-30px"
-          alt="마법공학 교류 발전기"
-        />
-        <img
-          src="https://opgg-static.akamaized.net/meta/images/lol/14.1.1/item/3118.png?image=q_auto,f_webp,w_64,h_64&amp;v=1705738385020"
-          className="object-contain w-30px"
-          alt="악의"
-        />
-        <img
-          src="https://opgg-static.akamaized.net/meta/images/lol/14.1.1/item/3115.png?image=q_auto,f_webp,w_64,h_64&amp;v=1705738385020"
-          className="object-contain w-30px"
-          alt="내셔의 이빨"
-        />
-        <img
-          src="https://opgg-static.akamaized.net/meta/images/lol/14.1.1/item/3009.png?image=q_auto,f_webp,w_64,h_64&amp;v=1705738385020"
-          className="object-contain w-30px"
-          alt="신속의 장화"
-        />
-        <img
-          src="https://opgg-static.akamaized.net/meta/images/lol/14.1.1/item/3364.png?image=q_auto,f_webp,w_64,h_64&amp;v=1705738385020"
-          className="object-contain w-30px"
-          alt="예언자의 렌즈"
-        />
+        {props.battlePlayerData.items.split(",").map((itemId, index) => {
+          const itemNumber = parseInt(itemId.trim());
+          return (
+            itemNumber !== 0 && (
+              <img
+                key={index}
+                src={`${constant.SERVER_URL}/public/items/${itemNumber}.png`}
+                className="object-contain w-30px"
+                alt={`Item${itemNumber}`}
+              />
+            )
+          );
+        })}
       </div>
     </div>
   );

@@ -5,8 +5,6 @@ import LeagueHeaderComponent from "./components/LeagueHeaderComponent";
 import { GuildDTO } from "@/src/common/DTOs/guild/guild.dto";
 import { getGuildList } from "@/src/api/guild.api";
 
-const blackurl = "/images/검은주먹해적단.png";
-
 export default function Page() {
   const [guildList, setGuildList] = useState<GuildDTO[]>([]);
 

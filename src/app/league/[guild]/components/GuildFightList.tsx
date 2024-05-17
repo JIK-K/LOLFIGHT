@@ -1,13 +1,23 @@
-import React from "react";
-import Image from "next/image";
-import TestImg2 from "../../../../common/assets/image/TestImg2.png";
+import React, { useEffect, useState } from "react";
 import GuildFightBox from "./GuildFightBox";
+import { BattleTeamDTO } from "@/src/common/DTOs/battle/battle_team.dto";
+import constant from "@/src/common/constant/constant";
+import { getGuildInfo } from "@/src/api/guild.api";
+import { GuildDTO } from "@/src/common/DTOs/guild/guild.dto";
 
 interface Props {
-  result: string;
+  battleTeamData: BattleTeamDTO;
 }
+
 const GuildFightList = (props: Props) => {
-  const result = props.result;
+  const result = props.battleTeamData.isWinning ? "win" : "lose";
+  const highestChampionDamage = findHighestDamagePlayer(props.battleTeamData);
+  const [guildData, setGuildData] = useState<GuildDTO>();
+  useEffect(() => {
+    getGuildInfo(props.battleTeamData.guildName).then((response) => {
+      setGuildData(response.data.data);
+    });
+  }, []);
   return (
     <div className="w-full h-full flex flex-col drop-shadow-md">
       {/* 1 */}
@@ -24,30 +34,83 @@ const GuildFightList = (props: Props) => {
           >
             {result === "win" ? "승리" : "패배"}
           </p>
-          <Image src={TestImg2} alt="GuildBanner" width={25} height={25} />
-          <p className="font-semibold">marineClan</p>
+          <img
+            src={`${constant.SERVER_URL}/public/guild/${props.battleTeamData.guildName}.png`}
+            alt="GuildBanner"
+            width={25}
+            height={25}
+          />
+          <p className="font-semibold pl-2">{props.battleTeamData.guildName}</p>
         </div>
-        <p className="text-14px text-gray-500">블루팀 1부리그 - 1233점</p>
+        <p className="text-14px text-gray-500">
+          1부리그 - {guildData?.guildRecord?.recordLadder}점
+        </p>
       </div>
 
       {/* 2 */}
       <div className="w-full flex pl-2 pr-2 gap-3 text-12px">
         <div className="w-250px">플레이어</div>
+        <div className="w-50px">S/R</div>
         <div className="w-120px">KDA</div>
-        <div className="w-250px">피해량</div>
-        <div className="w-100px">CS</div>
+        <div className="w-220px">피해량</div>
+        <div className="w-60px">LV/CS</div>
+        <div className="w-60px">시야점수</div>
         <div className="w-350px">아이템</div>
       </div>
 
       {/* 3 */}
 
-      <GuildFightBox result={props.result} />
-      <GuildFightBox result={props.result} />
-      <GuildFightBox result={props.result} />
-      <GuildFightBox result={props.result} />
-      <GuildFightBox result={props.result} />
+      <GuildFightBox
+        battlePlayerData={props.battleTeamData.player1}
+        result={props.battleTeamData.isWinning}
+        guildName={props.battleTeamData.guildName}
+        highestDamage={highestChampionDamage}
+      />
+      <GuildFightBox
+        battlePlayerData={props.battleTeamData.player2}
+        result={props.battleTeamData.isWinning}
+        guildName={props.battleTeamData.guildName}
+        highestDamage={highestChampionDamage}
+      />
+      <GuildFightBox
+        battlePlayerData={props.battleTeamData.player3}
+        result={props.battleTeamData.isWinning}
+        guildName={props.battleTeamData.guildName}
+        highestDamage={highestChampionDamage}
+      />
+      <GuildFightBox
+        battlePlayerData={props.battleTeamData.player4}
+        result={props.battleTeamData.isWinning}
+        guildName={props.battleTeamData.guildName}
+        highestDamage={highestChampionDamage}
+      />
+      <GuildFightBox
+        battlePlayerData={props.battleTeamData.player5}
+        result={props.battleTeamData.isWinning}
+        guildName={props.battleTeamData.guildName}
+        highestDamage={highestChampionDamage}
+      />
     </div>
   );
+};
+
+// 가장 높은 피해량을 가진 플레이어를 찾는 함수
+const findHighestDamagePlayer = (teamData: BattleTeamDTO) => {
+  let highestDamage = 0;
+
+  for (const player of [
+    teamData.player1,
+    teamData.player2,
+    teamData.player3,
+    teamData.player4,
+    teamData.player5,
+  ]) {
+    if (player?.totalChampionsDamage > highestDamage) {
+      highestDamage = player.totalChampionsDamage;
+    }
+  }
+
+  return highestDamage;
 };
 
 export default GuildFightList;

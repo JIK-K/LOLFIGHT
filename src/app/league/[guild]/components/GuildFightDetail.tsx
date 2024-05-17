@@ -1,7 +1,23 @@
 import React from "react";
 import GuildFightList from "./GuildFightList";
+import { BattleDTO } from "@/src/common/DTOs/battle/battle.dto";
 
-const GuildFightDetail = () => {
+interface Props {
+  battleData: BattleDTO;
+}
+
+const formatDate = (batteDate: Date): string => {
+  const date = new Date(batteDate);
+  const year = date.getFullYear();
+  const month = date.getMonth();
+  const day = date.getDay();
+  const hours = date.getHours();
+  const minutes = date.getMinutes();
+
+  return `${year}년 ${month}월 ${day}일 ${hours}시 ${minutes}분`;
+};
+
+const GuildFightDetail = (props: Props) => {
   return (
     <div className="w-1200px border flex flex-col shadow pt-3 pb-3 bg-white border">
       {/* 1 */}
@@ -10,13 +26,15 @@ const GuildFightDetail = () => {
           <p className="font-bold">소환사의 협곡</p>
           <p className="text-gray-500">5 vs 5</p>
         </div>
-        <p className="text-gray-500">2024년 1월 1일 20시 22분</p>
+        <p className="text-gray-500">
+          {formatDate(props.battleData.createAt!)}
+        </p>
       </div>
 
       {/* 2 */}
       <div>
-        <GuildFightList result="win" />
-        <GuildFightList result="lose" />
+        <GuildFightList battleTeamData={props.battleData.teamA} />
+        <GuildFightList battleTeamData={props.battleData.teamB} />
       </div>
     </div>
   );
