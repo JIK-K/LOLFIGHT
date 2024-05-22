@@ -30,10 +30,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="font-['Pretendard'] bg-brandbgcolor h-screen">
-      <body>
-        <BaseLayout>{children}</BaseLayout>
+      <body className={`bg-[#FCFCFC] dark:bg-black`}>
+        <Providers>
+          <BaseLayout>{children}</BaseLayout>
+        </Providers>
       </body>
       {/* <body className={`${pretendard.className}`}>{children}</body> */}
     </html>
   );
 }
+
+import { Providers } from "./providers";

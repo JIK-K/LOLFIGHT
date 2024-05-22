@@ -5,13 +5,15 @@ import Header from "../common/components/Header";
 import Footer from "../common/components/Footer";
 import Navigation from "../common/components/Navigation";
 import Mobile from "../common/components/Mobile";
+import DesktopNavigation from "../common/components/Desktop/DesktopHeader";
 
 type Props = {
   children: React.ReactNode;
 };
 export default function BaseLayout({ children }: Props) {
   const pathname = usePathname();
-  const hideDefaultLayoutPaths = pathname.startsWith("/register");
+  const hideDefaultLayoutPaths =
+    pathname.startsWith("/register") || pathname.startsWith("/desktop");
 
   const [isMobile, setIsMobile] = useState<boolean>(false);
 
@@ -26,13 +28,15 @@ export default function BaseLayout({ children }: Props) {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
   return (
-    <div className="dd">
+    <>
       {isMobile && <Mobile />}
       {!isMobile && !hideDefaultLayoutPaths && <Header />}
       {!isMobile && !hideDefaultLayoutPaths && <Navigation />}
+      {!isMobile && hideDefaultLayoutPaths && <DesktopNavigation />}
       {!isMobile && <div className="main">{children}</div>}
       {!isMobile && !hideDefaultLayoutPaths && <Footer />}
-    </div>
+    </>
   );
 }
