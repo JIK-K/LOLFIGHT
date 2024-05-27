@@ -76,7 +76,7 @@ export default function Page() {
       <div className="flex justify-center mt-4">
         <span className="text-xs text-gray-700 font-bold mx-2">
           <Link key={"회원가입"} href="/register/signup">
-            회원가입
+            <span className="">회원가입</span>
           </Link>
         </span>
         <span className="h-4 w-1px mx-1 bg-gray-700"></span>

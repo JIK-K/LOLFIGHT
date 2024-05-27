@@ -19,10 +19,11 @@ export default function Page() {
         console.log(error);
       });
   }, []);
+
   return (
     <>
       <div className="w-full h-full h-96 mt-16">
-        <div className="w-1200px h-full mx-auto">
+        <div className="w-1200px h-full mx-auto mb-16">
           <LeagueHeaderComponent guildLength={guildList.length} />
           <div className="flex flex-col">
             {guildList.map((guild) => (

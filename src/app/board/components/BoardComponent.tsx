@@ -27,7 +27,7 @@ const BoardComponent = (props: BoardComponentProps) => {
   }, []);
 
   return (
-    <div className="notice w-full bg-white ml-8 shadow-md">
+    <div className="notice w-full bg-white dark:bg-dark ml-8 shadow-md">
       <div className="notice__head">
         <BoardHeadComponent
           head={{

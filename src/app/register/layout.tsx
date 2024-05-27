@@ -17,7 +17,7 @@ export default function RegisterLayout({
   return (
     <>
       <div className="font-['Pretendard']">
-        <div className="w-full">
+        <div className="w-full h-screen">
           <div className="mx-auto w-1200px">
             <div className="flex justify-center items-center pt-24 mb-8">
               <Link className="text-32px font-extrabold" key="home" href={"/"}>

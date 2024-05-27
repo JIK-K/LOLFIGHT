@@ -5,7 +5,7 @@ const BoardNavComponent = () => {
   return (
     <div>
       <div className="shadow-md">
-        <div className="flex flex-col w-52 leading-5 bg-white pt-2">
+        <div className="flex flex-col w-52 leading-5 bg-white dark:bg-dark pt-2">
           {boardNavLinks
             .filter((link) => link.href !== "/")
             .map((link) => (

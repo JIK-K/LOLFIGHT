@@ -33,7 +33,7 @@ export default function BaseLayout({ children }: Props) {
     <>
       {isMobile && <Mobile />}
       {!isMobile && !hideDefaultLayoutPaths && <Header />}
-      {!isMobile && !hideDefaultLayoutPaths && <Navigation />}
+      {/* {!isMobile && !hideDefaultLayoutPaths && <Navigation />} */}
       {!isMobile && hideDefaultLayoutPaths && <DesktopNavigation />}
       {!isMobile && <div className="main">{children}</div>}
       {!isMobile && !hideDefaultLayoutPaths && <Footer />}
