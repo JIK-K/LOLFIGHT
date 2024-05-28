@@ -6,8 +6,8 @@
     "dev": "next dev -p 4000",
     "dev:ssl": "node server.js",
     "build": "next build",
-    "start": "next start",
     "start:ssl": "NODE_ENV=production node server.js",
+    "start": "next start -p 4000",
     "lint": "next lint"
   },
   "dependencies": {

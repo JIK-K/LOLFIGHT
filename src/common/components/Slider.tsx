@@ -12,9 +12,9 @@ import "swiper/css/scrollbar";
 const slideData = [
   {
     id: 1,
-    text: "first slide",
-    type: "video",
-    content: "IgU0hkCuOM0",
+    text: "third slide",
+    type: "image",
+    content: "/images/whycanwin.png",
   },
   {
     id: 2,
@@ -29,10 +29,12 @@ const slideData = [
     content: "k6hWBB4HTiE",
   },
   {
+    
     id: 4,
-    text: "third slide",
-    type: "image",
-    content: "/images/yayaman.png",
+    text: "first slide",
+    type: "video",
+    content: "IgU0hkCuOM0",
+    
   },
 ];
 
