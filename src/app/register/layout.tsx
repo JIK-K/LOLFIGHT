@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title: "LOL.FIGHT",
   description: "Create and join League of Legends tournaments.",
   icons: {
-    icon: "/icon.ico",
+    icon: "/icon-blue.ico",
   },
 };
 
