@@ -66,8 +66,10 @@ const ChangePasswordPage = (props: Props) => {
     }
   };
   return (
-    <div className="flex flex-col w-full h-full leading-5 pt-2 bg-white rounded ">
-      <p className="font-bold text-xl p-5">비밀번호 변경</p>
+    <div className="w-1200px h-full pt-48 mx-auto">
+      <p className="font-bold text-xl p-5">
+        이 페이지가 따로 있어야할 이유가 없다
+      </p>
       <div className="border-[#11235A] border-t-2 p-10">
         <p className="pb-5 text-xl">비밀번호 변경</p>
         <div className="flex flex-col border-2 gap-2 p-5">

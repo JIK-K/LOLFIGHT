@@ -41,32 +41,31 @@ export default function Page() {
   };
 
   return (
-    <div className="w-1200px mx-auto h-full flex gap-5 rounded">
-      <div className="flex flex-col w-56 h-full leading-5 bg-white items-center pt-2 rounded">
-        <p className="font-bold text-xl p-5">내정보관리</p>
-        <div className="w-full flex flex-col items-center pt-3 border-[#11235A] border-t-2">
+    <>
+      <div className="w-full mx-auto h-full gap-5 rounded">
+        <div className="w-1200px h-16 flex flex-row items-center mx-auto">
           {/* 각 페이지로 이동하는 버튼들 */}
           <button
             onClick={() => changePage("profile")}
-            className="w-full p-2 hover:text-lg"
+            className="w-full h-full hover:bg-gray-100 dark:hover:bg-dark"
           >
-            개인정보 변경
+            내 정보
           </button>
           <button
             onClick={() => changePage("password")}
-            className="w-full p-2 hover:text-lg"
+            className="w-full h-full hover:bg-gray-100 dark:hover:bg-dark"
           >
             비밀번호 변경
           </button>
           <button
             onClick={() => changePage("guild")}
-            className="w-full p-2 hover:text-lg"
+            className="w-full h-full hover:bg-gray-100 dark:hover:bg-dark"
           >
             길드
           </button>
           <button
             onClick={() => changePage("withdrawal")}
-            className="w-full p-2 hover:text-lg"
+            className="w-full h-full hover:bg-gray-100 dark:hover:bg-dark"
           >
             회원탈퇴
           </button>
@@ -74,13 +73,14 @@ export default function Page() {
           {/* <button onClick={() => changePage("customerService")}>고객센터</button>
           <button onClick={() => changePage("announcement")}>공지사항</button> */}
         </div>
+        {/* <div className="w-full h-48 bg-black text-white">여기 커버 사진</div> */}
+        <div className="w-full h-full rounded bg-white dark:bg-dark">
+          {currentPage === "profile" && <ProfileInfoPage member={member} />}
+          {currentPage === "password" && <ChangePasswordPage member={member} />}
+          {currentPage === "withdrawal" && <WithdrawalPage member={member} />}
+          {currentPage === "guild" && <GuildManagePage member={member} />}
+        </div>
       </div>
-      <div className="w-full h-full bg-white rounded">
-        {currentPage === "profile" && <ProfileInfoPage member={member} />}
-        {currentPage === "password" && <ChangePasswordPage member={member} />}
-        {currentPage === "withdrawal" && <WithdrawalPage member={member} />}
-        {currentPage === "guild" && <GuildManagePage member={member} />}
-      </div>
-    </div>
+    </>
   );
 }

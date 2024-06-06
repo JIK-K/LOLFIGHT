@@ -63,7 +63,9 @@ const Header = () => {
           {memberName ? (
             <Dropdown className="bg-white rounded">
               <DropdownTrigger>
-                <Button className="font-light text-white">{memberName}</Button>
+                <Button className="p-1 rounded">
+                  <span className="font-light text-white">{memberName}</span>
+                </Button>
               </DropdownTrigger>
               <DropdownMenu
                 aria-label="member-setting"
