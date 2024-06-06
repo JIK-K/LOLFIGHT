@@ -23,6 +23,8 @@ export default function BaseLayout({ children }: Props) {
     };
     handleResize();
 
+    console.log(window.outerWidth);
+
     window.addEventListener("resize", handleResize);
     return () => {
       window.removeEventListener("resize", handleResize);
