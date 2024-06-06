@@ -5,52 +5,44 @@ interface Props {
 }
 const ProfileInfoPage = (props: Props) => {
   return (
-    <div className="flex flex-col w-full h-full leading-5 pt-2 bg-white rounded ">
-      <p className="font-bold text-xl p-5">개인정보</p>
-      <div className="border-[#11235A] border-t-2 p-10">
-        <p className="pb-5 text-xl">개인정보 변경</p>
-        <div className="flex flex-col border-2 gap-2 p-5">
-          <div className="flex flex-col w-full border-y-2 gap-2">
-            <div className="flex">
-              <div className="w-40 bg-brandbgcolor border-b p-2">
-                <p>아이디</p>
-              </div>
-              <div className="w-full p-2 border-b-2 pl-5">
-                {props.member.memberId}
-              </div>
-            </div>
-            <div className="flex">
-              <div className="w-40 bg-brandbgcolor border-b p-2">
-                <p>닉네임</p>
-              </div>
-              <div className="w-full p-2 border-y-2 pl-5">
-                {props.member.memberName}
-              </div>
-            </div>
-            <div className="flex">
-              <div className="w-40 bg-brandbgcolor p-2">
-                <p>소속길드</p>
-              </div>
-              <div className="w-full p-2 border-y-2 pl-5">
-                {props.member.memberGuild?.guildName}
-              </div>
-            </div>
-            <div className="flex">
-              <div className="w-40 bg-brandbgcolor p-2">
-                <p>롤 닉네임</p>
-              </div>
-              <div className="w-full p-2 border-y-2 pl-5">
-                {props.member.memberGame?.gameName}
-              </div>
-            </div>
-            <div className="flex">
-              <div className="w-40 bg-brandbgcolor p-2">
-                <p>롤 티어</p>
-              </div>
-              <div className="w-full border-t-2 p-2 pl-5">
-                {props.member.memberGame?.gameTier}
-              </div>
-            </div>
+    <div className="w-1200px h-full pt-48 mx-auto">
+      <p className="pb-5 text-xl font-normal border-b border-gray-200">
+        내 정보
+      </p>
+      <div className="flex mt-4">
+        <div className="w-32 h-32 bg-black my-auto"></div>
+        <div className="info-container flex-col ml-8">
+          <div className="flex items-center">
+            <p className="font-bold py-2 pr-8">이메일</p>
+            <p>{props.member.memberId}</p>
+          </div>
+          <div className="flex items-center">
+            <p className="font-bold py-2 pr-8">닉네임</p>
+            {props.member.memberName}
+          </div>
+          <div className="flex items-center">
+            <p className="font-bold py-2  pr-8">가입일</p>
+            88년 88월 88일
+          </div>
+          {/* <div className="flex flex-col">
+        <p>소속길드</p>
+        {props.member.memberGuild?.guildName}
+      </div> */}
+        </div>
+      </div>
+      <p className="pb-5 text-xl font-normal border-b border-gray-200 mt-8">
+        계정 정보
+      </p>
+      <div className="flex pt-4 pb-16">
+        <div className="flex flex-col">
+          <div className="flex items-center">
+            <p className="font-bold py-2 pr-8">인게임 닉네임</p>
+
+            {props.member.memberGame?.gameName}
+          </div>
+          <div className="flex items-center">
+            <p className="font-bold py-2 pr-24">티어</p>
+            {props.member.memberGame?.gameTier}
           </div>
         </div>
       </div>

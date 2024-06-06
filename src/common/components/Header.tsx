@@ -12,6 +12,8 @@ import {
   DropdownMenu,
   DropdownTrigger,
 } from "@nextui-org/react";
+import Navigation from "./Navigation";
+import ThemeToggler from "../components/Desktop/ThemeToggler";
 
 const Header = () => {
   const router = useRouter();
@@ -49,19 +51,20 @@ const Header = () => {
     <header className="sticky w-full bg-brandcolor top-0">
       <section className="w-1200px mx-auto h-16 flex justify-between items-center">
         <div className="flex items-center">
-          <Image width={64} height={64} src={logo} alt="logo" />
+          {/* <Image width={64} height={64} src={logo} alt="logo" /> */}
           <p className="font-extrabold text-white ml-2 text-xl">
             <Link key="home" href={"/"}>
               LOL.FIGHT
             </Link>
           </p>
         </div>
+        <Navigation />
         <div className="flex items-center">
           {memberName ? (
             <Dropdown className="bg-white rounded">
               <DropdownTrigger>
-                <Button className="font-extrabold text-white text-xl">
-                  {memberName}
+                <Button className="p-1 rounded">
+                  <span className="font-light text-white">{memberName}</span>
                 </Button>
               </DropdownTrigger>
               <DropdownMenu
@@ -91,6 +94,7 @@ const Header = () => {
             </Link>
           )}
         </div>
+        <ThemeToggler />
       </section>
     </header>
   );

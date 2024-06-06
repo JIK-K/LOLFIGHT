@@ -4,6 +4,7 @@ const headerNavLinks = [
   // { href: "/league/guild", title: "길드정보" },
   { href: "/board/all", title: "게시판" },
   // { href: "/register", title: "Register" },
+  { href: "/desktop", title: "Desktop" },
 ];
 
 export default headerNavLinks;

@@ -17,6 +17,7 @@ import GuildMemberBox from "./GuildMemberBox";
 import { GuildDTO } from "@/src/common/DTOs/guild/guild.dto";
 import { GuildInviteDTO } from "@/src/common/DTOs/guild/guild_invite.dto";
 import { leaveMember } from "@/src/api/member.api";
+import Image from "next/image";
 
 interface Props {
   member: MemberDTO;
@@ -122,9 +123,11 @@ const GuildManagePage = (props: Props) => {
   }, []);
 
   return (
-    <div className="flex flex-col w-full h-full leading-5 pt-2 bg-white rounded ">
-      <p className="font-bold text-xl p-5">길드</p>
-      <div className="border-[#11235A] border-t-2 p-10">
+    <div className="w-1200px h-full pt-48 mx-auto">
+      <p className="pb-5 text-xl font-normal border-b border-gray-200">
+        길드정보
+      </p>
+      <div className="">
         {props.member.memberGuild === null ||
         props.member.memberGuild === undefined ? (
           <div className="flex w-full">
@@ -183,141 +186,61 @@ const GuildManagePage = (props: Props) => {
             </div>
           </div>
         ) : (
-          <div className="flex flex-col w-full border-2 gap-2 p-5">
+          // 길드가 있을때
+          <div className="flex flex-col w-full gap-2 p-5">
             <div className="flex items-center">
-              <div className="border-2  rounded p-2 w-100px h-100px">
-                <img
+              <div className="rounded p-2 w-48 h-48 relative">
+                <Image
                   src={`${constant.SERVER_URL}/${props.member.memberGuild?.guildIcon}`}
                   alt="GuildIcon"
-                  className="h-full"
+                  layout="fill"
+                  objectFit="cover"
                 />
               </div>
-              <div className="w-full flex flex-col ml-2 gap-0.5">
-                <div className="flex border-2  items-center rounded">
-                  <div className="flex h-45px items-center border-r-2  pl-5 pr-5">
-                    <p className="flex w-100px font-extrabold text-xl justify-center">
-                      길드명
-                    </p>
-                  </div>
-                  <div className="flex w-full h-45px items-center pl-5 bg-brandbgcolor">
-                    <p className="font-extrabold text-xl text-brandcolor ">
-                      {props.member.memberGuild.guildName}
-                    </p>
-                  </div>
-                </div>
-                <div className="flex border-2  items-center rounded">
-                  <div className="flex h-45px items-center border-r-2  pl-5 pr-5">
-                    <p className="flex w-100px font-extrabold text-xl justify-center">
-                      길드마스터
-                    </p>
-                  </div>
-                  <div className="flex w-full h-45px items-center pl-5 bg-brandbgcolor">
-                    <p className="font-extrabold text-xl text-brandcolor">
-                      {props.member.memberGuild.guildMaster}
-                    </p>
-                  </div>
-                </div>
+              <div>
+                <span className="text-2xl font-bold">
+                  {props.member.memberGuild.guildName}
+                </span>
+                길드마스터
+                {props.member.memberGuild.guildMaster}
+                길드인원
+                {props.member.memberGuild.guildMaster}
+                래더점수
+                {guild?.guildRecord?.recordLadder}
+                길드티어
+                {props.member.memberGuild.guildTier}
+                길드랭킹
+                {guild?.guildRecord?.recordRanking}
+                길드전적
+                {guild?.guildRecord?.recordDefeat! +
+                  guild?.guildRecord?.recordVictory!}
+                전 {guild?.guildRecord?.recordVictory}승{" "}
+                {guild?.guildRecord?.recordDefeat}패{" "}
               </div>
             </div>
-
-            <div className="flex h-45px gap-2">
-              <div className="flex w-full border-2  rounded">
-                <div className="flex items-center border-r-2  pl-5 pr-5">
-                  <p className="flex w-100px font-extrabold text-xl justify-center">
-                    길드인원
-                  </p>
-                </div>
-                <div className="flex w-full bg-brandbgcolor items-center pl-5">
-                  <p className="font-extrabold text-xl text-brandcolor">
-                    {props.member.memberGuild.guildMaster}
-                  </p>
-                </div>
-              </div>
-              <div className="flex w-full border-2  rounded">
-                <div className="flex items-center border-r-2  pl-5 pr-5">
-                  <p className="flex w-100px font-extrabold text-xl justify-center">
-                    래더점수
-                  </p>
-                </div>
-                <div className="flex w-full bg-brandbgcolor items-center pl-5">
-                  <p className="font-extrabold text-xl text-brandcolor">
-                    {guild?.guildRecord?.recordLadder}
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="flex h-45px gap-2">
-              <div className="flex w-full border-2  rounded">
-                <div className="flex items-center border-r-2  pl-5 pr-5">
-                  <p className="flex w-100px font-extrabold text-xl justify-center">
-                    길드티어
-                  </p>
-                </div>
-                <div className="flex w-full bg-brandbgcolor items-center pl-5">
-                  <p className="font-extrabold text-xl text-brandcolor">
-                    {props.member.memberGuild.guildTier}
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="flex h-45px gap-2">
-              <div className="flex w-full border-2  rounded">
-                <div className="flex items-center border-r-2  pl-5 pr-5">
-                  <p className="flex w-100px font-extrabold text-xl justify-center">
-                    길드랭킹
-                  </p>
-                </div>
-                <div className="flex w-full bg-brandbgcolor items-center pl-5">
-                  <p className="font-extrabold text-xl text-brandcolor">
-                    {guild?.guildRecord?.recordRanking}
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="flex h-45px gap-2">
-              <div className="flex w-full border-2  rounded">
-                <div className="flex items-center border-r-2  pl-5 pr-5">
-                  <p className="flex w-100px font-extrabold text-xl justify-center">
-                    길드전적
-                  </p>
-                </div>
-                <div className="flex w-full bg-brandbgcolor items-center pl-5">
-                  <p className="font-extrabold text-xl text-brandcolor">
-                    {guild?.guildRecord?.recordDefeat! +
-                      guild?.guildRecord?.recordVictory!}
-                    전 {guild?.guildRecord?.recordVictory}승{" "}
-                    {guild?.guildRecord?.recordDefeat}패{" "}
-                    {isNaN(
-                      (guild?.guildRecord?.recordVictory! /
-                        (guild?.guildRecord?.recordDefeat! +
-                          guild?.guildRecord?.recordVictory!)) *
-                        100
-                    )
-                      ? "기록없음"
-                      : `(${(
-                          (guild?.guildRecord?.recordVictory! /
-                            (guild?.guildRecord?.recordDefeat! +
-                              guild?.guildRecord?.recordVictory!)) *
-                          100
-                        ).toFixed(2)}%)`}
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="flex flex-col border-2  rounded overflow-x-hidden">
-              <div className="flex p-2 gap-2 border-b-2 ">
+            {isNaN(
+              (guild?.guildRecord?.recordVictory! /
+                (guild?.guildRecord?.recordDefeat! +
+                  guild?.guildRecord?.recordVictory!)) *
+                100
+            )
+              ? "기록없음"
+              : `(${(
+                  (guild?.guildRecord?.recordVictory! /
+                    (guild?.guildRecord?.recordDefeat! +
+                      guild?.guildRecord?.recordVictory!)) *
+                  100
+                ).toFixed(2)}%)`}
+            <div className="flex flex-col overflow-x-hidden">
+              <div className="flex p-2 gap-2">
                 <button
-                  className="font-extrabold text-lg rounded hover:text-xl hover:text-brandcolor"
+                  className="font-semi"
                   onClick={() => changeTab("description")}
                 >
                   길드소개
                 </button>
                 <button
-                  className="font-extrabold text-lg rounded hover:text-xl hover:text-brandcolor"
+                  className="font-semi"
                   onClick={() => changeTab("members")}
                 >
                   길드원
@@ -325,7 +248,7 @@ const GuildManagePage = (props: Props) => {
                 {props.member.memberName !==
                 props.member.memberGuild.guildMaster ? (
                   <button
-                    className="font-extrabold text-lg rounded hover:text-xl hover:text-brandcolor"
+                    className="font-semi"
                     onClick={() => changeTab("leave")}
                   >
                     길드탈퇴
@@ -334,7 +257,7 @@ const GuildManagePage = (props: Props) => {
                 {props.member.memberName ===
                 props.member.memberGuild.guildMaster ? (
                   <button
-                    className="font-extrabold text-lg rounded hover:text-xl hover:text-brandcolor"
+                    className="font-semi"
                     onClick={() => changeTab("applicants")}
                   >
                     가입신청자
@@ -343,7 +266,7 @@ const GuildManagePage = (props: Props) => {
                 {props.member.memberName ===
                 props.member.memberGuild.guildMaster ? (
                   <button
-                    className="font-extrabold text-lg rounded hover:text-xl hover:text-brandcolor"
+                    className="font-semi"
                     onClick={() => changeTab("delete")}
                   >
                     길드해체
