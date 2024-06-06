@@ -61,7 +61,7 @@ const Header = () => {
         <Navigation />
         <div className="flex items-center">
           {memberName ? (
-            <Dropdown className="bg-white rounded">
+            <Dropdown className="bg-white rounded dark:bg-dark">
               <DropdownTrigger>
                 <Button className="p-1 rounded">
                   <span className="font-light text-white">{memberName}</span>
@@ -73,7 +73,7 @@ const Header = () => {
               >
                 <DropdownItem
                   key="profile"
-                  className="rounded hover:bg-gray-100"
+                  className="rounded hover:bg-gray-100 dark:hover:bg-gray-700"
                 >
                   프로필
                 </DropdownItem>

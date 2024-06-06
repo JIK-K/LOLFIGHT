@@ -20,7 +20,7 @@ const LeagueHeaderComponent = (props: Props) => {
         </div>
         <div className="pl-5">{props.guildLength}개의 길드 참여중</div>
       </div>
-      <div className="w-full h-30px flex justify-around items-center dark:bg-dark font-thin mt-2 rounded-t">
+      <div className="w-full h-30px flex justify-around items-center bg-brandcolor text-white dark:bg-dark font-thin mt-2 rounded-t">
         <div className="w-220px text-center">길드이름</div>
         <div className="w-1/4 text-center">길드소개</div>
         <div className="w-1/12 text-center">길드원</div>
