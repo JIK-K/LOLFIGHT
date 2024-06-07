@@ -57,6 +57,7 @@ const config: Config = {
         "50px": "50px",
         "100px": "100px",
         "130px": "130px",
+        "350px": "350px",
         "500px": "500px",
         "525px": "525px",
       },

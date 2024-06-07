@@ -8,20 +8,33 @@ const Hero = () => {
     <>
       <section
         id="home"
-        className="relative z-10 overflow-hidden bg-white pb-16 pt-[120px] dark:bg-gray-dark md:pb-[120px] md:pt-[150px] xl:pb-[160px] xl:pt-[180px] 2xl:pb-[200px] 2xl:pt-[210px]"
+        className="h-screen relative z-10 overflow-hidden bg-white pb-16 pt-[120px] dark:bg-gray-dark md:pb-[120px] md:pt-[150px] xl:pb-[160px] xl:pt-[180px] 2xl:pb-[200px] 2xl:pt-[210px] "
       >
+        <div className="absolute inset-0 -z-10">
+          <video
+            autoPlay
+            loop
+            muted
+            className="w-full h-full object-cover opacity-40"
+          >
+            <source src="/backgroundVideo.mp4" type="video/mp4" />
+          </video>
+        </div>
+
         <div className="container mx-auto px-4">
           <div className="-mx-4 flex flex-wrap">
             <div className="w-full px-4">
               <div className="mx-auto max-w-[800px] text-center">
                 <h1 className="mb-5 text-3xl font-bold leading-tight text-black dark:text-white sm:text-4xl sm:leading-tight md:text-5xl md:leading-tight">
-                  무자비하게 우리와 함께하세요.
+                  최고의 내전, <br />
+                  LOLFIGHT Desktop과 함께!
                 </h1>
                 <p className="mb-12 text-base !leading-relaxed text-body-color dark:text-body-color-dark sm:text-lg md:text-xl">
-                  롤파이트는 무자비한 게임입니다. 우리와 함께하면 당신은 더 이상
-                  돌아갈 수 없습니다. 우리는 당신을 위해 준비되어 있습니다.
-                  당신은 준비되어 있습니까? 진정한 사나이는 이곳에서 태어납니다.
-                  당신은 태어날 준비가 되어 있습니까?
+                  당신과, 당신의 팀원들의 수준급 플레이를 보여주세요! <br />
+                  숨어있는 강자들의 팀들과 수준 높은 경기력을 가질 수 있습니다.
+                  <br />
+                  적팀과 싸워서 승리를 쟁취하고 더 높은 경기력을 가진 팀이
+                  되어보세요!
                 </p>
                 <div className="flex flex-col items-center justify-center space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0">
                   <button
@@ -43,7 +56,7 @@ const Hero = () => {
             </div>
           </div>
         </div>
-        <div className="absolute right-0 top-0 z-[-1] opacity-30 lg:opacity-100">
+        {/* <div className="absolute right-0 top-0 z-[-1] opacity-30 lg:opacity-100">
           <svg
             width="450"
             height="556"
@@ -51,8 +64,8 @@ const Hero = () => {
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
           ></svg>
-        </div>
-        <div className="absolute bottom-0 left-0 z-[-1] opacity-30 lg:opacity-100">
+        </div> */}
+        {/* <div className="absolute bottom-0 left-0 z-[-1] opacity-30 lg:opacity-100">
           <svg
             width="364"
             height="201"
@@ -91,7 +104,7 @@ const Hero = () => {
               </radialGradient>
             </defs>
           </svg>
-        </div>
+        </div> */}
       </section>
     </>
   );

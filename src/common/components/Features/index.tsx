@@ -9,7 +9,7 @@ const Features = () => {
         <div className="container mx-auto px-4">
           <SectionTitle
             title="주요 기능"
-            paragraph="거기에는 있다 많은 기능들이. 이것들은 그 중 일부입니다. 더 많은 기능들을 확인해보세요."
+            paragraph="LOLFIGHT만의 독창적인 기능들, 끝없는 경쟁"
             center
           />
 
