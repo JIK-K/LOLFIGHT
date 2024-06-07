@@ -17,6 +17,12 @@ export default function Page() {
     setMemberPw(e.target.value);
   };
 
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      handleLoginClick();
+    }
+  };
+
   const handleLoginClick = () => {
     login(memberId, memberPw)
       .then((response) => {
@@ -63,6 +69,7 @@ export default function Page() {
             type="password"
             placeholder="비밀번호"
             onChange={handlePwChange}
+            onKeyDown={handleKeyPress}
           />
         </div>
         <div className="border-b w-full"></div>

@@ -22,7 +22,7 @@ const ProfileInfoPage = (props: Props) => {
           </div>
           <div className="flex items-center">
             <p className="font-bold py-2  pr-8">가입일</p>
-            88년 88월 88일
+            {props.member.createdAt?.toString().split("T")[0]}
           </div>
           {/* <div className="flex flex-col">
         <p>소속길드</p>

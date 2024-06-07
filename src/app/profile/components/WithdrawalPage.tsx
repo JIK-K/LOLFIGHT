@@ -30,7 +30,15 @@ const WithdrawalPage = (props: Props) => {
           );
         })
         .catch((error) => {
-          CustomAlert("error", "회원탈퇴", "에러");
+          if (error.response.data._code === "COM001") {
+            CustomAlert(
+              "error",
+              "회원탈퇴",
+              "가입된 길드가 있는지 확인해주세요."
+            );
+          } else {
+            CustomAlert("error", "회원탈퇴", "에러");
+          }
         });
     } else {
       CustomAlert(
