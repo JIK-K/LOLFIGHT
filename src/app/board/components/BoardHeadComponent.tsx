@@ -81,7 +81,7 @@ const BoardHeadComponent = (props: BoardHeadComponentProps) => {
         <div className="w-1/12 flex items-center justify-center">추천</div>
         <div className="w-1/12 flex items-center justify-center">말머리</div>
         <div className="w-1/2 flex items-center justify-center">제목</div>
-        <div className="w-1/12 flex items-center justify-center">작성자</div>
+        <div className="w-2/12 flex items-center justify-center">작성자</div>
         <div className="w-1/6 flex items-center justify-center">작성일</div>
         <div className="w-1/12 flex items-center justify-center">조회수</div>
       </div>

@@ -15,7 +15,21 @@ export default function Page() {
   useEffect(() => {
     getGuildList()
       .then((response) => {
-        setGuildList(response.data.data);
+        const sortedGuilds = response.data.data.sort(
+          (a: GuildDTO, b: GuildDTO) => {
+            const rankA =
+              a.guildRecord?.recordRanking !== "기록없음"
+                ? parseInt(a.guildRecord!.recordRanking, 10)
+                : Infinity;
+            const rankB =
+              b.guildRecord?.recordRanking !== "기록없음"
+                ? parseInt(b.guildRecord!.recordRanking, 10)
+                : Infinity;
+            return rankA - rankB;
+          }
+        );
+
+        setGuildList(sortedGuilds);
         setTotalPages(Math.ceil(response.data.data.length / guildsPerPage));
       })
       .catch((error) => {
@@ -34,6 +48,8 @@ export default function Page() {
     (currentPage - 1) * guildsPerPage,
     currentPage * guildsPerPage
   );
+
+  //여기서 guildList[0].guildRecord?.recordRanking 이걸 기준으로 정렬해줘 recordRanking은 1, 2, 3 이런식으로 적용된다.
 
   return (
     <>

@@ -31,7 +31,7 @@ const Hero = () => {
                 </h1>
                 <p className="mb-12 text-base !leading-relaxed text-body-color dark:text-body-color-dark sm:text-lg md:text-xl">
                   당신과, 당신의 팀원들의 수준급 플레이를 보여주세요! <br />
-                  숨어있는 강자들의 팀들과 수준 높은 경기력을 가질 수 있습니다.
+                  숨어있는 강자들의 팀들과 수준 높은 경기를 가질 수 있습니다.
                   <br />
                   적팀과 싸워서 승리를 쟁취하고 더 높은 경기력을 가진 팀이
                   되어보세요!

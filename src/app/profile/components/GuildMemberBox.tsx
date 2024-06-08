@@ -24,7 +24,7 @@ const GuildMemberBox = (props: Props) => {
   };
 
   return (
-    <div className="flex w-full bg-brandbgcolor p-2">
+    <div className="flex w-full bg-brandbgcolor p-2 dark:bg-branddark">
       {props.guildIcon === null || undefined ? (
         <div>yaya</div>
       ) : (

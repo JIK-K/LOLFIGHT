@@ -67,44 +67,41 @@ const ChangePasswordPage = (props: Props) => {
   };
   return (
     <div className="w-1200px h-full pt-48 mx-auto">
-      <p className="font-bold text-xl p-5">
-        이 페이지가 따로 있어야할 이유가 없다
+      <p className="pb-5 text-xl font-normal border-b border-gray-200">
+        비밀번호 변경
       </p>
-      <div className="border-[#11235A] border-t-2 p-10">
-        <p className="pb-5 text-xl">비밀번호 변경</p>
-        <div className="flex flex-col border-2 gap-2 p-5">
-          <div className="flex border-y-2">
-            <div className="flex w-32 bg-brandbgcolor p-2 justify-center">
-              현재 비밀번호
-            </div>
-            <input
-              className="borde-2 p-2 w-full"
-              placeholder="현재 비밀번호를 입력하세요."
-              type="password"
-              onChange={handleCurrentPassword}
-            ></input>
+      <div className="flex flex-col  gap-2 py-5 mt-4">
+        <div className="flex border-y-2 dark:border-brandgray">
+          <div className="flex w-32 bg-brandbgcolor dark:bg-black p-2 justify-center">
+            현재 비밀번호
           </div>
-          <div className="flex border-y-2">
-            <div className="flex w-32 bg-brandbgcolor p-2 justify-center">
-              새 비밀번호
-            </div>
-            <input
-              className="borde-2 p-2 w-full"
-              placeholder="새 비밀번호를 입력하세요."
-              type="password"
-              onChange={handleNewPassword}
-            ></input>
-          </div>
-
-          <button
-            className="w-full bg-brandcolor rounded p-2"
-            onClick={handleChangeButton}
-          >
-            <p className="text-white font-extrabold tracking-widest">
-              비밀번호 변경
-            </p>
-          </button>
+          <input
+            className="borde-2 p-2 w-full"
+            placeholder="현재 비밀번호를 입력하세요."
+            type="password"
+            onChange={handleCurrentPassword}
+          ></input>
         </div>
+        <div className="flex border-y-2 dark:border-brandgray">
+          <div className="flex w-32 bg-brandbgcolor dark:bg-black p-2 justify-center">
+            새 비밀번호
+          </div>
+          <input
+            className="borde-2 p-2 w-full"
+            placeholder="새 비밀번호를 입력하세요."
+            type="password"
+            onChange={handleNewPassword}
+          ></input>
+        </div>
+
+        <button
+          className="w-full bg-brandcolor rounded p-2"
+          onClick={handleChangeButton}
+        >
+          <p className="text-white font-extrabold tracking-widest">
+            비밀번호 변경
+          </p>
+        </button>
       </div>
     </div>
   );

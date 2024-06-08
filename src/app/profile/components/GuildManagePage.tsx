@@ -10,7 +10,6 @@ import {
   getGuildMemberList,
   getInviteGuildList,
   inviteAccept,
-  inviteGuild,
   inviteReject,
 } from "@/src/api/guild.api";
 import GuildMemberBox from "./GuildMemberBox";
@@ -32,7 +31,15 @@ const GuildManagePage = (props: Props) => {
 
   const router = useRouter();
   const handleCreateGuild = () => {
-    router.replace("/league/guild/create");
+    if (props.member.memberGame) {
+      router.replace("/league/guild/create");
+    } else {
+      CustomAlert(
+        "warning",
+        "길드생성",
+        "롤 계정이 등록되지 않은 계정은 길드를 생성할 수 없습니다."
+      );
+    }
   };
   const changeTab = (tab: string) => {
     setCurrentTab(tab);
@@ -189,7 +196,7 @@ const GuildManagePage = (props: Props) => {
           // 길드가 있을때
           <div className="flex flex-col w-full gap-2 p-5">
             <div className="flex items-center">
-              <div className="rounded p-2 w-48 h-48 relative">
+              <div className="rounded p-2 w-48 h-48 relative ">
                 <Image
                   src={`${constant.SERVER_URL}/${props.member.memberGuild?.guildIcon}`}
                   alt="GuildIcon"
@@ -197,50 +204,73 @@ const GuildManagePage = (props: Props) => {
                   objectFit="cover"
                 />
               </div>
-              <div>
-                <span className="text-2xl font-bold">
-                  {props.member.memberGuild.guildName}
-                </span>
-                길드마스터
-                {props.member.memberGuild.guildMaster}
-                길드인원
-                {props.member.memberGuild.guildMaster}
-                래더점수
-                {guild?.guildRecord?.recordLadder}
-                길드티어
-                {props.member.memberGuild.guildTier}
-                길드랭킹
-                {guild?.guildRecord?.recordRanking}
-                길드전적
-                {guild?.guildRecord?.recordDefeat! +
-                  guild?.guildRecord?.recordVictory!}
-                전 {guild?.guildRecord?.recordVictory}승{" "}
-                {guild?.guildRecord?.recordDefeat}패{" "}
+              <div className="guildinfo-container ml-5">
+                <div className="flex items-center ">
+                  <p className="text-2xl font-bold py-2 pr-8">
+                    {props.member.memberGuild.guildName}
+                  </p>
+                </div>
+                <div className="flex items-center w-210px">
+                  <p className="font-bold py-2 pr-8">길드마스터</p>
+                  <p>{props.member.memberGuild.guildMaster}</p>
+                </div>
+                <div className="flex gap-12">
+                  <div className="flex items-center w-210px">
+                    <p className="font-bold py-2 pr-8">길드랭킹</p>
+                    <p>{guild?.guildRecord?.recordRanking}</p>
+                  </div>
+                  <div className="flex items-center w-210px">
+                    <p className="font-bold py-2 pr-8">길드인원</p>
+                    <p>{props.member.memberGuild.guildMembers}</p>
+                  </div>
+                </div>
+
+                <div className="flex gap-12">
+                  <div className="flex items-center w-210px">
+                    <p className="font-bold py-2 pr-8"> 길드티어</p>
+                    <p> {props.member.memberGuild.guildTier}</p>
+                  </div>
+                  <div className="flex items-center w-210px">
+                    <p className="font-bold py-2 pr-8">래더점수</p>
+                    <p>{guild?.guildRecord?.recordLadder}</p>
+                  </div>
+                </div>
+
+                <div className="flex items-center">
+                  <p className="font-bold py-2 pr-8"> 길드전적</p>
+                  <p>
+                    {guild?.guildRecord?.recordDefeat! +
+                      guild?.guildRecord?.recordVictory!}
+                    전 {guild?.guildRecord?.recordVictory}승{" "}
+                    {guild?.guildRecord?.recordDefeat}패{" "}
+                    {isNaN(
+                      (guild?.guildRecord?.recordVictory! /
+                        (guild?.guildRecord?.recordDefeat! +
+                          guild?.guildRecord?.recordVictory!)) *
+                        100
+                    )
+                      ? "기록없음"
+                      : `(${(
+                          (guild?.guildRecord?.recordVictory! /
+                            (guild?.guildRecord?.recordDefeat! +
+                              guild?.guildRecord?.recordVictory!)) *
+                          100
+                        ).toFixed(2)}%)`}
+                  </p>
+                </div>
               </div>
             </div>
-            {isNaN(
-              (guild?.guildRecord?.recordVictory! /
-                (guild?.guildRecord?.recordDefeat! +
-                  guild?.guildRecord?.recordVictory!)) *
-                100
-            )
-              ? "기록없음"
-              : `(${(
-                  (guild?.guildRecord?.recordVictory! /
-                    (guild?.guildRecord?.recordDefeat! +
-                      guild?.guildRecord?.recordVictory!)) *
-                  100
-                ).toFixed(2)}%)`}
+
             <div className="flex flex-col overflow-x-hidden">
-              <div className="flex p-2 gap-2">
+              <div className="flex h-8">
                 <button
-                  className="font-semi"
+                  className="w-full h-full dark:bg-black hover:bg-gray-100 dark:hover:bg-dark"
                   onClick={() => changeTab("description")}
                 >
                   길드소개
                 </button>
                 <button
-                  className="font-semi"
+                  className="w-full h-full dark:bg-black hover:bg-gray-100 dark:hover:bg-dark"
                   onClick={() => changeTab("members")}
                 >
                   길드원
@@ -248,7 +278,7 @@ const GuildManagePage = (props: Props) => {
                 {props.member.memberName !==
                 props.member.memberGuild.guildMaster ? (
                   <button
-                    className="font-semi"
+                    className="w-full h-full dark:bg-black hover:bg-gray-100 dark:hover:bg-dark"
                     onClick={() => changeTab("leave")}
                   >
                     길드탈퇴
@@ -257,7 +287,7 @@ const GuildManagePage = (props: Props) => {
                 {props.member.memberName ===
                 props.member.memberGuild.guildMaster ? (
                   <button
-                    className="font-semi"
+                    className="w-full h-full dark:bg-black hover:bg-gray-100 dark:hover:bg-dark"
                     onClick={() => changeTab("applicants")}
                   >
                     가입신청자
@@ -266,14 +296,14 @@ const GuildManagePage = (props: Props) => {
                 {props.member.memberName ===
                 props.member.memberGuild.guildMaster ? (
                   <button
-                    className="font-semi"
+                    className="w-full h-full dark:bg-black hover:bg-gray-100 dark:hover:bg-dark"
                     onClick={() => changeTab("delete")}
                   >
                     길드해체
                   </button>
                 ) : null}
               </div>
-              <div className="p-4">
+              <div className="py-4">
                 {currentTab === "description" && (
                   <div className="font-bold text-xl">
                     {props.member.memberGuild.guildDescription}
@@ -281,7 +311,7 @@ const GuildManagePage = (props: Props) => {
                 )}
                 {currentTab === "members" && (
                   <div>
-                    <div className="flex w-full bg-slate-200 h-20px">
+                    <div className="flex w-full bg-slate-200 dark:bg-brandgray h-20px">
                       <p className="w-250px text-light text-sm ml-12">닉네임</p>
                       <p className="w-250px text-light text-sm">소환사명</p>
                       <p className="w-250px text-light text-sm">티어</p>
@@ -352,7 +382,7 @@ const GuildManagePage = (props: Props) => {
                 )}
                 {currentTab === "applicants" && (
                   <div>
-                    <div className="flex w-full bg-slate-200 h-20px">
+                    <div className="flex w-full bg-slate-200 dark:bg-brandgray h-20px">
                       <p className="w-250px text-light text-sm ml-2">닉네임</p>
                       <p className="w-250px text-light text-sm">소환사명</p>
                       <p className="w-250px text-light text-sm">티어</p>
@@ -361,7 +391,7 @@ const GuildManagePage = (props: Props) => {
                     <div className="font-bold text-xl">
                       {inviteMembers.map((invite) => (
                         <div
-                          className="w-full bg-brandbgcolor hover:bg-sky-100 rounded"
+                          className="w-full bg-brandbgcolor hover:bg-sky-100 dark:bg-black dark:hover:bg-dark rounded"
                           key={invite.id}
                         >
                           <div className="flex">
@@ -398,7 +428,7 @@ const GuildManagePage = (props: Props) => {
                   <div className="flex flex-col items-center">
                     <div className="p-2">
                       <div>
-                        <span className="text-sky-950 font-bold">
+                        <span className="text-sky-950 dark:text-sky-700 font-bold">
                           1. 정보 유실
                         </span>
                         <p className="text-sm">
@@ -407,7 +437,7 @@ const GuildManagePage = (props: Props) => {
                         </p>
                       </div>
                       <div>
-                        <span className="text-sky-950 font-bold">
+                        <span className="text-sky-950 dark:text-sky-700 font-bold">
                           2. 접근 권한
                         </span>
                         <p className="text-sm">
@@ -416,7 +446,7 @@ const GuildManagePage = (props: Props) => {
                         </p>
                       </div>
                       <div>
-                        <span className="text-sky-950 font-bold">
+                        <span className="text-sky-950 dark:text-sky-700 font-bold">
                           3. 서비스 이용 중단
                         </span>
                         <p className="text-sm">
@@ -425,7 +455,7 @@ const GuildManagePage = (props: Props) => {
                         </p>
                       </div>
                       <div>
-                        <span className="text-sky-950 font-bold">
+                        <span className="text-sky-950 dark:text-sky-700 font-bold">
                           4. 서비스 연관성
                         </span>
                         <p className="text-sm">
@@ -444,7 +474,7 @@ const GuildManagePage = (props: Props) => {
                       주의사항을 모두 확인하였습니다.
                     </label>
                     <button
-                      className="w-full bg-red-500 rounded p-2"
+                      className="w-40 bg-red-500 rounded p-2 mt-2"
                       onClick={deleteGuild}
                     >
                       <p className="text-white font-extrabold tracking-widest">

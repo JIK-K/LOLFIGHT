@@ -149,8 +149,16 @@ const SignUpComponent = () => {
         CustomAlert("warning", "회원가입", "모든정보를 작성해주세요.");
         return;
       }
-      if (member.memberName.length < 1) {
-        CustomAlert("warning", "회원가입", "닉네임은 2글자 이상 작성해주세요.");
+      if (
+        member.memberName.length < 1 ||
+        member.memberName.length > 10 ||
+        /\s/.test(member.memberName)
+      ) {
+        CustomAlert(
+          "warning",
+          "회원가입",
+          "닉네임은 2글자 이상 10글자 이하로 작성하고 공백을 포함하지 않아야 합니다."
+        );
         return;
       }
       if (member.memberPw.length < 8) {

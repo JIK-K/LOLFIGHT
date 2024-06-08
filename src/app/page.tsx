@@ -15,7 +15,20 @@ export default function Page() {
   useEffect(() => {
     getGuildList()
       .then((response) => {
-        setGuildList(response.data.data);
+        const sortedGuilds = response.data.data.sort(
+          (a: GuildDTO, b: GuildDTO) => {
+            const rankA =
+              a.guildRecord?.recordRanking !== "기록없음"
+                ? parseInt(a.guildRecord!.recordRanking, 10)
+                : Infinity;
+            const rankB =
+              b.guildRecord?.recordRanking !== "기록없음"
+                ? parseInt(b.guildRecord!.recordRanking, 10)
+                : Infinity;
+            return rankA - rankB;
+          }
+        );
+        setGuildList(sortedGuilds);
       })
       .catch((error) => {
         console.log(error);
