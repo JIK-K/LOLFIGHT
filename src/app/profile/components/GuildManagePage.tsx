@@ -193,19 +193,9 @@ const GuildManagePage = (props: Props) => {
             </div>
           </div>
         ) : (
-          // 길드가 있을때
-          <div className="flex flex-col w-full gap-2 p-5">
-            <div className="flex items-center">
-              <div className="rounded p-2 w-48 h-48 relative ">
-                <Image
-                  src={`${constant.SERVER_URL}/${props.member.memberGuild?.guildIcon}`}
-                  alt="GuildIcon"
-                  layout="fill"
-                  objectFit="cover"
-                />
-              </div>
-                <div className="flex items-center ">
-                  <p className="text-2xl font-bold py-2 pr-8">
+          // 가입하거나 관리하는 길드가 존재하는 경우
+          <>
+            <div className="absolute w-full h-80 left-0 top-32">
               <Image
                 src={`${constant.SERVER_URL}/${props.member.memberGuild?.guildIcon}`}
                 alt="GuildBanner"
