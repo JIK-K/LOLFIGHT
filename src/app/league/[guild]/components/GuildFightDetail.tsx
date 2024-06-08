@@ -27,7 +27,7 @@ const GuildFightDetail = (props: Props) => {
           <p className="text-gray-500">5 vs 5</p>
         </div>
         <p className="text-gray-500">
-          {formatDate(props.battleData.createAt!)}
+          {formatDate(props.battleData.createdAt!)}
         </p>
       </div>
 
