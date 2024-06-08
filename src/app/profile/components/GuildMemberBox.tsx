@@ -24,12 +24,12 @@ const GuildMemberBox = (props: Props) => {
   };
 
   return (
-    <div className="flex w-full bg-brandbgcolor p-2 dark:bg-branddark">
-      {props.guildIcon === null || undefined ? (
+    <div className="flex w-full p-2 dark:bg-dark border-b border-gray-700">
+      {/* {props.guildIcon === null || undefined ? (
         <div>yaya</div>
       ) : (
         <img src={props.guildIcon} alt="GuildIcon" className="h-30px w-30px" />
-      )}
+      )} */}
       <div className="flex w-250px items-center text-16px font-semibold pl-2">
         {props.guildMember.memberName}
       </div>

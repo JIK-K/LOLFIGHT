@@ -21,7 +21,7 @@ const Hero = () => {
           </video>
         </div>
 
-        <div className="container mx-auto px-4">
+        <div className="container m-auto px-4">
           <div className="-mx-4 flex flex-wrap">
             <div className="w-full px-4">
               <div className="mx-auto max-w-[800px] text-center">

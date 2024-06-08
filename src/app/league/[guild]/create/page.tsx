@@ -111,7 +111,7 @@ export default function Page() {
               <p className="text-xl font-extrabold">길드 명</p>
               <div className="flex flex-col p-3 items-center border border-brandcolor gap-3">
                 <input
-                  className="w-1/2 h-12 rounded-md px-2 bg-gray-50 border border-black-200 rounded-md"
+                  className="w-1/2 h-12 rounded-md px-2 bg-gray-50 border border-black-200"
                   type="text"
                   placeholder="길드명 (최대 12글자)"
                   onChange={handleGuildNameChange}
@@ -122,7 +122,7 @@ export default function Page() {
               <p className="text-xl font-extrabold">길드소개글</p>
               <div className="flex flex-col p-3 items-center border border-brandcolor gap-3">
                 <textarea
-                  className="w-1/2 max-h-32 rounded-md px-2 bg-gray-50 border border-black-200 rounded-md"
+                  className="w-1/2 max-h-32 rounded-md px-2 bg-gray-50 border border-black-200"
                   placeholder="길드 소개글을 입력해주세요 (최대 40글자)"
                   onChange={handleGuildDescriptionChange}
                 />
