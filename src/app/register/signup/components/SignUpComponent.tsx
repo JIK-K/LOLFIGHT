@@ -201,9 +201,9 @@ const SignUpComponent = () => {
         입력해주세요
       </span>
       <div className="w-full">
-        <div className="border border-gray-200 rounded-md my-4">
+        <div className="border border-gray-200 rounded-md my-4 dark:border-gray-700">
           <input
-            className="w-full h-12 rounded-md px-2 bg-gray-100"
+            className="w-full h-12 rounded-md px-2 bg-gray-100 dark:bg-gray-900"
             type="text"
             placeholder="이메일"
             onChange={handleEmailInput}
@@ -211,15 +211,17 @@ const SignUpComponent = () => {
             style={{
               backgroundColor:
                 buttonText === "인증확인" || buttonText === "회원가입"
-                  ? "#e0e0e0"
+                  ? document.documentElement.classList.contains("dark")
+                    ? "#111519"
+                    : "#e0e0e0"
                   : undefined,
             }}
           />
         </div>
         {showVerification && (
-          <div className="flex border border-gray-200 rounded-md my-4">
+          <div className="flex border border-gray-200 rounded-md my-4 dark:border-gray-700">
             <input
-              className="w-full h-12 rounded-md px-2 bg-gray-100"
+              className="w-full h-12 rounded-l-md px-2 bg-gray-100 dark:bg-gray-900"
               type="text"
               placeholder={`인증번호(${remainingTime} 남음)`}
               onChange={handleCodeInput}
@@ -235,7 +237,7 @@ const SignUpComponent = () => {
                 cursor: buttonText === "회원가입" ? "not-allowed" : "pointer",
               }}
               onClick={sendAuthCode}
-              className={`flex font-medium bg-brandcolor text-white  items-center justify-center rounded-md cursor-pointer w-32 ${
+              className={`flex font-medium bg-brandcolor text-white  items-center justify-center rounded-r-md cursor-pointer w-32 ${
                 showInputMemberInfo ? "my-1" : ""
               }`}
             >
@@ -245,25 +247,25 @@ const SignUpComponent = () => {
         )}
         {showInputMemberInfo && (
           <div>
-            <div className="border border-gray-200 rounded-md my-4">
+            <div className="border border-gray-200 rounded-md my-4 dark:border-gray-700">
               <input
-                className="w-full h-12 rounded-md px-2 bg-gray-100"
+                className="w-full h-12 rounded-md px-2 bg-gray-100 dark:bg-gray-900"
                 type="text"
                 placeholder="닉네임"
                 onChange={handleNickNameInput}
               />
             </div>
-            <div className="border border-gray-200 rounded-md my-4">
+            <div className="border border-gray-200 rounded-md my-4 dark:border-gray-700">
               <input
-                className="w-full h-12 rounded-md px-2 bg-gray-100"
+                className="w-full h-12 rounded-md px-2 bg-gray-100 dark:bg-gray-900"
                 type="password"
                 placeholder="비밀번호"
                 onChange={handlePasswordInput}
               />
             </div>
-            <div className="border border-gray-200 rounded-md my-4">
+            <div className="border border-gray-200 rounded-md my-4 dark:border-gray-700">
               <input
-                className="w-full h-12 rounded-md px-2 bg-gray-100"
+                className="w-full h-12 rounded-md px-2 bg-gray-100 dark:bg-gray-900"
                 type="password"
                 placeholder="비밀번호 확인"
                 onChange={handlePasswordCheckInput}
@@ -272,7 +274,7 @@ const SignUpComponent = () => {
           </div>
         )}
 
-        <div className="border-b w-full"></div>
+        <div className="border-b w-full dark:border-gray-700"></div>
         <button
           onClick={handleButtonClick}
           className="flex font-medium bg-brandcolor text-white h-10 items-center justify-center rounded-md cursor-pointer my-4 w-full my-1"
