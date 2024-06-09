@@ -90,15 +90,15 @@ export default function GuildPage() {
         <div className="w-full h-full mx-auto">
           <div className="flex mt-5 mb-5">
             <div className="w-1200px mx-auto h-full flex flex-col items-center">
-              <div className="w-full bg-white p-2 m-2 gap-1 border">
+              <div className="w-full bg-white m-2 gap-1 border dark:bg-dark dark:border-gray-700">
                 <button
-                  className="font-extrabold text-lg rounded hover:text-xl hover:text-brandcolor pr-2"
+                  className="font-extrabold text-lg hover:bg-gray-300 p-2 dark:hover:bg-gray-700"
                   onClick={() => changeTab("guildInfo")}
                 >
                   길드정보
                 </button>
                 <button
-                  className="font-extrabold text-lg rounded hover:text-xl hover:text-brandcolor"
+                  className="font-extrabold text-lg hover:bg-gray-300 p-2 dark:hover:bg-gray-700"
                   onClick={() => changeTab("members")}
                 >
                   길드원
@@ -107,7 +107,7 @@ export default function GuildPage() {
 
               {currentTab === "guildInfo" && (
                 <div>
-                  <div className="w-full flex pb-5">
+                  <div className="w-full flex pb-5 dark:border-gray-700">
                     <GuildSummeryRecord
                       guildVictory={guildData?.guildRecord?.recordVictory}
                       guildDefeat={guildData?.guildRecord?.recordDefeat}
@@ -127,8 +127,8 @@ export default function GuildPage() {
                 </div>
               )}
               {currentTab === "members" && (
-                <div className="w-full border-2 border-white">
-                  <div className="flex w-full bg-slate-200 h-20px">
+                <div className="w-full">
+                  <div className="flex w-full bg-slate-200 h-20px dark:bg-dark ">
                     <p className="w-250px text-light text-sm ml-12">닉네임</p>
                     <p className="w-250px text-light text-sm">소환사명</p>
                     <p className="w-250px text-light text-sm">티어</p>

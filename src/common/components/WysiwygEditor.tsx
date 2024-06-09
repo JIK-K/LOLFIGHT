@@ -13,6 +13,7 @@ import { useState } from "react";
 import { PostDTO } from "@/src/common/DTOs/board/post.dto";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { useTheme } from "next-themes";
 
 const WysiwygEditor = () => {
   const router = useRouter();
@@ -29,6 +30,7 @@ const WysiwygEditor = () => {
     ["code"],
     ["scrollSync"],
   ];
+  const { theme } = useTheme();
 
   useEffect(() => {
     if (editorRef.current) {
@@ -106,7 +108,7 @@ const WysiwygEditor = () => {
   return (
     <div className="flex flex-col h-full">
       <select
-        className="w-32 h-10 border rounded-md mb-4"
+        className="w-32 h-10 border rounded-md mb-4 dark:border-gray-700"
         onChange={handleCategoryChange}
       >
         {boardNavLinks
@@ -118,7 +120,7 @@ const WysiwygEditor = () => {
           ))}
       </select>
       <input
-        className="w-full h-10 mb-4 border rounded-md px-2 bg-gray-100"
+        className="w-full h-10 mb-4 border rounded-md px-2 bg-gray-100 dark:bg-black dark:border-gray-700"
         type="text"
         placeholder="제목을 입력하세요"
         onChange={handleChange}
@@ -134,11 +136,14 @@ const WysiwygEditor = () => {
           plugins={[colorSyntax]}
           toolbarItems={toolbarItems}
           hooks={{ addImageBlobHook: onUploadImage }}
+          className="bg-red-500"
+          // 현재 글 작성 도중 테마를 변경하면 렌더링이 되지 않는 상황이 발생함
+          theme={theme === "dark" ? "dark" : "light"}
         />
       </div>
       <div className="w-full flex justify-between">
         <button
-          className="w-16 h-10 flex font-medium border items-center justify-center rounded-md cursor-pointer my-4"
+          className="w-16 h-10 flex font-medium border items-center justify-center rounded-md cursor-pointer my-4 dark:border-gray-700 dark:text-gray-100"
           onClick={handleCancleClick}
         >
           취소

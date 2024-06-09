@@ -8,7 +8,7 @@ interface PostProps {
 
 const BoardPostComponent = (props: PostProps) => {
   return (
-    <div className="w-full bg-white ml-8 shadow-md">
+    <div className="w-full bg-white ml-8 shadow-md dark:bg-dark">
       <div className="">
         <div className="head">
           <BoardPostHeadComponent post={props.data}></BoardPostHeadComponent>

@@ -115,7 +115,7 @@ const CommentBoxComponent = (props: CommentBoxComponentProps) => {
           style={getMargin(comment.depth)}
         >
           {comment.depth > 0 && (
-            <div className="border-b-2 border-l-2 border-brandcolor w-2 h-2 mr-4" />
+            <div className="border-b-2 border-l-2 border-brandcolor w-2 h-2 mr-4 dark:border-white" />
           )}
           <div className="w-full">
             <div className="">
@@ -130,7 +130,7 @@ const CommentBoxComponent = (props: CommentBoxComponentProps) => {
             {comment.depth == 0 && (
               <div className="my-1">
                 <button onClick={() => handleReplyButtonClick(comment)}>
-                  <span className="text-gray-400 py-1 hover:bg-gray-100">
+                  <span className="text-gray-400 py-1 hover:bg-gray-100 dark:hover:bg-gray-700">
                     답글 쓰기
                   </span>
                 </button>
@@ -139,18 +139,18 @@ const CommentBoxComponent = (props: CommentBoxComponentProps) => {
 
             {isOpen && comment.id == openCommentId && (
               <div className="my-4 p-2">
-                <div className="rounded-md ml-8 border">
+                <div className="rounded-md ml-8 px-4 border dark:border-gray-700 dark:bg-black">
                   <div className=" h-36">
                     <input
-                      className="w-full h-12 mx-2 focus:outline-none"
+                      className="w-full h-12 focus:outline-none dark:bg-black"
                       placeholder="댓글을 입력하세요."
                       onChange={handleChangeReplyComment}
                     />
                   </div>
-                  <div className="border-b w-full mt-4"></div>
-                  <div className="flex justify-end m-2">
+                  <div className="border-b w-full mt-4 dark:border-gray-700"></div>
+                  <div className="flex justify-end m-2 dark:border-gray-700">
                     <button
-                      className="border rounded-md bg-brandcolor text-white w-20 h-8"
+                      className="border rounded-md bg-brandcolor text-white w-20 h-8 dark:border-gray-700"
                       onClick={handleSaveReplyButtonClick}
                     >
                       작성하기
