@@ -110,7 +110,7 @@ const WysiwygEditor = () => {
         onChange={handleCategoryChange}
       >
         {boardNavLinks
-          .filter((link) => link.href !== "/")
+          .filter((link) => link.href !== "/" && link.title !== "전체")
           .map((link) => (
             <option key={link.title} value={link.title}>
               {link.title}

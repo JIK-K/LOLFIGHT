@@ -83,7 +83,7 @@ const BoardInfoComponent = (props: BoardInfoComponentProps) => {
           </a>
         </div>
       </div>
-      <div className="notice-info__writer w-1/12 flex items-center justify-center">
+      <div className="notice-info__writer w-2/12 flex items-center justify-center">
         {props.data.postWriter}
       </div>
       <div className="notice-info__date w-1/6 flex items-center justify-center">

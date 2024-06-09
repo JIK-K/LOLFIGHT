@@ -81,7 +81,7 @@ export default function GuildPage() {
           guildId={guildData?.id}
           guildName={guildData?.guildName}
           guildIcon={`${constant.SERVER_URL}/${guildData?.guildIcon}`}
-          guildCreate={guildData?.createAt?.toString()}
+          guildCreate={guildData?.createdAt?.toString()}
           guildMaster={guildData?.guildMaster}
           guildMembers={guildData?.guildMembers}
           guildRank={guildData?.guildRecord?.recordRanking}

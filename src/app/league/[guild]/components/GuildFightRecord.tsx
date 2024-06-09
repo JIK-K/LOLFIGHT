@@ -36,7 +36,7 @@ const GuildFightRecord = (props: Props) => {
   };
 
   const getTimeDifference = () => {
-    const createdAt = new Date(props.battleData.createAt!);
+    const createdAt = new Date(props.battleData.createdAt!);
     const now = new Date();
     const diffInMilliseconds = now.getTime() - createdAt.getTime();
     const diffInSeconds = Math.floor(diffInMilliseconds / 1000);

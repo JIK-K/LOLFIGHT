@@ -17,18 +17,23 @@ const GuildInfoComponent = (props: GuildInfoComponentProps) => {
   };
 
   return (
-    <div className="guild-info h-16 flex justify-around items-center bg-white mt-1">
+    <div className="guild-info h-16 flex justify-around items-center dark:bg-branddark">
       <div
         className="flex items-center w-220px text-center gap-1 hover:cursor-pointer"
         onClick={handleGuildInfo}
       >
-        <img
-          className=""
-          width={32}
-          height={32}
-          src="/images/meso390.png"
-          alt="길드 아이콘"
-        />
+        {props.guild.guildRecord!.recordRanking &&
+          (props.guild.guildRecord!.recordRanking === "1" ||
+            props.guild.guildRecord!.recordRanking === "2" ||
+            props.guild.guildRecord!.recordRanking === "3") && (
+            <img
+              className=""
+              width={32}
+              height={32}
+              src={`/images/ranking${props.guild.guildRecord?.recordRanking}.png`}
+              alt="랭킹아이콘"
+            />
+          )}
         <img
           className=""
           width={35}
