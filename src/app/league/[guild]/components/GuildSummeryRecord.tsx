@@ -9,7 +9,7 @@ interface Props {
 
 const GuildSummeryRecord = (props: Props) => {
   return (
-    <div className="h-full w-full flex flex-col p-3 rounded bg-white">
+    <div className="h-full w-full flex flex-col p-3 rounded bg-white dark:bg-dark">
       <p className="font-extrabold">최근 매치</p>
 
       <div className="flex p-3 items-center">

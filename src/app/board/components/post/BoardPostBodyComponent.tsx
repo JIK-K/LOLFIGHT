@@ -121,7 +121,7 @@ const BoardPostBodyComponent = (props: BoardPostBodyComponentProps) => {
           </button>
         ) : (
           <button
-            className="border border-gray-400 h-10 text-white rounded bg-brandcolor transition hover:bg-white hover:text-gray-400 w-20 m-1"
+            className="border border-gray-400 h-10 text-white rounded bg-brandcolor transition hover:bg-white hover:text-gray-400 w-20 m-1 dark:border-gray-700"
             onClick={handleOnClick}
           >
             <span className="">추천</span>
@@ -135,26 +135,26 @@ const BoardPostBodyComponent = (props: BoardPostBodyComponentProps) => {
         </button> */}
       </div>
       <div className="board-post-body__comment">
-        <div className="border-b w-full mt-4"></div>
+        <div className="border-b w-full mt-4 dark:border-gray-700"></div>
         <div className="my-8">댓글 {props.data?.postComments}</div>
         <CommentBoxComponent
           key={commentBoxKey}
           data={props.data}
         ></CommentBoxComponent>
-        <div className="w-full rounded-md px-2 border">
+        <div className="w-full rounded-md px-4 border dark:border-gray-700 dark:bg-black">
           {/* <span>니아이디props.id어쩌고</span> */}
           <div className="w-full h-36">
             <input
-              className="w-full h-12 mx-2 focus:outline-none"
+              className="w-full h-12 focus:outline-none dark:bg-black"
               placeholder="댓글을 입력하세요."
               value={commentContent}
               onChange={handleChangeComment}
             />
           </div>
-          <div className="border-b w-full mt-4"></div>
+          <div className="border-b w-full mt-4 dark:border-gray-700"></div>
           <div className="flex justify-end m-2">
             <button
-              className="border rounded-md bg-brandcolor text-white w-20 h-8"
+              className="border rounded-md bg-brandcolor text-white w-20 h-8 dark:border-gray-700"
               onClick={handleSaveCommentClick}
             >
               작성하기

@@ -343,7 +343,7 @@ const GuildManagePage = (props: Props) => {
                       </div>
                     </div>
                   )}
-                  {currentTab === "delete" && (
+                  {currentTab === "leave" && (
                     <div className="flex flex-col items-center">
                       <div className="p-2">
                         <div>
@@ -444,7 +444,7 @@ const GuildManagePage = (props: Props) => {
                     <div className="flex flex-col items-center">
                       <div className="p-2">
                         <div>
-                          <span className="text-sky-950 font-bold">
+                          <span className="text-sky-950 font-bold dark:text-sky-500">
                             1. 정보 유실
                           </span>
                           <p className="text-sm">
@@ -453,7 +453,7 @@ const GuildManagePage = (props: Props) => {
                           </p>
                         </div>
                         <div>
-                          <span className="text-sky-950 font-bold">
+                          <span className="text-sky-950 font-bold dark:text-sky-500">
                             2. 접근 권한
                           </span>
                           <p className="text-sm">
@@ -462,7 +462,7 @@ const GuildManagePage = (props: Props) => {
                           </p>
                         </div>
                         <div>
-                          <span className="text-sky-950 font-bold">
+                          <span className="text-sky-950 font-bold dark:text-sky-500">
                             3. 서비스 이용 중단
                           </span>
                           <p className="text-sm">
@@ -471,7 +471,7 @@ const GuildManagePage = (props: Props) => {
                           </p>
                         </div>
                         <div>
-                          <span className="text-sky-950 font-bold">
+                          <span className="text-sky-950 font-bold dark:text-sky-500">
                             4. 서비스 연관성
                           </span>
                           <p className="text-sm">

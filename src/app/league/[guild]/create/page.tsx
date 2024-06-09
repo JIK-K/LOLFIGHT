@@ -85,10 +85,10 @@ export default function Page() {
     <div className="w-full h-full">
       <div className="w-full h-full mx-auto">
         <div className="flex mt-5 mb-5">
-          <div className="w-800px mx-auto h-full flex flex-col border-2 p-10 bg-white">
+          <div className="w-800px mx-auto h-full flex flex-col border p-10 bg-white dark:bg-dark dark:border-gray-700">
             <div className="items-center pb-3">
-              <p className="text-xl font-extrabold">길드 이미지</p>
-              <div className="flex flex-col p-3 items-center border border-brandcolor gap-3">
+              <p className="text-xl font-extrabold mb-2">길드 이미지</p>
+              <div className="flex flex-col p-3 items-center border border-brandcolor gap-3 dark:border-gray-700">
                 {guildImage === null ? (
                   <div>
                     <img src="http://via.placeholder.com/50x50" alt="" />
@@ -108,10 +108,10 @@ export default function Page() {
               </div>
             </div>
             <div className="items-center pb-3">
-              <p className="text-xl font-extrabold">길드 명</p>
-              <div className="flex flex-col p-3 items-center border border-brandcolor gap-3">
+              <p className="text-xl font-extrabold mb-2">길드 명</p>
+              <div className="flex flex-col p-3 items-center border border-brandcolor gap-3  dark:border-gray-700">
                 <input
-                  className="w-1/2 h-12 rounded-md px-2 bg-gray-50 border border-black-200"
+                  className="w-1/2 h-12 rounded-md px-2 bg-gray-50 border border-black-200 dark:text-gray-100 dark:bg-black dark:border-gray-700"
                   type="text"
                   placeholder="길드명 (최대 12글자)"
                   onChange={handleGuildNameChange}
@@ -119,10 +119,10 @@ export default function Page() {
               </div>
             </div>
             <div className="items-center pb-3">
-              <p className="text-xl font-extrabold">길드소개글</p>
-              <div className="flex flex-col p-3 items-center border border-brandcolor gap-3">
+              <p className="text-xl font-extrabold mb-2">길드소개글</p>
+              <div className="flex flex-col p-3 items-center border border-brandcolor gap-3  dark:border-gray-700">
                 <textarea
-                  className="w-1/2 max-h-32 rounded-md px-2 bg-gray-50 border border-black-200"
+                  className="w-1/2 max-h-32 rounded-md px-2 bg-gray-50 border border-black-200  dark:text-gray-100 dark:bg-black dark:border-gray-700"
                   placeholder="길드 소개글을 입력해주세요 (최대 40글자)"
                   onChange={handleGuildDescriptionChange}
                 />

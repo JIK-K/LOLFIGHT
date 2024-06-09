@@ -37,7 +37,9 @@ const BoardPostHeadComponent = (props: BoardPostHeadComponentProps) => {
       </div>
       <div className="text-sm board-post-head__status mt-8 flex justify-between">
         <div className="flex">
-          <span className="text-black">{props.post?.postWriter}</span>
+          <span className="text-black dark:text-gray-100">
+            {props.post?.postWriter}
+          </span>
           {/* <span className="h-4 w-1px mx-1 bg-gray-700"></span> */}
           <span className="mx-1"></span>
           <span className="text-gray-400">{`${year}.${month}.${day}`}</span>
@@ -59,7 +61,7 @@ const BoardPostHeadComponent = (props: BoardPostHeadComponentProps) => {
           </div>
         )}
       </div>
-      <div className="border-b w-full mt-4"></div>
+      <div className="border-b w-full mt-4 dark:border-gray-700"></div>
     </div>
   );
 };
