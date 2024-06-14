@@ -16,10 +16,10 @@ export default function Page() {
         <div className="flex flex-col mt-3">
           <p className="text-xl font-bold">개인정보처리방침</p>
           <p className="font-light">
-            'lolfight.kr'는 (이하 `LOL.FIGHT`는) "정보통신망 이용촉진 및
-            정보보호"에 관한 법률을 준수하고 있으며, 고객님으로 부터 수집하는
-            개인정보 및 개인정보의 사용방법에 대한 제반사항을 규정하기위해
-            작성되었습니다.
+            &apos;lolfight.kr&apos;는 (이하 &apos;LOL.FIGHT&apos;는)
+            &apos;정보통신망 이용촉진 및 정보보호&apos;에 관한 법률을 준수하고
+            있으며, 고객님으로 부터 수집하는 개인정보 및 개인정보의 사용방법에
+            대한 제반사항을 규정하기위해 작성되었습니다.
           </p>
         </div>
         {/* ①②③④⑤⑥⑦⑧⑨ 여기있다 */}
