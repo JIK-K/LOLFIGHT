@@ -12,10 +12,10 @@ export default function Page() {
             <div>
               <p className="font-semibold">제1조 -목적</p>
               <p>
-                본 약관은 'lolfight.kr'-이하 "LOLFIGHT"라 합니다가 제공하는
-                정보제공 서비스-이하 "서비스"라 합니다의 이용과 관련하여
-                LOLFIGHT와 회원과의 권리, 의무 및 책임사항, 기타 필요한 사항을
-                규정함을 목적으로 합니다.
+                본 약관은 &apos;lolfight.kr&apos;-이하 &apos;LOLFIGHT&apos;라
+                합니다가 제공하는 정보제공 서비스-이하 &apos;서비스&apos;라
+                합니다의 이용과 관련하여 LOLFIGHT와 회원과의 권리, 의무 및
+                책임사항, 기타 필요한 사항을 규정함을 목적으로 합니다.
               </p>
             </div>
 
@@ -32,8 +32,8 @@ export default function Page() {
               <p className="font-semibold">제3조 -회원 가입</p>
               <p>
                 ① 회원이 되고자 하는 자는 LOLFIGHT가 정한 양식에 따라 정보를
-                기입하고 "동의", "확인" 등의 버튼을 누르는 방법으로 회원 가입을
-                신청합니다.
+                기입하고 &apos;동의&apos;, &apos;확인&apos; 등의 버튼을 누르는
+                방법으로 회원 가입을 신청합니다.
               </p>
               <p>
                 ② LOLFIGHT는 제1항과 같이 회원으로 가입할 것을 신청한 자가 다음
@@ -173,9 +173,9 @@ export default function Page() {
                 제10조 (회원의 ID 및 비밀번호에 대한 의무)
               </p>
               <p>
-                ① LOLFIGHT가 관계법 령, "개인정보보호정책"에 의해서 그 책임을
-                지는 경우를 제외하고, 자신의 ID와 비밀번호에 관한 관리책임은 각
-                회원에게 있습니다.
+                ① LOLFIGHT가 관계법 령, &apos;개인정보보호정책&apos;에 의해서 그
+                책임을 지는 경우를 제외하고, 자신의 ID와 비밀번호에 관한
+                관리책임은 각 회원에게 있습니다.
               </p>
               <p>
                 ② 회원은 자신의 ID 및 비밀번호를 제3자에게 이용하게 해서는
