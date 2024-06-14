@@ -9,8 +9,8 @@ interface Props {
 const formatDate = (batteDate: Date): string => {
   const date = new Date(batteDate);
   const year = date.getFullYear();
-  const month = date.getMonth();
-  const day = date.getDay();
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
   const hours = date.getHours();
   const minutes = date.getMinutes();
 
