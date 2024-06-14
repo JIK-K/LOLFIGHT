@@ -49,8 +49,6 @@ export default function Page() {
     currentPage * guildsPerPage
   );
 
-  //여기서 guildList[0].guildRecord?.recordRanking 이걸 기준으로 정렬해줘 recordRanking은 1, 2, 3 이런식으로 적용된다.
-
   return (
     <>
       <div className="w-full h-full h-96 mt-16 mb-14">

@@ -1,14 +1,16 @@
 "use client";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 const Footer = () => {
+  const router = useRouter();
   const footerNavs = [
     {
-      href: "javascript:void()",
+      href: "/policies/agreement",
       name: "이용약관",
     },
     {
-      href: "javascript:void()",
+      href: "/policies/privacy",
       name: "개인정보처리방침",
     },
   ];
@@ -18,9 +20,9 @@ const Footer = () => {
       <div className="max-w-screen-xl mx-auto px-4 md:px-8">
         <div className="flex-1 space-y-6 sm:flex md:space-y-0">
           {footerNavs.map((item, idx) => (
-            <ul className="pr-4 text-gray-300" key={idx}>
-              {item.name}
-            </ul>
+            <nav className="pr-4 text-gray-300" key={idx}>
+              <a href={item.href}>{item.name}</a>
+            </nav>
           ))}
         </div>
         <div className="mt-10 py-10 border-t border-gray-700 items-center justify-between sm:flex">
