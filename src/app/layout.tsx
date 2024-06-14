@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import { Nanum_Gothic } from "next/font/google";
 import "../css/tailwind.css";
@@ -21,6 +21,11 @@ export const metadata: Metadata = {
   icons: {
     icon: "/icon-blue.ico",
   },
+};
+
+export const viewport: Viewport = {
+  width: "1280",
+  initialScale: 1.0,
 };
 
 export default function RootLayout({

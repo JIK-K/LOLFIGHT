@@ -15,30 +15,40 @@ export default function BaseLayout({ children }: Props) {
   const hideDefaultLayoutPaths =
     pathname.startsWith("/register") || pathname.startsWith("/desktop");
 
-  const [isMobile, setIsMobile] = useState<boolean>(false);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.outerWidth < 768);
-    };
-    handleResize();
-
-    console.log(window.outerWidth);
-
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
   return (
     <>
-      {isMobile && <Mobile />}
-      {!isMobile && !hideDefaultLayoutPaths && <Header />}
+      {!hideDefaultLayoutPaths && <Header />}
       {/* {!isMobile && !hideDefaultLayoutPaths && <Navigation />} */}
-      {!isMobile && hideDefaultLayoutPaths && <DesktopNavigation />}
-      {!isMobile && <div className="main">{children}</div>}
-      {!isMobile && !hideDefaultLayoutPaths && <Footer />}
+      {hideDefaultLayoutPaths && <DesktopNavigation />}
+      <div className="main">{children}</div>
+      {!hideDefaultLayoutPaths && <Footer />}
     </>
   );
+
+  // const [isMobile, setIsMobile] = useState<boolean>(false);
+
+  // useEffect(() => {
+  //   const handleResize = () => {
+  //     setIsMobile(window.outerWidth < 768);
+  //   };
+  //   handleResize();
+
+  //   console.log(window.outerWidth);
+
+  //   window.addEventListener("resize", handleResize);
+  //   return () => {
+  //     window.removeEventListener("resize", handleResize);
+  //   };
+  // }, []);
+
+  // return (
+  //   <>
+  //     {isMobile && <Mobile />}
+  //     {!isMobile && !hideDefaultLayoutPaths && <Header />}
+  //     {/* {!isMobile && !hideDefaultLayoutPaths && <Navigation />} */}
+  //     {!isMobile && hideDefaultLayoutPaths && <DesktopNavigation />}
+  //     {!isMobile && <div className="main">{children}</div>}
+  //     {!isMobile && !hideDefaultLayoutPaths && <Footer />}
+  //   </>
+  // );
 }
