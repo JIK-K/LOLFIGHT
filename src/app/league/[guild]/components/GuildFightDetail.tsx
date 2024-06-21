@@ -19,7 +19,7 @@ const formatDate = (batteDate: Date): string => {
 
 const GuildFightDetail = (props: Props) => {
   return (
-    <div className="w-1200px border flex flex-col shadow pt-3 pb-3 bg-white border">
+    <div className="w-1200px border flex flex-col shadow pt-3 pb-3 bg-white dark:bg-dark border dark:border-gray-700">
       {/* 1 */}
       <div className="flex justify-between text-14px items-center p-1 pl-3">
         <div className="flex gap-3">

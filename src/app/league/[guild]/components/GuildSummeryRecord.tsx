@@ -40,11 +40,12 @@ const GuildSummeryRecord = (props: Props) => {
                   stroke: "#007fff",
                 },
                 text: {
-                  fill: "#000",
+                  fill: "currentcolor",
                   fontSize: "18px",
                   fontWeight: "600",
                 },
               }}
+              className="dark:text-white"
             />
           </div>
           <div className="flex flex-col items-center pl-6">

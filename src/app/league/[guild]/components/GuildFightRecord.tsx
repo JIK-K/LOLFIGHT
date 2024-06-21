@@ -71,8 +71,8 @@ const GuildFightRecord = (props: Props) => {
       >
         {/* 1 */}
         <div className="w-130px flex flex-col justify-center items-center p-3">
-          <p className="font-extrabold text-16px">소환사의 협곡</p>
-          <p className="font-light text-14px">{getPlayTime()}</p>
+          <p className="font-extrabold text-16px text-black">소환사의 협곡</p>
+          <p className="font-light text-14px text-black">{getPlayTime()}</p>
           <p
             className={`font-extrabold text-18px ${
               result === "win" ? "text-blue-500" : "text-red-500"
@@ -80,11 +80,13 @@ const GuildFightRecord = (props: Props) => {
           >
             {result === "win" ? "승리" : "패배"}
           </p>
-          <p className="font-light text-14px">{getTimeDifference()}</p>
+          <p className="font-light text-14px text-black">
+            {getTimeDifference()}
+          </p>
         </div>
 
         {/* 2 */}
-        <div className="flex w-400px justify-center items-center p-3 ">
+        <div className="flex w-400px justify-center items-center p-3 text-black">
           <div className="flex flex-col items-center m-3">
             <div className="flex p-3">
               <img
@@ -121,7 +123,7 @@ const GuildFightRecord = (props: Props) => {
         </div>
 
         {/* 3 */}
-        <div className="w-120px flex flex-col items-center justify-center">
+        <div className="w-120px flex flex-col items-center justify-center text-black">
           <p className="font-bold">래더</p>
           <p
             className={`font-extrabold text-20px ${
@@ -135,7 +137,7 @@ const GuildFightRecord = (props: Props) => {
         </div>
 
         {/* 4 */}
-        <div className="w-500px p-2">
+        <div className="w-500px p-2 text-black">
           <GuildFightMember battleData={props.battleData} />
         </div>
 
@@ -147,7 +149,7 @@ const GuildFightRecord = (props: Props) => {
         >
           <button
             aria-label="상세보기"
-            className="flex flex-col w-full h-full items-center justify-center"
+            className="flex flex-col w-full h-full items-center justify-center text-black"
             onClick={clickDetailFight}
           >
             상세보기

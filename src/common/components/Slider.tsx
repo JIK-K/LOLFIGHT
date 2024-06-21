@@ -12,29 +12,27 @@ import "swiper/css/scrollbar";
 const slideData = [
   {
     id: 1,
-    text: "third slide",
-    type: "image",
-    content: "/images/whycanwin.png",
+    text: "first slide",
+    type: "video",
+    content: "-ObdvMkCKws",
   },
   {
     id: 2,
     text: "second slide",
     type: "video",
-    content: "6RX6bser66k",
+    content: "rQ2bTFJmt8c",
   },
   {
     id: 3,
-    text: "fourth slide",
-    type: "video",
-    content: "k6hWBB4HTiE",
+    text: "third slide",
+    type: "image",
+    content: "/images/whycanwin.png",
   },
   {
-    
     id: 4,
-    text: "first slide",
-    type: "video",
-    content: "IgU0hkCuOM0",
-    
+    text: "fourth slide",
+    type: "image",
+    content: "/images/advrising.png",
   },
 ];
 
