@@ -313,7 +313,7 @@ const SignUpComponent = () => {
               <Modal
                 isOpen={isOpen}
                 onOpenChange={onOpenChange}
-                className="bg-white text-black dark:bg-branddark border rounded-md h-525px overflow-y-scroll"
+                className="bg-white text-black dark:text-white dark:bg-branddark border rounded-md h-525px overflow-y-scroll"
               >
                 <ModalContent>
                   {(onClose) => (
