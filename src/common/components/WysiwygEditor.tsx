@@ -18,7 +18,7 @@ import { useTheme } from "next-themes";
 const WysiwygEditor = () => {
   const router = useRouter();
   const [title, setTitle] = useState("");
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState("자유");
   const [image, setImage] = useState("");
   const editorRef = useRef<Editor>(null);
   const toolbarItems = [
