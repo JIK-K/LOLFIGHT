@@ -203,6 +203,11 @@ const GuildManagePage = (props: Props) => {
                 objectFit="cover"
                 objectPosition="center"
               />
+              {/* <img
+                src={`${constant.SERVER_URL}/${props.member.memberGuild?.guildIcon}`}
+                alt="GuildBanner"
+                className="object-cover object-center w-full h-full"
+              /> */}
             </div>
             <div className="flex flex-col w-full gap-2 p-5">
               <div className="flex items-center">
@@ -213,6 +218,12 @@ const GuildManagePage = (props: Props) => {
                     layout="fill"
                     objectFit="cover"
                   />
+                  {/* 
+                  <img
+                    src={`${constant.SERVER_URL}/${props.member.memberGuild?.guildIcon}`}
+                    alt="GuildIcon"
+                    className="object-cover w-full h-full"
+                  /> */}
                 </div>
                 <div className="grid mx-2 h-32 text-center items-center">
                   <span className="text-2xl font-bold">

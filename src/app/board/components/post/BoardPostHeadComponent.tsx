@@ -1,6 +1,7 @@
 import { deletePost } from "@/src/api/post.api";
 import React, { useEffect, useState } from "react";
 import { PostDTO } from "@/src/common/DTOs/board/post.dto";
+import { useRouter } from "next/navigation";
 
 interface BoardPostHeadComponentProps {
   post: PostDTO;
@@ -8,7 +9,7 @@ interface BoardPostHeadComponentProps {
 
 const BoardPostHeadComponent = (props: BoardPostHeadComponentProps) => {
   const [isMine, setIsMine] = useState(false);
-
+  const router = useRouter();
   const postDateTime = new Date(props.post?.postDate);
   const year = postDateTime.getFullYear();
   const month = (postDateTime.getMonth() + 1).toString().padStart(2, "0");
@@ -28,6 +29,7 @@ const BoardPostHeadComponent = (props: BoardPostHeadComponentProps) => {
     deletePost(props.post).then((res) => {
       console.log(res);
     });
+    router.replace("/board/free");
   };
 
   return (
