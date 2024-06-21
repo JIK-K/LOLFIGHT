@@ -19,7 +19,7 @@ const GuildFightList = (props: Props) => {
     });
   }, []);
   return (
-    <div className="w-full h-full flex flex-col drop-shadow-md">
+    <div className="w-full h-full flex flex-col drop-shadow-md text-black">
       {/* 1 */}
       <div
         className={`w-full h-full flex p-1 justify-between ${

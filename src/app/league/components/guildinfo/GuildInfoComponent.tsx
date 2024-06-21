@@ -17,7 +17,7 @@ const GuildInfoComponent = (props: GuildInfoComponentProps) => {
   };
 
   return (
-    <div className="guild-info h-16 flex justify-around items-center dark:bg-branddark">
+    <div className="guild-info h-16 flex justify-around items-center bg-brandbgcolor dark:bg-branddark">
       <div
         className="flex items-center w-220px text-center gap-1 hover:cursor-pointer"
         onClick={handleGuildInfo}
