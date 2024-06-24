@@ -418,7 +418,7 @@ const GuildManagePage = (props: Props) => {
                       <div className="font-bold text-xl ">
                         {inviteMembers.map((invite) => (
                           <div
-                            className="w-full bg-brandbgcolor hover:bg-sky-100 rounded flex p-2 dark:bg-dark border-b border-gray-700"
+                            className="w-full bg-brandbgcolor hover:bg-sky-100 rounded flex p-2 dark:bg-dark dark:hover:bg-gray-600 border-b border-gray-700"
                             key={invite.id}
                           >
                             <div className="flex">
