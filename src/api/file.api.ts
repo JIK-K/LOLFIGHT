@@ -20,7 +20,7 @@ export const downloadFile = async () => {
     const url = window.URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = "lolfight-desktop-0.0.1 Setup.exe";
+    a.download = "lolfight-desktop-1.0.0.Setup.exe";
     document.body.appendChild(a);
     a.click();
     a.remove();
