@@ -48,7 +48,7 @@ const GuildFightList = (props: Props) => {
       </div>
 
       {/* 2 */}
-      <div className="w-full flex pl-2 pr-2 gap-3 text-12px">
+      <div className="w-full flex pl-2 pr-2 gap-3 text-12px dark:text-white">
         <div className="w-250px">플레이어</div>
         <div className="w-50px">S/R</div>
         <div className="w-120px">KDA</div>
