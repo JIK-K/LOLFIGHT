@@ -42,7 +42,7 @@ const Hero = () => {
                     className="rounded-sm bg-brandcolor px-8 py-4 text-base font-semibold text-white duration-300 ease-in-out hover:bg-primary/80"
                     onClick={downloadFile}
                   >
-                    🔥 태어나기
+                    🔥 다운로드
                   </button>
                   {/* <DownloadButton /> */}
                   <Link

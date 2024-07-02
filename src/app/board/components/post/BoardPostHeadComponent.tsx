@@ -2,6 +2,7 @@ import { deletePost } from "@/src/api/post.api";
 import React, { useEffect, useState } from "react";
 import { PostDTO } from "@/src/common/DTOs/board/post.dto";
 import { useRouter } from "next/navigation";
+import ButtonAlert from "../../../../common/components/alert/ButtonAlert";
 
 interface BoardPostHeadComponentProps {
   post: PostDTO;
@@ -25,11 +26,15 @@ const BoardPostHeadComponent = (props: BoardPostHeadComponentProps) => {
   }, [props.post]);
 
   const handleDeleteButtonClick = () => {
+    const onConfirmDelete = () => {
+      deletePost(props.post).then((res) => {
+        console.log(res);
+      });
+      router.replace("/board/free");
+    };
+
     console.log("삭제버튼클릭", props.post);
-    deletePost(props.post).then((res) => {
-      console.log(res);
-    });
-    router.replace("/board/free");
+    ButtonAlert("게시글 삭제", "게시글을 삭제하시겠습니까?", onConfirmDelete);
   };
 
   return (
