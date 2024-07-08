@@ -90,7 +90,13 @@ const GuildManagePage = (props: Props) => {
         CustomAlert("success", "신청수락", "길드 가입신청을 수락하셨습니다.");
         router.refresh();
       })
-      .catch((error) => {});
+      .catch((error) => {
+        CustomAlert(
+          "error",
+          "신청수락",
+          "이미 길드에 가입되었거나 길드에 속한 멤버입니다."
+        );
+      });
   };
   const rejectMember = (member: GuildInviteDTO) => {
     //길드신청 거절
@@ -131,283 +137,276 @@ const GuildManagePage = (props: Props) => {
 
   return (
     <div className="w-1200px h-full pt-48 mx-auto">
-      <p className="pb-5 text-xl font-normal border-b border-gray-200">
-        길드정보
-      </p>
-      <div className="">
-        {props.member.memberGuild === null ||
-        props.member.memberGuild === undefined ? (
-          <div className="flex w-full py-10">
-            <div className="flex flex-col w-full border-2 border-black rounded-lg p-7">
-              <div className="mb-10">
-                <p className="font-extrabold text-4xl">롤파이트에 오신것을</p>
-                <p className="font-extrabold text-4xl">환영합니다</p>
-              </div>
-              <div className="mb-10">
-                <p className="font-extrabold text-3xl text-brandcolor">
-                  길드를 생성하세요
-                </p>
-                <p className="font-extrabold text-3xl text-brandcolor">
-                  나만의 길드를 운영해보세요.
-                </p>
-              </div>
-              <button
-                className="flex h-45px rounded-lg w-200px items-center justify-center bg-brandcolor gap-2"
-                onClick={handleCreateGuild}
-              >
-                <FaArrowCircleRight className="w-30px h-30px text-white" />
-                <p className="text-3xl text-white">길드만들기</p>
-              </button>
+      {props.member.memberGuild === null ||
+      props.member.memberGuild === undefined ? (
+        <div className="flex w-full py-10">
+          <div className="flex flex-col w-full border-2 border-black rounded-lg p-7">
+            <div className="mb-10">
+              <p className="font-extrabold text-4xl">롤파이트에 오신것을</p>
+              <p className="font-extrabold text-4xl">환영합니다</p>
             </div>
-            <div className="flex flex-col pl-5">
-              <div className="flex w-full gap-2 pb-3">
-                <FaRegQuestionCircle className="w-30px h-30px text-brandcolor" />
-                <p className="font-extrabold text-2xl text-brandcolor">
-                  롤파이트 길드란?
-                </p>
-              </div>
-              <p className="text-lg">
-                롤파이트 유저가 자신만의 길드를 만들어 원하는 다른 길드들과 함께
-                롤파이트 전적시스템을 이용할 수 있습니다.
+            <div className="mb-10">
+              <p className="font-extrabold text-3xl text-brandcolor">
+                길드를 생성하세요
               </p>
-              <div className="flex w-full gap-2 pb-3 pt-3">
-                <FaRegQuestionCircle className="w-30px h-30px text-brandcolor" />
-                <p className="font-extrabold text-2xl text-brandcolor">
-                  어떻게 참여하나요?
-                </p>
-              </div>
-              <p className="text-lg">
-                길드생성을 하면 자동으로 롤파이트 공식 리그에 참여하여 참여 중인
-                다른 길드들과 경쟁하세요.
-              </p>
-              <div className="flex w-full gap-2 pb-3 pt-3">
-                <FaRegQuestionCircle className="w-30px h-30px text-brandcolor" />
-                <p className="font-extrabold text-2xl text-brandcolor">
-                  길드는 어떻게 만들수 있나요.
-                </p>
-              </div>
-              <p className="text-lg">
-                롤파이트 클라이언트를 통해 롤 계정 인증을 완료한 유저만 길드를
-                생성할 수 있습니다. 길드를 생성해 강한팀을 만들어 보세요.
+              <p className="font-extrabold text-3xl text-brandcolor">
+                나만의 길드를 운영해보세요.
               </p>
             </div>
+            <button
+              className="flex h-45px rounded-lg w-200px items-center justify-center bg-brandcolor gap-2"
+              onClick={handleCreateGuild}
+            >
+              <FaArrowCircleRight className="w-30px h-30px text-white" />
+              <p className="text-3xl text-white">길드만들기</p>
+            </button>
           </div>
-        ) : (
-          // 가입하거나 관리하는 길드가 존재하는 경우
-          <>
-            <div className="absolute w-full h-80 left-0 top-32">
-              <Image
+          <div className="flex flex-col pl-5">
+            <div className="flex w-full gap-2 pb-3">
+              <FaRegQuestionCircle className="w-30px h-30px text-brandcolor" />
+              <p className="font-extrabold text-2xl text-brandcolor">
+                롤파이트 길드란?
+              </p>
+            </div>
+            <p className="text-lg">
+              롤파이트 유저가 자신만의 길드를 만들어 원하는 다른 길드들과 함께
+              롤파이트 전적시스템을 이용할 수 있습니다.
+            </p>
+            <div className="flex w-full gap-2 pb-3 pt-3">
+              <FaRegQuestionCircle className="w-30px h-30px text-brandcolor" />
+              <p className="font-extrabold text-2xl text-brandcolor">
+                어떻게 참여하나요?
+              </p>
+            </div>
+            <p className="text-lg">
+              길드생성을 하면 자동으로 롤파이트 공식 리그에 참여하여 참여 중인
+              다른 길드들과 경쟁하세요.
+            </p>
+            <div className="flex w-full gap-2 pb-3 pt-3">
+              <FaRegQuestionCircle className="w-30px h-30px text-brandcolor" />
+              <p className="font-extrabold text-2xl text-brandcolor">
+                길드는 어떻게 만들수 있나요.
+              </p>
+            </div>
+            <p className="text-lg">
+              롤파이트 클라이언트를 통해 롤 계정 인증을 완료한 유저만 길드를
+              생성할 수 있습니다. 길드를 생성해 강한팀을 만들어 보세요.
+            </p>
+          </div>
+        </div>
+      ) : (
+        // 가입하거나 관리하는 길드가 존재하는 경우
+        <div className="mt-10">
+          <div className="absolute w-full h-80 left-0 top-32 z-1">
+            {/* <Image
                 src={`${constant.SERVER_URL}/${props.member.memberGuild?.guildIcon}`}
                 alt="GuildBanner"
                 layout="fill"
                 objectFit="cover"
                 objectPosition="center"
-              />
-              {/* <img
-                src={`${constant.SERVER_URL}/${props.member.memberGuild?.guildIcon}`}
-                alt="GuildBanner"
-                className="object-cover object-center w-full h-full"
               /> */}
-            </div>
-            <div className="flex flex-col w-full gap-2 p-5">
-              <div className="flex items-center">
-                <div className="rounded p-2 w-32 h-32 relative">
-                  <Image
+            <img
+              src={`${constant.SERVER_URL}/${props.member.memberGuild?.guildIcon}`}
+              alt="GuildBanner"
+              className="object-cover object-center w-full h-full"
+            />
+          </div>
+          <div className="flex flex-col w-full gap-2 p-5">
+            <div className="flex items-center">
+              <div className="rounded p-2 w-32 h-32 z-10">
+                {/* <Image
                     src={`${constant.SERVER_URL}/${props.member.memberGuild?.guildIcon}`}
                     alt="GuildIcon"
                     layout="fill"
                     objectFit="cover"
-                  />
-                  {/* 
-                  <img
-                    src={`${constant.SERVER_URL}/${props.member.memberGuild?.guildIcon}`}
-                    alt="GuildIcon"
-                    className="object-cover w-full h-full"
                   /> */}
-                </div>
-                <div className="grid mx-2 h-32 text-center items-center">
-                  <span className="text-2xl font-bold">
-                    {props.member.memberGuild.guildName}
-                  </span>
-                  <h3 className="text-3xl font-bold mx-4">
-                    {props.member.memberGuild.guildName}
-                  </h3>
-                </div>
-              </div>
-              <div className="guildinfo-container ml-5">
-                <div className="flex items-center w-210px">
-                  <p className="font-bold py-2 pr-8">길드마스터</p>
-                  <p>{props.member.memberGuild.guildMaster}</p>
-                </div>
-                <div className="flex gap-12">
-                  <div className="flex items-center w-210px">
-                    <p className="font-bold py-2 pr-8">길드랭킹</p>
-                    <p>{guild?.guildRecord?.recordRanking}</p>
-                  </div>
-                  <div className="flex items-center w-210px">
-                    <p className="font-bold py-2 pr-8">길드인원</p>
-                    <p>{props.member.memberGuild.guildMembers}</p>
-                  </div>
-                </div>
-                <div className="flex gap-12">
-                  <div className="flex items-center w-210px">
-                    <p className="font-bold py-2 pr-8"> 길드티어</p>
-                    <p> {props.member.memberGuild.guildTier}</p>
-                  </div>
-                  <div className="flex items-center w-210px">
-                    <p className="font-bold py-2 pr-8">래더점수</p>
-                    <p>{guild?.guildRecord?.recordLadder}</p>
-                  </div>
-                </div>
-                <div className="flex items-center">
-                  <p className="font-bold py-2 pr-8"> 길드전적</p>
-                  <p>
-                    {guild?.guildRecord?.recordDefeat! +
-                      guild?.guildRecord?.recordVictory!}
-                    전 {guild?.guildRecord?.recordVictory}승{" "}
-                    {guild?.guildRecord?.recordDefeat}패{" "}
-                    {isNaN(
-                      (guild?.guildRecord?.recordVictory! /
-                        (guild?.guildRecord?.recordDefeat! +
-                          guild?.guildRecord?.recordVictory!)) *
-                        100
-                    )
-                      ? "기록없음"
-                      : `(${(
-                          (guild?.guildRecord?.recordVictory! /
-                            (guild?.guildRecord?.recordDefeat! +
-                              guild?.guildRecord?.recordVictory!)) *
-                          100
-                        ).toFixed(2)}%)`}
-                  </p>
-                </div>
-              </div>
 
-              <div className="flex flex-col overflow-x-hidden">
-                <div className="flex border-b border-gray-600 text-gray-600">
-                  <button
-                    className="font-semi px-8 py-3 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                    onClick={() => changeTab("description")}
-                  >
-                    길드소개
-                  </button>
-                  <button
-                    className="font-semi px-8 py-3 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                    onClick={() => changeTab("members")}
-                  >
-                    길드원
-                  </button>
-                  {props.member.memberName !==
-                  props.member.memberGuild.guildMaster ? (
-                    <button
-                      className="font-semi px-8 py-3 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                      onClick={() => changeTab("leave")}
-                    >
-                      길드탈퇴
-                    </button>
-                  ) : null}
-                  {props.member.memberName ===
-                  props.member.memberGuild.guildMaster ? (
-                    <button
-                      className="font-semi px-8 py-3 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                      onClick={() => changeTab("applicants")}
-                    >
-                      가입신청자
-                    </button>
-                  ) : null}
-                  {props.member.memberName ===
-                  props.member.memberGuild.guildMaster ? (
-                    <button
-                      className="font-semi px-8 py-3 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                      onClick={() => changeTab("delete")}
-                    >
-                      길드해체
-                    </button>
-                  ) : null}
+                <img
+                  src={`${constant.SERVER_URL}/${props.member.memberGuild?.guildIcon}`}
+                  alt="GuildIcon"
+                  className="object-cover w-full h-full"
+                />
+              </div>
+              <div className="grid mx-2 h-28 text-center items-end">
+                <h3 className="text-3xl font-bold mx-4">
+                  {props.member.memberGuild.guildName}
+                </h3>
+              </div>
+            </div>
+            <div className="guildinfo-container ml-5">
+              <div className="flex items-center w-210px">
+                <p className="font-bold py-2 pr-8">길드마스터</p>
+                <p>{props.member.memberGuild.guildMaster}</p>
+              </div>
+              <div className="flex gap-12">
+                <div className="flex items-center w-210px">
+                  <p className="font-bold py-2 pr-8">길드랭킹</p>
+                  <p>{guild?.guildRecord?.recordRanking}</p>
                 </div>
-                <div className="mt-8 ">
-                  {currentTab === "description" && (
-                    <div className="font-bold text-xl p-8 border border-gray-700 rounded-lg dark:bg-gray-900 dark:text-white">
-                      {props.member.memberGuild.guildDescription}
-                    </div>
-                  )}
-                  {currentTab === "members" && (
-                    <div>
-                      <div className="flex w-full ">
-                        {/* <p className="w-250px text-light text-sm ml-12">
+                <div className="flex items-center w-210px">
+                  <p className="font-bold py-2 pr-8">길드인원</p>
+                  <p>{props.member.memberGuild.guildMembers}</p>
+                </div>
+              </div>
+              <div className="flex gap-12">
+                <div className="flex items-center w-210px">
+                  <p className="font-bold py-2 pr-8"> 길드티어</p>
+                  <p> {props.member.memberGuild.guildTier}</p>
+                </div>
+                <div className="flex items-center w-210px">
+                  <p className="font-bold py-2 pr-8">래더점수</p>
+                  <p>{guild?.guildRecord?.recordLadder}</p>
+                </div>
+              </div>
+              <div className="flex items-center">
+                <p className="font-bold py-2 pr-8"> 길드전적</p>
+                <p>
+                  {guild?.guildRecord?.recordDefeat! +
+                    guild?.guildRecord?.recordVictory!}
+                  전 {guild?.guildRecord?.recordVictory}승{" "}
+                  {guild?.guildRecord?.recordDefeat}패{" "}
+                  {isNaN(
+                    (guild?.guildRecord?.recordVictory! /
+                      (guild?.guildRecord?.recordDefeat! +
+                        guild?.guildRecord?.recordVictory!)) *
+                      100
+                  )
+                    ? "기록없음"
+                    : `(${(
+                        (guild?.guildRecord?.recordVictory! /
+                          (guild?.guildRecord?.recordDefeat! +
+                            guild?.guildRecord?.recordVictory!)) *
+                        100
+                      ).toFixed(2)}%)`}
+                </p>
+              </div>
+            </div>
+
+            <div className="flex flex-col overflow-x-hidden">
+              <div className="flex border-b border-gray-600 text-gray-600">
+                <button
+                  className="font-semi px-8 py-3 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                  onClick={() => changeTab("description")}
+                >
+                  길드소개
+                </button>
+                <button
+                  className="font-semi px-8 py-3 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                  onClick={() => changeTab("members")}
+                >
+                  길드원
+                </button>
+                {props.member.memberName !==
+                props.member.memberGuild.guildMaster ? (
+                  <button
+                    className="font-semi px-8 py-3 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                    onClick={() => changeTab("leave")}
+                  >
+                    길드탈퇴
+                  </button>
+                ) : null}
+                {props.member.memberName ===
+                props.member.memberGuild.guildMaster ? (
+                  <button
+                    className="font-semi px-8 py-3 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                    onClick={() => changeTab("applicants")}
+                  >
+                    가입신청자
+                  </button>
+                ) : null}
+                {props.member.memberName ===
+                props.member.memberGuild.guildMaster ? (
+                  <button
+                    className="font-semi px-8 py-3 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                    onClick={() => changeTab("delete")}
+                  >
+                    길드해체
+                  </button>
+                ) : null}
+              </div>
+              <div className="mt-8 ">
+                {currentTab === "description" && (
+                  <div className="font-bold text-xl p-8 border border-gray-700 rounded-lg dark:bg-gray-900 dark:text-white">
+                    {props.member.memberGuild.guildDescription}
+                  </div>
+                )}
+                {currentTab === "members" && (
+                  <div>
+                    <div className="flex w-full ">
+                      {/* <p className="w-250px text-light text-sm ml-12">
                           닉네임
                         </p>
                         <p className="w-250px text-light text-sm">소환사명</p>
                         <p className="w-250px text-light text-sm">티어</p> */}
-                        <h3 className="text-2xl font-bold"></h3>
-                      </div>
-                      <div className="font-bold text-xl">
-                        {guildMembers.map((member) => (
-                          <GuildMemberBox
-                            key={member.id}
-                            guildIcon={`${constant.SERVER_URL}/${props.member.memberGuild?.guildIcon}`}
-                            guildMember={member}
-                            guild={guild!}
-                            user={props.member.memberName}
-                          />
-                        ))}
-                      </div>
+                      <h3 className="text-2xl font-bold"></h3>
                     </div>
-                  )}
-                  {currentTab === "leave" && (
-                    <div className="flex flex-col items-center">
-                      <div className="p-2">
-                        <div>
-                          <span className="text-sky-950 font-bold dark:text-sky-500">
-                            1. 정보 유실
-                          </span>
-                          <p className="text-sm">
-                            길드를 탈퇴하면 해당 길드와 관련된 모든 데이터가
-                            삭제됩니다.
-                          </p>
-                        </div>
-                        <div>
-                          <span className="text-sky-950 font-bold dark:text-sky-500">
-                            2. 접근 권한
-                          </span>
-                          <p className="text-sm">
-                            길드를 탈퇴하면 해당 길드에 대한 접근 권한을 잃게
-                            됩니다.
-                          </p>
-                        </div>
-                        <div>
-                          <span className="text-sky-950 font-bold dark:text-sky-500">
-                            3. 서비스 이용 중단
-                          </span>
-                          <p className="text-sm">
-                            길드를 탈퇴한 후에는 해당 길드의 서비스 및 혜택을 더
-                            이상 이용할 수 없게 됩니다. 이는 길드 멤버 간의 활동
-                            및 협업에 영향을 줄 수 있으며, 데이터 또한 다시
-                            복구, 이용할 수 없습니다.
-                          </p>
-                        </div>
-                      </div>
-                      <label>
-                        <input
-                          type="checkbox"
-                          checked={memberChecked}
-                          onChange={handleMemberCheckboxChange}
+                    <div className="font-bold text-xl">
+                      {guildMembers.map((member) => (
+                        <GuildMemberBox
+                          key={member.id}
+                          guildIcon={`${constant.SERVER_URL}/${props.member.memberGuild?.guildIcon}`}
+                          guildMember={member}
+                          guild={guild!}
+                          user={props.member.memberName}
                         />
-                        주의사항을 모두 확인하였습니다.
-                      </label>
-                      <button
-                        className="w-full bg-red-500 rounded p-2"
-                        onClick={leaveGuild}
-                      >
-                        <p className="text-white font-extrabold tracking-widest">
-                          길드탈퇴
-                        </p>
-                      </button>
+                      ))}
                     </div>
-                  )}
-                  {currentTab === "applicants" && (
-                    <div>
-                      {/* <div className="flex w-full bg-slate-200 h-20px">
+                  </div>
+                )}
+                {currentTab === "leave" && (
+                  <div className="flex flex-col items-center">
+                    <div className="p-2">
+                      <div>
+                        <span className="text-sky-950 font-bold dark:text-sky-500">
+                          1. 정보 유실
+                        </span>
+                        <p className="text-sm">
+                          길드를 탈퇴하면 해당 길드와 관련된 모든 데이터가
+                          삭제됩니다.
+                        </p>
+                      </div>
+                      <div>
+                        <span className="text-sky-950 font-bold dark:text-sky-500">
+                          2. 접근 권한
+                        </span>
+                        <p className="text-sm">
+                          길드를 탈퇴하면 해당 길드에 대한 접근 권한을 잃게
+                          됩니다.
+                        </p>
+                      </div>
+                      <div>
+                        <span className="text-sky-950 font-bold dark:text-sky-500">
+                          3. 서비스 이용 중단
+                        </span>
+                        <p className="text-sm">
+                          길드를 탈퇴한 후에는 해당 길드의 서비스 및 혜택을 더
+                          이상 이용할 수 없게 됩니다. 이는 길드 멤버 간의 활동
+                          및 협업에 영향을 줄 수 있으며, 데이터 또한 다시 복구,
+                          이용할 수 없습니다.
+                        </p>
+                      </div>
+                    </div>
+                    <label>
+                      <input
+                        type="checkbox"
+                        checked={memberChecked}
+                        onChange={handleMemberCheckboxChange}
+                      />
+                      주의사항을 모두 확인하였습니다.
+                    </label>
+                    <button
+                      className="w-full bg-red-500 rounded p-2"
+                      onClick={leaveGuild}
+                    >
+                      <p className="text-white font-extrabold tracking-widest">
+                        길드탈퇴
+                      </p>
+                    </button>
+                  </div>
+                )}
+                {currentTab === "applicants" && (
+                  <div>
+                    {/* <div className="flex w-full bg-slate-200 h-20px">
                         <p className="w-250px text-light text-sm ml-2">
                           닉네임
                         </p>
@@ -415,107 +414,106 @@ const GuildManagePage = (props: Props) => {
                         <p className="w-250px text-light text-sm">티어</p>
                       </div> */}
 
-                      <div className="font-bold text-xl ">
-                        {inviteMembers.map((invite) => (
-                          <div
-                            className="w-full bg-brandbgcolor hover:bg-sky-100 rounded flex p-2 dark:bg-dark dark:hover:bg-gray-600 border-b border-gray-700"
-                            key={invite.id}
-                          >
-                            <div className="flex">
-                              <div className="flex w-250px items-center text-16px font-semibold pl-2">
-                                {invite.memberId?.memberName}
-                              </div>
-                              <div className="flex w-250px items-center text-16px font-semibold pl-2">
-                                {invite.memberId?.memberGame?.gameName}
-                              </div>
-                              <div className="flex w-250px items-center text-16px font-semibold pl-2">
-                                {invite.memberId?.memberGame?.gameTier}
-                              </div>
-                              <button
-                                aria-label="수락"
-                                onClick={() => acceptMember(invite)}
-                                className="flex items-center text-16px font-semibold pl-2 hover:text-blue-700"
-                              >
-                                수락
-                              </button>
-                              <button
-                                aria-label="거절"
-                                onClick={() => rejectMember(invite)}
-                                className="flex items-center text-16px font-semibold pl-2 hover:text-red-500"
-                              >
-                                거절
-                              </button>
+                    <div className="font-bold text-xl ">
+                      {inviteMembers.map((invite) => (
+                        <div
+                          className="w-full bg-brandbgcolor hover:bg-sky-100 rounded flex p-2 dark:bg-dark dark:hover:bg-gray-600 border-b border-gray-700"
+                          key={invite.id}
+                        >
+                          <div className="flex">
+                            <div className="flex w-250px items-center text-16px font-semibold pl-2">
+                              {invite.memberId?.memberName}
                             </div>
+                            <div className="flex w-250px items-center text-16px font-semibold pl-2">
+                              {invite.memberId?.memberGame?.gameName}
+                            </div>
+                            <div className="flex w-250px items-center text-16px font-semibold pl-2">
+                              {invite.memberId?.memberGame?.gameTier}
+                            </div>
+                            <button
+                              aria-label="수락"
+                              onClick={() => acceptMember(invite)}
+                              className="flex items-center text-16px font-semibold pl-2 hover:text-blue-700"
+                            >
+                              수락
+                            </button>
+                            <button
+                              aria-label="거절"
+                              onClick={() => rejectMember(invite)}
+                              className="flex items-center text-16px font-semibold pl-2 hover:text-red-500"
+                            >
+                              거절
+                            </button>
                           </div>
-                        ))}
-                      </div>
+                        </div>
+                      ))}
                     </div>
-                  )}
-                  {currentTab === "delete" && (
-                    <div className="flex flex-col items-center">
-                      <div className="p-2">
-                        <div>
-                          <span className="text-sky-950 font-bold dark:text-sky-500">
-                            1. 정보 유실
-                          </span>
-                          <p className="text-sm">
-                            길드를 해체하면 해당 길드와 관련된 모든 데이터가
-                            삭제될 수 있습니다.
-                          </p>
-                        </div>
-                        <div>
-                          <span className="text-sky-950 font-bold dark:text-sky-500">
-                            2. 접근 권한
-                          </span>
-                          <p className="text-sm">
-                            길드를 해체하면 해당 길드에 대한 접근 권한을 잃게
-                            됩니다.
-                          </p>
-                        </div>
-                        <div>
-                          <span className="text-sky-950 font-bold dark:text-sky-500">
-                            3. 서비스 이용 중단
-                          </span>
-                          <p className="text-sm">
-                            길드를 해체한 후에는 해당 길드의 서비스 및 혜택을 더
-                            이상 이용할 수 없게 됩니다.
-                          </p>
-                        </div>
-                        <div>
-                          <span className="text-sky-950 font-bold dark:text-sky-500">
-                            4. 서비스 연관성
-                          </span>
-                          <p className="text-sm">
-                            길드를 해체할 경우 해당 길드와 연관된 모든 서비스와
-                            기능에 대한 접근 권한이 손실될 수 있습니다. 이는
-                            길드 멤버 간의 활동 및 협업에 영향을 줄 수 있습니다.
-                          </p>
-                        </div>
-                      </div>
-                      <label>
-                        <input
-                          type="checkbox"
-                          checked={checked}
-                          onChange={handleCheckboxChange}
-                        />
-                        주의사항을 모두 확인하였습니다.
-                      </label>
-                      <button
-                        className="w-full bg-red-500 rounded p-2"
-                        onClick={deleteGuild}
-                      >
-                        <p className="text-white font-extrabold tracking-widest">
-                          길드해체
+                  </div>
+                )}
+                {currentTab === "delete" && (
+                  <div className="flex flex-col items-center gap-5">
+                    <div className="p-2">
+                      <div>
+                        <span className="text-sky-950 font-bold dark:text-sky-500">
+                          1. 정보 유실
+                        </span>
+                        <p className="text-sm">
+                          길드를 해체하면 해당 길드와 관련된 모든 데이터가
+                          삭제될 수 있습니다.
                         </p>
-                      </button>
+                      </div>
+                      <div>
+                        <span className="text-sky-950 font-bold dark:text-sky-500">
+                          2. 접근 권한
+                        </span>
+                        <p className="text-sm">
+                          길드를 해체하면 해당 길드에 대한 접근 권한을 잃게
+                          됩니다.
+                        </p>
+                      </div>
+                      <div>
+                        <span className="text-sky-950 font-bold dark:text-sky-500">
+                          3. 서비스 이용 중단
+                        </span>
+                        <p className="text-sm">
+                          길드를 해체한 후에는 해당 길드의 서비스 및 혜택을 더
+                          이상 이용할 수 없게 됩니다.
+                        </p>
+                      </div>
+                      <div>
+                        <span className="text-sky-950 font-bold dark:text-sky-500">
+                          4. 서비스 연관성
+                        </span>
+                        <p className="text-sm">
+                          길드를 해체할 경우 해당 길드와 연관된 모든 서비스와
+                          기능에 대한 접근 권한이 손실될 수 있습니다. 이는 길드
+                          멤버 간의 활동 및 협업에 영향을 줄 수 있습니다.
+                        </p>
+                      </div>
                     </div>
-                  )}
-                </div>
+                    <label>
+                      <input
+                        type="checkbox"
+                        checked={checked}
+                        onChange={handleCheckboxChange}
+                      />
+                      주의사항을 모두 확인하였습니다.
+                    </label>
+                    <button
+                      className="w-40 bg-red-500 rounded p-2"
+                      onClick={deleteGuild}
+                    >
+                      <p className="text-white font-bold tracking-widest">
+                        길드해체
+                      </p>
+                    </button>
+                  </div>
+                )}
               </div>
             </div>
-          </>
-        )}
-      </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

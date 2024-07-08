@@ -37,7 +37,7 @@ const GuildBanner = (props: Props) => {
           CustomAlert(
             "warning",
             "길드가입",
-            "이미 신청한 길드이거나, 가입된 길드가 있습니다."
+            "이미 신청한 길드이거나, 이미 가입된 길드가 있습니다."
           );
         });
     } else {
