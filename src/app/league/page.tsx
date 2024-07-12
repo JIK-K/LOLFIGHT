@@ -68,6 +68,21 @@ export default function Page() {
               shape="rounded"
               boundaryCount={2}
               onChange={(event, page) => handlePageClick(event, page)}
+              sx={{
+                ".dark & .Mui-selected": {
+                  backgroundColor: "#4C4C4C",
+                  color: "#CACACA", // 텍스트 색상
+                  "&:hover": {
+                    backgroundColor: "#707070", // 호버 시 색상
+                  },
+                },
+                ".dark & .MuiPaginationItem-root": {
+                  color: "#EEEEEE", // 선택되지 않은 아이템의 기본 텍스트 색상
+                },
+                ".dark & .MuiPaginationItem-icon": {
+                  color: "#EEEEEE", // 텍스트 색상
+                },
+              }}
             />
           </div>
         </div>

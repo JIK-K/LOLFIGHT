@@ -19,6 +19,7 @@ import { GuildInviteSendDTO } from "@/src/common/DTOs/guild/guild_invite_send.dt
 import { BattleDTO } from "@/src/common/DTOs/battle/battle.dto";
 import { getBattleList } from "@/src/api/battle.api";
 import { BattleTeamDTO } from "@/src/common/DTOs/battle/battle_team.dto";
+import Pagination from "@mui/material/Pagination";
 
 export default function GuildPage() {
   const router = useRouter();
@@ -28,6 +29,9 @@ export default function GuildPage() {
   const [memberId, setMemberId] = useState<string>();
   const [battleDataList, setBattleDataList] = useState<BattleDTO[]>([]);
   const guild = usePathname();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0); // 총 페이지 수
+  const battlesPerPage = 10;
 
   useEffect(() => {
     // const guildName = guild.replace(/^\/league\//, "");
@@ -58,6 +62,8 @@ export default function GuildPage() {
         }
       });
       setBattleDataList(tempBattle);
+      setTotalPages(Math.ceil(response.data.data.length / battlesPerPage));
+      console.log(totalPages);
     });
   }, []);
 
@@ -73,6 +79,18 @@ export default function GuildPage() {
   const changeTab = (tab: string) => {
     setCurrentTab(tab);
   };
+
+  const handlePageClick = (
+    event: React.ChangeEvent<unknown>,
+    pageNumber: number
+  ) => {
+    setCurrentPage(pageNumber);
+  };
+
+  const paginatedBattles = battleDataList.slice(
+    (currentPage - 1) * battlesPerPage,
+    currentPage * battlesPerPage
+  );
 
   return (
     <>
@@ -120,9 +138,32 @@ export default function GuildPage() {
                     />
                   </div>
                   <div className="w-full flex flex-col">
-                    {battleDataList.map((battle) => (
+                    {paginatedBattles.map((battle) => (
                       <GuildFightRecord key={battle.id} battleData={battle} />
                     ))}
+                  </div>
+                  <div className="notice__pagination w-full flex justify-center mt-1 p-3">
+                    <Pagination
+                      count={totalPages}
+                      shape="rounded"
+                      boundaryCount={2}
+                      onChange={(event, page) => handlePageClick(event, page)}
+                      sx={{
+                        ".dark & .Mui-selected": {
+                          backgroundColor: "#4C4C4C",
+                          color: "#CACACA", // 텍스트 색상
+                          "&:hover": {
+                            backgroundColor: "#707070", // 호버 시 색상
+                          },
+                        },
+                        ".dark & .MuiPaginationItem-root": {
+                          color: "#EEEEEE", // 선택되지 않은 아이템의 기본 텍스트 색상
+                        },
+                        ".dark & .MuiPaginationItem-icon": {
+                          color: "#EEEEEE", // 텍스트 색상
+                        },
+                      }}
+                    />
                   </div>
                 </div>
               )}

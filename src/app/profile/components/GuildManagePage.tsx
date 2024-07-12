@@ -31,15 +31,15 @@ const GuildManagePage = (props: Props) => {
 
   const router = useRouter();
   const handleCreateGuild = () => {
-    if (props.member.memberGame) {
-      router.replace("/league/guild/create");
-    } else {
-      CustomAlert(
-        "warning",
-        "길드생성",
-        "롤 계정이 등록되지 않은 계정은 길드를 생성할 수 없습니다."
-      );
-    }
+    // if (props.member.memberGame) {
+    router.replace("/league/guild/create");
+    // } else {
+    //   CustomAlert(
+    //     "warning",
+    //     "길드생성",
+    //     "롤 계정이 등록되지 않은 계정은 길드를 생성할 수 없습니다."
+    //   );
+    // }
   };
   const changeTab = (tab: string) => {
     setCurrentTab(tab);

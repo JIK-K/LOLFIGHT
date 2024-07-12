@@ -20,9 +20,50 @@ export default function Page() {
     guildRecord: null,
   });
 
+  //====================================================================//
+  //Valid Check
+  //====================================================================//
+  const isGuildNameValid = (guildName: string) => {
+    if (guildName.length < 2 || guildName.length > 12) {
+      CutsomAlert(
+        "warning",
+        "길드생성",
+        "길드명은 2자 이상, 12자 이내로 작성해주세요."
+      );
+      return false;
+    }
+    return true;
+  };
+
+  const isGuildImageValid = (guildImage: File) => {
+    if (guildImage === null) {
+      CutsomAlert(
+        "warning",
+        "길드생성",
+        "50x50 사이즈의 길드이미지를 등록해주세요."
+      );
+      return false;
+    }
+    return true;
+  };
+
+  const isGuildDescriptionVaild = (guildDescription: string) => {
+    if (guildDescription.length > 40) {
+      CutsomAlert(
+        "warning",
+        "길드생성",
+        "길드소개글은 40글자 이내로 작성해주세요."
+      );
+      return false;
+    }
+    return true;
+  };
+  //====================================================================//
+
   const handleGuildNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setGuild({ ...guild, guildName: e.target.value });
   };
+
   const handleGuildDescriptionChange = (
     e: React.ChangeEvent<HTMLTextAreaElement>
   ) => {
@@ -43,19 +84,11 @@ export default function Page() {
 
   const handleCreateGuild = () => {
     if (guild.guildName !== "") {
-      if (guild.guildName.length < 2 || guild.guildName.length > 12) {
-        CutsomAlert(
-          "warning",
-          "길드생성",
-          "길드명은 2자 이상, 12자 이내로 작성해주세요."
-        );
-      } else if (guildImage === null) {
-        CutsomAlert(
-          "warning",
-          "길드생성",
-          "50x50 사이즈의 길드이미지를 등록해주세요."
-        );
-      } else {
+      if (
+        isGuildNameValid(guild.guildName) &&
+        isGuildImageValid(guildImage!) &&
+        isGuildDescriptionVaild(guild.guildDescription)
+      ) {
         createGuild(guild, guildImage)
           .then((response) => {
             CutsomAlert("success", "길드생성", "길드생성이 완료되었습니다.");
