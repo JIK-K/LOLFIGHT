@@ -1,13 +1,19 @@
 "use client";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore from "swiper";
-import { Navigation, Pagination, Scrollbar } from "swiper/modules";
+import {
+  Navigation,
+  Pagination,
+  Scrollbar,
+  Autoplay,
+  EffectCoverflow,
+} from "swiper/modules";
 import Image from "next/image";
-
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
+import "swiper/css/effect-coverflow";
 
 const slideData = [
   {
@@ -37,20 +43,35 @@ const slideData = [
 ];
 
 const Slider = () => {
-  SwiperCore.use([Navigation, Pagination, Scrollbar]);
+  SwiperCore.use([
+    Navigation,
+    Pagination,
+    Scrollbar,
+    Autoplay,
+    EffectCoverflow,
+  ]);
 
   return (
-    <div className="w-full h-96 mt-4 mb-16">
+    <div className="w-[1200px] h-96 mt-4 mb-16 mx-auto">
       <Swiper
         loop={true}
-        spaceBetween={50} //  슬라이드 사이 간격
+        spaceBetween={30} //  슬라이드 사이 간격
         slidesPerView={2.5} //  한 화면에 보여줄 슬라이드 개수
         navigation={true} //  앞뒤 버튼
         pagination={{ clickable: true }}
         centeredSlides={true} //  활성 슬라이드를 항상 가운데 배치
         autoplay={{
-          delay: 3000,
+          delay: 5000,
           disableOnInteraction: false, //  사용자 상호 작용시 슬라이더 일시 정지 비활성
+        }}
+        effect="coverflow"
+        coverflowEffect={{
+          // 슬라이드 화면 효과
+          rotate: 15,
+          stretch: 0,
+          depth: 100,
+          modifier: 2,
+          slideShadows: true,
         }}
       >
         {slideData.map((slide) => (

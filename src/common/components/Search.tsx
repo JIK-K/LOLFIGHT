@@ -1,15 +1,13 @@
 "use client";
-import React, { useRef } from "react";
+import React, { useState } from "react";
 import { FaSearch } from "react-icons/fa";
-import Link from "@/src/common/components/Link";
 
 const Search = () => {
-  const inputRef = useRef<HTMLInputElement>(null);
+  const [summonerName, setSummonerName] = useState<string>();
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      if (inputRef.current && inputRef.current.value) {
-        const summonerName = inputRef.current.value;
+      if (summonerName) {
         const name = summonerName.split("#")[0];
         const tag = summonerName.split("#")[1];
         window.open(`https://www.op.gg/summoners/kr/${name}-${tag}`, "_blank");
@@ -18,12 +16,15 @@ const Search = () => {
   };
 
   const handleClick = () => {
-    if (inputRef.current && inputRef.current.value) {
-      const summonerName = inputRef.current.value;
+    if (summonerName) {
       const name = summonerName.split("#")[0];
       const tag = summonerName.split("#")[1];
       window.open(`https://www.op.gg/summoners/kr/${name}-${tag}`, "_blank");
     }
+  };
+
+  const handleInputText = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSummonerName(e.target.value);
   };
 
   return (
@@ -34,10 +35,10 @@ const Search = () => {
           type="text"
           placeholder="태양같은사나이#KR1"
           onKeyDown={handleKeyPress}
+          onChange={handleInputText}
         />
         <div className="bg-gray-100 w-12 h-12 flex flex-wrap justify-center content-center dark:bg-dark">
-          <FaSearch />
-
+          <FaSearch onClick={handleClick} />
         </div>
       </div>
     </div>

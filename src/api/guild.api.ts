@@ -181,3 +181,21 @@ export const inviteReject = async (
 
   return await axios.get(url);
 };
+
+/**
+ * GuildMaster 변경
+ * @param memberName
+ * @param guildName
+ * @returns
+ */
+export const changeGuildMaster = async (
+  memberName: string,
+  guildName: string
+): Promise<AxiosResponse<ResponseDTO<GuildDTO>>> => {
+  let url = `${baseUrl}/changeMaster`;
+
+  const queryParams = `?memberName=${memberName}&guildName=${guildName}`;
+  url += queryParams;
+
+  return await axios.get(url);
+};
