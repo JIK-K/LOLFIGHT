@@ -253,7 +253,12 @@ const SignUpComponent = () => {
               onChange={handleCodeInput}
               disabled={buttonText === "회원가입"}
               style={{
-                backgroundColor: buttonText === "회원가입" ? "" : undefined,
+                backgroundColor:
+                  buttonText === "회원가입"
+                    ? document.documentElement.classList.contains("dark")
+                      ? "#111519"
+                      : "#e0e0e0"
+                    : undefined,
               }}
             />
             <button
