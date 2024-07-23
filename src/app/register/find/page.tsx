@@ -17,6 +17,7 @@ export default function Page() {
   const [buttonText, setButtonText] = useState("인증하기");
   const [checkPassword, setCheckPassword] = useState("");
   const [viewPassword, setViewPassword] = useState(false);
+  const [viewCheckPassword, setViewCheckPassword] = useState(false);
   const [mail, setMail] = useState<MailDTO>({
     id: "",
     mailAddr: "",
@@ -114,6 +115,10 @@ export default function Page() {
 
   const handleViewPassword = () => {
     setViewPassword(!viewPassword);
+  };
+
+  const handleViewCheckPassword = () => {
+    setViewCheckPassword(!viewCheckPassword);
   };
 
   const handleButtonClick = () => {
@@ -260,7 +265,7 @@ export default function Page() {
         )}
         {showInputMemberInfo && (
           <div>
-            <div className="flex border border-gray-200 rounded-md my-4 dark:border-gray-700 relative">
+            <div className="border border-gray-200 rounded-md my-4 dark:border-gray-700 relative">
               <input
                 className="w-full h-12 rounded-md px-2 bg-gray-100 dark:bg-gray-900"
                 type={viewPassword ? "" : "password"}
@@ -275,20 +280,20 @@ export default function Page() {
                   stroke-width="1.5"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
-                  color="#000000"
-                  className="absolute right-2 top-1/2 transform -translate-y-1/2 cursor-pointer"
+                  color="#9e9e9e"
+                  className="absolute right-2 top-1/2 transform -translate-y-1/2 cursor-pointer text-[#FFFFFF]"
                   onClick={handleViewPassword}
                 >
                   <path
                     d="M3 13C6.6 5 17.4 5 21 13"
-                    stroke="#000000"
+                    stroke="#9e9e9e"
                     stroke-width="1.5"
                     stroke-linecap="round"
                     stroke-linejoin="round"
                   ></path>
                   <path
                     d="M12 17C10.3431 17 9 15.6569 9 14C9 12.3431 10.3431 11 12 11C13.6569 11 15 12.3431 15 14C15 15.6569 13.6569 17 12 17Z"
-                    stroke="#000000"
+                    stroke="#9e9e9e"
                     stroke-width="1.5"
                     stroke-linecap="round"
                     stroke-linejoin="round"
@@ -301,34 +306,34 @@ export default function Page() {
                   viewBox="0 0 25 25"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
-                  color="#000000"
+                  color="#9e9e9e"
                   className="absolute right-2 top-1/2 transform -translate-y-1/2 cursor-pointer"
                   onClick={handleViewPassword}
                 >
                   <path
                     d="M19.5 16L17.0248 12.6038"
-                    stroke="#000000"
+                    stroke="#9e9e9e"
                     stroke-width="1.5"
                     stroke-linecap="round"
                     stroke-linejoin="round"
                   ></path>
                   <path
                     d="M12 17.5V14"
-                    stroke="#000000"
+                    stroke="#9e9e9e"
                     stroke-width="1.5"
                     stroke-linecap="round"
                     stroke-linejoin="round"
                   ></path>
                   <path
                     d="M4.5 16L6.96895 12.6124"
-                    stroke="#000000"
+                    stroke="#9e9e9e"
                     stroke-width="1.5"
                     stroke-linecap="round"
                     stroke-linejoin="round"
                   ></path>
                   <path
                     d="M3 8C6.6 16 17.4 16 21 8"
-                    stroke="#000000"
+                    stroke="#9e9e9e"
                     stroke-width="1.5"
                     stroke-linecap="round"
                     stroke-linejoin="round"
@@ -336,13 +341,81 @@ export default function Page() {
                 </svg>
               )}
             </div>
-            <div className="border border-gray-200 rounded-md my-4 dark:border-gray-700">
+            <div className="border border-gray-200 rounded-md my-4 dark:border-gray-700 relative">
               <input
                 className="w-full h-12 rounded-md px-2 bg-gray-100 dark:bg-gray-900"
-                type={viewPassword ? "text" : "password"}
+                type={viewCheckPassword ? "text" : "password"}
                 placeholder="비밀번호 확인"
                 onChange={handlePasswordCheckInput}
               />
+              {viewCheckPassword ? (
+                <svg
+                  width="24px"
+                  height="24px"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  color="#9e9e9e"
+                  className="absolute right-2 top-1/2 transform -translate-y-1/2 cursor-pointer text-[#FFFFFF]"
+                  onClick={handleViewCheckPassword}
+                >
+                  <path
+                    d="M3 13C6.6 5 17.4 5 21 13"
+                    stroke="#9e9e9e"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  ></path>
+                  <path
+                    d="M12 17C10.3431 17 9 15.6569 9 14C9 12.3431 10.3431 11 12 11C13.6569 11 15 12.3431 15 14C15 15.6569 13.6569 17 12 17Z"
+                    stroke="#9e9e9e"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  ></path>
+                </svg>
+              ) : (
+                <svg
+                  width="25px"
+                  height="25px"
+                  viewBox="0 0 25 25"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  color="#9e9e9e"
+                  className="absolute right-2 top-1/2 transform -translate-y-1/2 cursor-pointer"
+                  onClick={handleViewCheckPassword}
+                >
+                  <path
+                    d="M19.5 16L17.0248 12.6038"
+                    stroke="#9e9e9e"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  ></path>
+                  <path
+                    d="M12 17.5V14"
+                    stroke="#9e9e9e"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  ></path>
+                  <path
+                    d="M4.5 16L6.96895 12.6124"
+                    stroke="#9e9e9e"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  ></path>
+                  <path
+                    d="M3 8C6.6 16 17.4 16 21 8"
+                    stroke="#9e9e9e"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  ></path>
+                </svg>
+              )}
             </div>
           </div>
         )}
