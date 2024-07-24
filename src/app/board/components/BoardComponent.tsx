@@ -21,6 +21,7 @@ const BoardComponent = (props: BoardComponentProps) => {
   const [postList, setPostList] = useState<PostDTO[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0); // 총 페이지 수
+  const [searchTerm, setSearchTerm] = useState<string>(""); // 검색어
   const postsPerPage = 15;
 
   useEffect(() => {
@@ -38,7 +39,11 @@ const BoardComponent = (props: BoardComponentProps) => {
     setCurrentPage(pageNumber);
   };
 
-  const paginatedPosts = postList.slice(
+  const filteredPosts = postList.filter((post) =>
+    post.postTitle.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const paginatedPosts = filteredPosts.slice(
     (currentPage - 1) * postsPerPage,
     currentPage * postsPerPage
   );
@@ -50,6 +55,7 @@ const BoardComponent = (props: BoardComponentProps) => {
           head={{
             slug: props.slug,
           }}
+          setSearchTerm={setSearchTerm}
         ></BoardHeadComponent>
       </div>
       <div className="notice__content">
