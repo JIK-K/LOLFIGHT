@@ -10,7 +10,7 @@ const Search = () => {
       if (summonerName) {
         const name = summonerName.split("#")[0];
         const tag = summonerName.split("#")[1];
-        window.open(`https://www.op.gg/summoners/kr/${name}-${tag}`, "_blank");
+        window.open(`https://www.fow.lol/find/kr/${name}-${tag}`, "_blank");
       }
     }
   };
@@ -19,7 +19,7 @@ const Search = () => {
     if (summonerName) {
       const name = summonerName.split("#")[0];
       const tag = summonerName.split("#")[1];
-      window.open(`https://www.op.gg/summoners/kr/${name}-${tag}`, "_blank");
+      window.open(`https://www.fow.lol/find/kr/${name}-${tag}`, "_blank");
     }
   };
 

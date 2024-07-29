@@ -9,6 +9,7 @@ interface BoardHeadComponentProps {
   head: {
     slug: string;
   };
+  setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
 }
 
 function getTitleFromSlug(slug: string) {
@@ -48,32 +49,17 @@ const BoardHeadComponent = (props: BoardHeadComponentProps) => {
         </div>
 
         <div className="flex justify-between font-semibold">
-          <div className="flex my-2 ml-2">
-            {/* <button
-              className="w-16 border border-brandcolor bg-brandcolor text-white m-1"
-              onClick={handleOnClick}
-            >
-              개념글
-            </button>
-            <button className="w-16 border border-brandcolor m-1">
-              인기도
-            </button>
-            <button className="w-16 border border-brandcolor m-1">
-              하이랜더
-            </button>
-            <button className="w-16 border border-brandcolor m-1">
-              일비표창
-            </button> */}
-          </div>
-          <div className="flex w-96 border border-gray-200 rounded-md my-2 mr-2 dark:bg-black dark:border-black">
-            <input
-              className="w-full h-10 rounded-md px-2 bg-gray-100 focus:outline-none dark:bg-black"
-              type="text"
-              placeholder="검색"
-            />
+          <div className="flex my-2 ml-2"></div>
+          <div className="flex w-[300px] border border-gray-200 rounded-md my-2 mr-2 dark:bg-black dark:border-black">
             <div className="bg-gray-100 w-12 h-10 flex flex-wrap justify-center content-center dark:bg-black">
               <FaSearch />
             </div>
+            <input
+              className="w-full h-10 rounded-md px-2 bg-gray-100 focus:outline-none dark:bg-black font-normal"
+              type="text"
+              placeholder="검색"
+              onChange={(e) => props.setSearchTerm(e.target.value)}
+            />
           </div>
         </div>
       </div>

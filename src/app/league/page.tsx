@@ -10,6 +10,7 @@ export default function Page() {
   const [guildList, setGuildList] = useState<GuildDTO[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0); // 총 페이지 수
+  const [searchTerm, setSearchTerm] = useState<string>(""); // 검색어
   const guildsPerPage = 10;
 
   useEffect(() => {
@@ -30,7 +31,7 @@ export default function Page() {
         );
 
         setGuildList(sortedGuilds);
-        setTotalPages(Math.ceil(response.data.data.length / guildsPerPage));
+        setTotalPages(Math.ceil(sortedGuilds.length / guildsPerPage)); // sortedGuilds 길이 사용
       })
       .catch((error) => {
         console.log(error);
@@ -44,7 +45,11 @@ export default function Page() {
     setCurrentPage(pageNumber);
   };
 
-  const paginatedGuilds = guildList.slice(
+  const filteredGuilds = guildList.filter((guild) =>
+    guild.guildName.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const paginatedGuilds = filteredGuilds.slice(
     (currentPage - 1) * guildsPerPage,
     currentPage * guildsPerPage
   );
@@ -53,11 +58,12 @@ export default function Page() {
     <>
       <div className="w-full h-full h-96 mt-16 mb-14">
         <div className="w-1200px h-full mx-auto">
-          <LeagueHeaderComponent guildLength={guildList.length} />
+          <LeagueHeaderComponent
+            guildLength={guildList.length}
+            searchTerm={searchTerm}
+            setSearchTerm={setSearchTerm}
+          />
           <div className="flex flex-col">
-            {/* {guildList.map((guild) => (
-              <GuildInfoComponent key={guild.id} guild={guild} />
-            ))} */}
             {paginatedGuilds.map((guild) => (
               <GuildInfoComponent key={guild.id} guild={guild} />
             ))}
