@@ -10,10 +10,6 @@ interface BoardInfoComponentProps {
   data: PostDTO;
 }
 
-const handleClick = () => {
-  console.log("클릭");
-};
-
 function getSlugFromTitle(title: string) {
   const link = boardNavLinks.find((link) => link.title === title);
   return link?.slug ?? "";
@@ -26,11 +22,8 @@ const BoardInfoComponent = (props: BoardInfoComponentProps) => {
   const [postDate, setPostDate] = useState<String>();
 
   const handleOnClick = () => {
-    console.log("우리손주글함보자");
-    console.log(link);
     if (props.slug == "all") {
       // router.push(`${props.data.postBoard}/${props.data.id}`);
-      console.log(getSlugFromTitle(props.data.postBoard) + "/" + props.data.id);
       router.push(getSlugFromTitle(props.data.postBoard) + "/" + props.data.id);
     } else {
       router.push(link);
@@ -61,7 +54,7 @@ const BoardInfoComponent = (props: BoardInfoComponentProps) => {
   };
 
   return (
-    <div className="notice-info text-sm h-8 flex mt-1" onClick={handleClick}>
+    <div className="notice-info text-sm h-8 flex mt-1">
       <div className="notice-info__number w-1/12 flex items-center justify-center">
         {props.data.postLikes}
       </div>

@@ -14,12 +14,13 @@ import { PostDTO } from "@/src/common/DTOs/board/post.dto";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
+import CustomAlert from "./alert/CustomAlert";
 
 const WysiwygEditor = () => {
   const router = useRouter();
-  const [title, setTitle] = useState("");
+  const [title, setTitle] = useState<string>();
   const [category, setCategory] = useState("자유");
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState<string>();
   const editorRef = useRef<Editor>(null);
   const toolbarItems = [
     ["heading", "bold", "italic", "strike"],
@@ -46,42 +47,35 @@ const WysiwygEditor = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
-    console.log(title);
   };
 
   const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setCategory(e.target.value);
-    console.log(category);
-  };
-
-  const handleCancleClick = () => {
-    console.log("취소");
-    console.log(constant.SERVER_URL);
   };
 
   const handleSaveClick = async () => {
     const link = "";
     const editorIns = editorRef.current?.getInstance().getHTML() || "";
     const storedMemberName = sessionStorage.getItem("memberName")?.toString();
-    if (!storedMemberName) {
-      console.log("로그인이 필요합니다.");
-      return;
+    if (title && editorIns) {
+      writePost(title, editorIns, storedMemberName!, category).then(
+        (response) => {
+          boardNavLinks
+            .filter((link) => link.href !== "/")
+            .map((link) => {
+              if (link.title === category) {
+                router.replace(link.href + "/" + response.data.data.id);
+              }
+            });
+          return;
+        }
+      );
+    } else {
+      CustomAlert("warning", "글쓰기", "제목과 내용을 작성해주세요.");
     }
-    writePost(title, editorIns, storedMemberName, category).then((response) => {
-      console.log(response);
-      boardNavLinks
-        .filter((link) => link.href !== "/")
-        .map((link) => {
-          if (link.title === category) {
-            router.replace(link.href + "/" + response.data.data.id);
-          }
-        });
-      return;
-    });
   };
 
   const onUploadImage = async (blob: any, callback: any) => {
-    console.log(blob);
     const formData = new FormData();
     formData.append("file", blob);
     try {
@@ -94,10 +88,7 @@ const WysiwygEditor = () => {
           },
         }
       );
-      console.log("imageRes", imageRes);
-      console.log("imageRes", imageRes.data.data);
       const imageUrl = `${constant.SERVER_URL}/` + imageRes.data.data;
-      console.log("imgurl", imageUrl);
       setImage(imageUrl);
       callback(imageUrl, "image");
     } catch (error) {
@@ -142,10 +133,7 @@ const WysiwygEditor = () => {
         />
       </div>
       <div className="w-full flex justify-between">
-        <button
-          className="w-16 h-10 flex font-medium border items-center justify-center rounded-md cursor-pointer my-4 dark:border-gray-700 dark:text-gray-100"
-          onClick={handleCancleClick}
-        >
+        <button className="w-16 h-10 flex font-medium border items-center justify-center rounded-md cursor-pointer my-4 dark:border-gray-700 dark:text-gray-100">
           취소
         </button>
         <button

@@ -71,7 +71,6 @@ const GuildManagePage = (props: Props) => {
     //길드원 길드탈퇴
     if (memberChecked) {
       leaveMember(props.member.memberId).then((response) => {
-        console.log(response);
         CustomAlert("success", "길드탈퇴", "성공적으로 길드를 탈퇴했습니다.");
         router.replace("/");
       });

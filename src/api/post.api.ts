@@ -25,10 +25,6 @@ export const writePost = async (
   formData.append("postWriter", postWriter);
   formData.append("postBoard", postBoard);
 
-  console.log("FormData contents:");
-  formData.forEach((value: FormDataEntryValue, key: string) => {
-    console.log(key + ", " + value);
-  });
   return await axios.post(url, formData);
 };
 
@@ -41,7 +37,6 @@ export const getPostList = async (
   board: string
 ): Promise<AxiosResponse<ResponseDTO<PostDTO[]>>> => {
   let url = `${baseUrl}/list` + `?board=${board}`;
-  console.log(url);
   return await axios.get(url);
 };
 
@@ -74,8 +69,6 @@ export const likePost = async (
     postDTO: postDTO,
     memberId: memberId,
   };
-
-  console.log("body: ", body);
 
   return await axios.post(url, body);
 };
