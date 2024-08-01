@@ -49,7 +49,7 @@ const AboutSectionOne = () => {
             <div className="w-full px-4 lg:w-1/2 relative">
               <div className="relative mx-auto lg:mr-0 aspect-w-25 aspect-h-24">
                 <Image
-                  src="/images/homePage.png"
+                  src="/images/homeImg.png"
                   alt="about-image"
                   layout="responsive"
                   width={500}
@@ -88,7 +88,7 @@ const AboutSectionOne = () => {
             <div className="w-full px-4 lg:w-1/2 relative">
               <div className="relative mx-auto  lg:mr-0 aspect-w-25 aspect-h-24">
                 <Image
-                  src="/images/guildPage.png"
+                  src="/images/guildImg.png"
                   alt="about-image"
                   layout="responsive"
                   width={500}
