@@ -26,7 +26,6 @@ const BoardComponent = (props: BoardComponentProps) => {
 
   useEffect(() => {
     getPostList(`${getTitleFromSlug(props.slug)}`).then((res) => {
-      console.log(res);
       setPostList(res.data.data);
       setTotalPages(Math.ceil(res.data.data.length / postsPerPage));
     });

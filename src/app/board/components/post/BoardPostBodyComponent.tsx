@@ -16,6 +16,7 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import CommentBoxComponent from "./comment/CommentBoxComponent";
 import { useRouter } from "next/navigation";
+import CustomAlert from "@/src/common/components/alert/CustomAlert";
 
 interface BoardPostBodyComponentProps {
   data: PostDTO;
@@ -29,7 +30,6 @@ const BoardPostBodyComponent = (props: BoardPostBodyComponentProps) => {
   const [like, setLike] = useState(0);
 
   useEffect(() => {
-    console.log("editorRef.current", props.data?.postContent);
     setContent(props.data?.postContent);
   }, [props.data]);
 
@@ -39,7 +39,6 @@ const BoardPostBodyComponent = (props: BoardPostBodyComponentProps) => {
     if (storedId) {
       if (props.data) {
         getLike(props.data, storedId).then((res) => {
-          console.log("교촌마을", res);
           if (res.data.data) {
             setLike(1);
           } else {
@@ -52,17 +51,12 @@ const BoardPostBodyComponent = (props: BoardPostBodyComponentProps) => {
 
   const handleChangeComment = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCommentContent(e.target.value);
-    console.log(commentContent);
   };
 
   const handleOnClick = () => {
-    console.log("죽고싶냐?", content);
-    console.log("죽고잡냐?", props.data.postBoard);
-
     const storedId = sessionStorage.getItem("id")?.toString();
     if (storedId) {
       likePost(props.data, storedId).then((res) => {
-        console.log(res);
         router.refresh();
         if (like === 0) {
           setLike(1);
@@ -71,24 +65,21 @@ const BoardPostBodyComponent = (props: BoardPostBodyComponentProps) => {
         }
       });
     } else {
-      console.log("로그인이 필요합니다.");
+      CustomAlert("info", "추천", "로그인이 필요합니다");
     }
   };
 
   const handleSaveCommentClick = () => {
-    console.log("댓글 저장");
-
     const storedId = sessionStorage.getItem("id")?.toString();
     if (storedId) {
       writeComment(props.data, storedId, commentContent).then((res) => {
-        console.log(res);
         router.refresh();
         setCommentBoxKey((prevKey) => prevKey + 1);
         setCommentContent("");
         // window.location.reload();
       });
     } else {
-      console.log("로그인이 필요합니다.");
+      CustomAlert("info", "댓글", "로그인이 필요합니다");
     }
   };
 

@@ -27,8 +27,6 @@ export const writeComment = async (
   formData.append("memberId", memberId);
   formData.append("commentContent", commentContent);
 
-  console.log("FormData contents:", formData);
-
   const body = {
     postId: post.id,
     postBoard: post.postBoard,
@@ -36,8 +34,6 @@ export const writeComment = async (
     memberId: memberId,
     commentContent: commentContent,
   };
-
-  console.log("body:", body);
 
   return await axios.post(url, body);
 };
@@ -62,8 +58,6 @@ export const writeReplyComment = async (
   formData.append("commentContent", commentContent);
   formData.append("parentCommentId", parentCommentId);
 
-  console.log("FormData contents:", formData);
-
   const body = {
     postId: post.id,
     postBoard: post.postBoard,
@@ -72,8 +66,6 @@ export const writeReplyComment = async (
     commentContent: commentContent,
     parentComment: parentCommentId,
   };
-
-  console.log("body:", body);
 
   return await axios.post(url, body);
 };

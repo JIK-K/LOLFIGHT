@@ -18,9 +18,7 @@ const CommentBoxComponent = (props: CommentBoxComponentProps) => {
 
   useEffect(() => {
     if (props.data && props.data.id) {
-      console.log("짐에게 댓글을 대령하거라", props.data.id);
       getCommentList(props.data).then((res) => {
-        console.log(res);
         setCommentList(res.data.data);
       });
     }
@@ -28,20 +26,11 @@ const CommentBoxComponent = (props: CommentBoxComponentProps) => {
 
   const handleChangeReplyComment = (e: React.ChangeEvent<HTMLInputElement>) => {
     setReplyCommentContent(e.target.value);
-    console.log(replyCommentContent);
   };
-
-  // useEffect(() => {
-  //   if (typeof window !== "undefined") {
-  //     const storedMemberName = sessionStorage.getItem("memberName");
-  //     console.log("storedMemberName", storedMemberName);
-  //   }
-  // }, []);
 
   const handleReplyButtonClick = (comment: CommentDTO) => {
     setIsOpen(!isOpen); // isOpen 상태를 토글합니다.
     setOpenCommentId(comment.id as string);
-    console.log(comment.id);
   };
 
   const handleSaveReplyButtonClick = () => {
@@ -53,7 +42,6 @@ const CommentBoxComponent = (props: CommentBoxComponentProps) => {
         replyCommentContent,
         openCommentId
       ).then((res) => {
-        console.log(res);
         // router.refresh();
         setRefresh((prev) => prev + 1);
         setIsOpen(false);

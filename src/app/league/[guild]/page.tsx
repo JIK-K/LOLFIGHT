@@ -63,7 +63,6 @@ export default function GuildPage() {
       });
       setBattleDataList(tempBattle);
       setTotalPages(Math.ceil(response.data.data.length / battlesPerPage));
-      console.log(totalPages);
     });
   }, []);
 

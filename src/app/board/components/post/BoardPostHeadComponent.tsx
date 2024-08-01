@@ -34,7 +34,6 @@ const BoardPostHeadComponent = (props: BoardPostHeadComponentProps) => {
       router.replace("/board/free");
     };
 
-    console.log("삭제버튼클릭", props.post);
     ButtonAlert(
       "게시글 삭제",
       "게시글을 삭제하시겠습니까?",

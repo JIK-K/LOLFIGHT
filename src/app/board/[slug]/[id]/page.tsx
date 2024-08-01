@@ -30,15 +30,8 @@ export default function Page({ params }: { params: PageProps }) {
 
   useEffect(() => {
     if (!post) {
-      // 전체 게시판인 경우 slug에서 문제가 생김
       getPostContent(getTitleFromSlug(params.slug), params.id).then((res) => {
-        console.log("res", res);
         setPost(res.data.data);
-        // if (res.data.data) {
-        //   increaseView(res.data.data);
-        // }
-        // console.log("post", post);
-        // console.log("postContent", res.data.data.postContent);
       });
     }
   });
