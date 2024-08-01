@@ -3,8 +3,6 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { SlArrowDown } from "react-icons/sl";
 
-import TestImg from "../../../../common/assets/image/TestImg.png";
-import TestImg2 from "../../../../common/assets/image/TestImg2.png";
 import GuildFightDetail from "./GuildFightDetail";
 import GuildFightMember from "./GuildFightMember";
 import { BattleDTO } from "@/src/common/DTOs/battle/battle.dto";
