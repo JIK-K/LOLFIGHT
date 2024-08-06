@@ -21,6 +21,12 @@ export const metadata: Metadata = {
   icons: {
     icon: "/icon-blue.ico",
   },
+  other: {
+    "google-adsense-account": "ca-pub-9861327972888599",
+  },
+  verification: {
+    google: "4TuSFIptJgyhAxtNwjEP3SKSVgMpvfm3_w43Zb3e91M",
+  },
 };
 
 export const viewport: Viewport = {
