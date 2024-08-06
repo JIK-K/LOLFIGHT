@@ -1,0 +1,12 @@
+# *
+User-agent: *
+Allow: /
+Disallow: /profile
+Disallow: /register
+Disallow: /policies
+
+# Host
+Host: https://lolfight.kr
+
+# Sitemaps
+Sitemap: https://lolfight.kr/sitemap.xml
