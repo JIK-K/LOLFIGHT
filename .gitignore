@@ -3,6 +3,7 @@
 .env
 
 /public/certs
+/public/*.xml
 
 # dependencies
 /node_modules
