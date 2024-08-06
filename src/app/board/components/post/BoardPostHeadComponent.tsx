@@ -64,9 +64,6 @@ const BoardPostHeadComponent = (props: BoardPostHeadComponentProps) => {
         </div>
         {isMine && (
           <div className="head_btn content-center">
-            <button className="text-gray-400 mx-1">
-              <span className="p-1">수정</span>
-            </button>
             <button className="text-gray-400" onClick={handleDeleteButtonClick}>
               <span className="p-1">삭제</span>
             </button>

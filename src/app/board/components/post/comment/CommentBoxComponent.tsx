@@ -3,6 +3,7 @@ import { SetStateAction, useEffect, useState } from "react";
 import { getCommentList } from "@/src/api/comment.api";
 import { CommentDTO } from "@/src/common/DTOs/board/comment.dto";
 import { writeReplyComment } from "@/src/api/comment.api";
+import CustomAlert from "@/src/common/components/alert/CustomAlert";
 
 interface CommentBoxComponentProps {
   data: PostDTO;
@@ -35,7 +36,11 @@ const CommentBoxComponent = (props: CommentBoxComponentProps) => {
 
   const handleSaveReplyButtonClick = () => {
     const storedId = sessionStorage.getItem("id")?.toString();
-    if (storedId) {
+    if (!storedId) {
+      CustomAlert("info", "답글", "로그인이 필요합니다.");
+    } else if (!replyCommentContent || replyCommentContent.trim() === "") {
+      CustomAlert("info", "답글", "답글을 작성해주세요");
+    } else {
       writeReplyComment(
         props.data,
         storedId,
@@ -49,8 +54,6 @@ const CommentBoxComponent = (props: CommentBoxComponentProps) => {
         setReplyCommentContent("");
         // setCommentBoxKey((prevKey) => prevKey + 1);
       });
-    } else {
-      console.log("로그인이 필요합니다.");
     }
   };
 

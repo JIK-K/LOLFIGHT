@@ -37,6 +37,7 @@ export default function Page({ params }: { params: PageProps }) {
   });
 
   useEffect(() => {
+    console.log(post);
     if (post) {
       increaseView(post);
     }

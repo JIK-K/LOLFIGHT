@@ -36,7 +36,6 @@ const WysiwygEditor = () => {
   useEffect(() => {
     if (editorRef.current) {
       editorRef.current.getInstance().removeHook("addImageBlobHook");
-
       editorRef.current
         .getInstance()
         .addHook("addImageBlobHook", (blob: any, callback: any) => {
@@ -56,8 +55,9 @@ const WysiwygEditor = () => {
   const handleSaveClick = async () => {
     const link = "";
     const editorIns = editorRef.current?.getInstance().getHTML() || "";
+    const strippedHTML = editorIns.replace(/<[^>]*>/g, ""); // HTML 태그 제거
     const storedMemberName = sessionStorage.getItem("memberName")?.toString();
-    if (title && editorIns) {
+    if (title && strippedHTML) {
       writePost(title, editorIns, storedMemberName!, category).then(
         (response) => {
           boardNavLinks

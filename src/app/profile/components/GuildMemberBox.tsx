@@ -3,6 +3,7 @@ import { MemberDTO } from "@/src/common/DTOs/member/member.dto";
 import ButtonAlert from "../../../common/components/alert/ButtonAlert";
 import CustomAlert from "../../../common/components/alert/CustomAlert";
 import { changeGuildMaster, expulsionGuildMember } from "@/src/api/guild.api";
+import constant from "@/src/common/constant/constant";
 
 interface Props {
   guildIcon: string;
@@ -68,6 +69,14 @@ const GuildMemberBox = (props: Props) => {
         {props.guildMember.memberGame?.gameName}
       </div>
       <div className="flex w-250px items-center text-16px font-medium pl-2">
+        <img
+          src={`${constant.SERVER_URL}/public/rank/${
+            props.guildMember.memberGame?.gameTier.split(" ")[0]
+          }.png`}
+          alt="Champion"
+          width={30}
+          height={30}
+        />
         {props.guildMember.memberGame?.gameTier}
       </div>
       <div>
