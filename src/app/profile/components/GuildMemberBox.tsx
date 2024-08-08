@@ -69,15 +69,19 @@ const GuildMemberBox = (props: Props) => {
         {props.guildMember.memberGame?.gameName}
       </div>
       <div className="flex w-250px items-center text-16px font-medium pl-2">
-        <img
-          src={`${constant.SERVER_URL}/public/rank/${
-            props.guildMember.memberGame?.gameTier.split(" ")[0]
-          }.png`}
-          alt="Champion"
-          width={30}
-          height={30}
-        />
-        {props.guildMember.memberGame?.gameTier}
+        {props.guildMember.memberGame ? (
+          <>
+            <img
+              src={`${constant.SERVER_URL}/public/rank/${
+                props.guildMember.memberGame?.gameTier.split(" ")[0]
+              }.png`}
+              alt="Champion"
+              width={30}
+              height={30}
+            />
+            {props.guildMember.memberGame?.gameTier}
+          </>
+        ) : null}
       </div>
       <div>
         {props.guildMember.memberName !== props.guild.guildMaster &&
