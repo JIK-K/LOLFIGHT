@@ -17,7 +17,8 @@ const nanum_gothic = Nanum_Gothic({
 
 export const metadata: Metadata = {
   title: "LOL.FIGHT",
-  description: "Create and join League of Legends tournaments.",
+  description: "롤 내전/스크림은 LOLFIGHT - 롤 길드 대항전, 스크림, 내전",
+  keywords: ["롤파이트", "LOLFIGHT", "내전", "스크림", "롤 커스텀", "길드전"],
   icons: {
     icon: "/icon-blue.ico",
   },
@@ -27,6 +28,20 @@ export const metadata: Metadata = {
   },
   verification: {
     google: "4TuSFIptJgyhAxtNwjEP3SKSVgMpvfm3_w43Zb3e91M",
+  },
+  openGraph: {
+    title: "LOL.FIGHT - 롤 길드 대항전, 스크림, 내전",
+    description: "롤 내전/스크림은 LOLFIGHT - 롤 길드 대항전, 스크림, 내전",
+    url: "https://lolfight.kr", // 실제 사이트 URL로 변경
+    type: "website",
+    images: [
+      {
+        url: "https://lolfight.kr/api/public/image/icon-blue.png", // 실제 이미지 URL로 변경
+        width: 800,
+        height: 600,
+        alt: "LOL.FIGHT",
+      },
+    ],
   },
 };
 

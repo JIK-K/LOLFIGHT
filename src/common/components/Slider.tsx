@@ -32,7 +32,7 @@ const slideData = [
     id: 3,
     text: "third slide",
     type: "image",
-    content: "/images/whycanwin.png",
+    content: "/icon-blue.png",
   },
   {
     id: 4,
