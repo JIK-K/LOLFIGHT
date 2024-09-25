@@ -16,7 +16,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="pt-10 bg-brandcolor">
+    <footer className="pt-10 bg-brandcolor dark:bg-branddark">
       <div className="max-w-screen-xl mx-auto px-4 md:px-8">
         <div className="flex-1 space-y-6 sm:flex md:space-y-0">
           {footerNavs.map((item, idx) => (
@@ -25,7 +25,7 @@ const Footer = () => {
             </nav>
           ))}
         </div>
-        <div className="mt-10 py-10 border-t border-gray-700 items-center justify-between sm:flex">
+        <div className="mt-10 py-10 border-t border-white-700 items-center justify-between sm:flex">
           <p className="text-gray-300">
             © 2023 LOLFIGHT Inc. All rights reserved.
           </p>

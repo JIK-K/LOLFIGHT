@@ -135,7 +135,7 @@ const GuildManagePage = (props: Props) => {
   }, []);
 
   return (
-    <div className="w-1200px h-full pt-48 mx-auto">
+    <div className="w-1200px h-full mx-auto pt-4">
       {props.member.memberGuild === null ||
       props.member.memberGuild === undefined ? (
         <div className="flex w-full py-10">
@@ -195,31 +195,17 @@ const GuildManagePage = (props: Props) => {
         </div>
       ) : (
         // 가입하거나 관리하는 길드가 존재하는 경우
-        <div className="mt-10">
-          <div className="absolute w-full h-80 left-0 top-32 z-1">
-            {/* <Image
-                src={`${constant.SERVER_URL}/${props.member.memberGuild?.guildIcon}`}
-                alt="GuildBanner"
-                layout="fill"
-                objectFit="cover"
-                objectPosition="center"
-              /> */}
+        <div className="pt-4">
+          {/* <div className=" w-full h-80 left-0 top-32 z-1">
             <img
               src={`${constant.SERVER_URL}/${props.member.memberGuild?.guildIcon}`}
               alt="GuildBanner"
               className="object-cover object-center w-full h-full"
             />
-          </div>
+          </div> */}
           <div className="flex flex-col w-full gap-2 p-5">
             <div className="flex items-center">
               <div className="rounded p-2 w-32 h-32 z-10">
-                {/* <Image
-                    src={`${constant.SERVER_URL}/${props.member.memberGuild?.guildIcon}`}
-                    alt="GuildIcon"
-                    layout="fill"
-                    objectFit="cover"
-                  /> */}
-
                 <img
                   src={`${constant.SERVER_URL}/${props.member.memberGuild?.guildIcon}`}
                   alt="GuildIcon"
