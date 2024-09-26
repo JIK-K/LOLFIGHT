@@ -175,7 +175,7 @@ const Header = () => {
                       className="rounded-full mr-[20px]"
                       width={70}
                       height={70}
-                      src={`${constant.SERVER_URL}/public/items/34.png`}
+                      src={`${constant.SERVER_URL}/public/member/${memberName}.png`}
                       alt={"testimg"}
                     />
                     <div className="flex flex-col flex-grow">
