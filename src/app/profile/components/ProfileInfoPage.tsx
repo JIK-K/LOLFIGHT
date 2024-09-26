@@ -6,9 +6,12 @@ interface Props {
 const ProfileInfoPage = (props: Props) => {
   return (
     <div className="w-1200px h-full mx-auto pt-4">
-      <p className="pb-5 text-xl font-normal border-b border-gray-200">
-        내 정보
-      </p>
+      <div className="flex justify-between items-center pb-5 border-b border-gray-200">
+        <p className="text-xl font-normal">내 정보</p>
+        <button className="bg-brandcolor text-white px-4 py-2 rounded hover:bg-brandhover">
+          프로필 사진 변경
+        </button>
+      </div>
       <div className="flex mt-4">
         <div className="w-32 h-32 bg-black my-auto"></div>
         <div className="info-container flex-col ml-8">
@@ -24,10 +27,6 @@ const ProfileInfoPage = (props: Props) => {
             <p className="font-bold py-2  pr-8">가입일</p>
             {props.member.createdAt?.toString().split("T")[0]}
           </div>
-          {/* <div className="flex flex-col">
-        <p>소속길드</p>
-        {props.member.memberGuild?.guildName}
-      </div> */}
         </div>
       </div>
       <p className="pb-5 text-xl font-normal border-b border-gray-200 mt-8">

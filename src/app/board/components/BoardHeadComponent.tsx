@@ -38,7 +38,7 @@ const BoardHeadComponent = (props: BoardHeadComponentProps) => {
             {getTitleFromSlug(props.head.slug)}
           </span>
           <button
-            className="h-8 w-16 border border-brandcolor bg-brandcolor text-white m-1"
+            className="h-8 w-16 border border-brandcolor bg-brandcolor text-white m-1 rounded-lg"
             onClick={handleWriteClick}
           >
             글쓰기

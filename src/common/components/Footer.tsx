@@ -20,16 +20,16 @@ const Footer = () => {
       <div className="max-w-screen-xl mx-auto px-4 md:px-8">
         <div className="flex-1 space-y-6 sm:flex md:space-y-0">
           {footerNavs.map((item, idx) => (
-            <nav className="pr-4 text-gray-300" key={idx}>
+            <nav className="pr-4 text-white" key={idx}>
               <a href={item.href}>{item.name}</a>
             </nav>
           ))}
         </div>
         <div className="mt-10 py-10 border-t border-white-700 items-center justify-between sm:flex">
-          <p className="text-gray-300">
+          <p className="text-white">
             © 2023 LOLFIGHT Inc. All rights reserved.
           </p>
-          <div className="flex items-center gap-x-6 text-gray-400 mt-6">
+          <div className="flex items-center gap-x-6 text-white mt-6">
             <a
               href="https://github.com/JIK-K/LOLFIGHT"
               onClick={(e) => e.preventDefault}
