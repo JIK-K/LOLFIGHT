@@ -38,7 +38,6 @@ export default function Page() {
   return (
     <>
       {/* <Main /> */}
-      <Search></Search>
       <Slider></Slider>
       <div className="w-1200px mx-auto mb-16">
         <LeagueHeaderComponent guildLength={guildList.length} />

@@ -7,6 +7,7 @@ export interface MemberDTO extends BaseDTO {
   memberId: string;
   memberPw: string;
   memberName: string;
+  memberIcon: string;
   memberGuild: GuildDTO | null;
   memberGame: MemberGameDTO | null;
 }

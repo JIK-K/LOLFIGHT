@@ -47,8 +47,8 @@ const GuildBanner = (props: Props) => {
   };
 
   return (
-    <div className="w-full bg-brandcolor">
-      <section className="w-1200px mx-auto h-44 flex justify-between items-center bg-brandcolor">
+    <div className="w-full bg-brandcolor dark:bg-branddark">
+      <section className="w-1200px mx-auto h-44 flex justify-between items-center ">
         {/* Left */}
         <div className="w-1200px flex flex-col justify-center">
           <div className="flex flex-row mb-3">

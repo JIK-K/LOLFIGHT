@@ -66,7 +66,7 @@ const ChangePasswordPage = (props: Props) => {
     }
   };
   return (
-    <div className="w-1200px h-full pt-48 mx-auto">
+    <div className="w-1200px h-full mx-auto pt-4">
       <p className="pb-5 text-xl font-normal border-b border-gray-200">
         비밀번호 변경
       </p>

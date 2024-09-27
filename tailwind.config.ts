@@ -107,15 +107,20 @@ const config: Config = {
       },
       colors: {
         transparent: "transparent",
-        brandcolor: "#11235A",
-        brandbgcolor: "#EFEFEF",
+
+        brandcolor: "#7b92e0",
+        brandhover: "#cedef7",
+        brandbgcolor: "#f0f6fd",
+
+        branddark: "#262f40",
+        brandgray: "#344057",
+        // brandcolor: "#11235A",
         // brandbgcolor: "#FAFAFA",
         current: "currentColor",
         white: "#FFFFFF",
         black: "#121723",
         dark: "#1D2430",
-        branddark: "#262f40",
-        brandgray: "#344057",
+
         primary: "#4A6CF7",
         yellow: "#FBB040",
         "bg-color-dark": "#171C28",

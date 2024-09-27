@@ -31,6 +31,10 @@ const BoardComponent = (props: BoardComponentProps) => {
     });
   }, []);
 
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchTerm]);
+
   const handlePageClick = (
     event: React.ChangeEvent<unknown>,
     pageNumber: number

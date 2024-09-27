@@ -3,6 +3,9 @@
 .env
 .yarn/
 /public/certs
+/public/*.xml
+
+.yarn/
 
 # dependencies
 /node_modules

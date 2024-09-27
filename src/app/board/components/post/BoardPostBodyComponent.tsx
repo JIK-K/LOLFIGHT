@@ -71,29 +71,23 @@ const BoardPostBodyComponent = (props: BoardPostBodyComponentProps) => {
 
   const handleSaveCommentClick = () => {
     const storedId = sessionStorage.getItem("id")?.toString();
-    if (storedId) {
+    if (!storedId) {
+      CustomAlert("info", "댓글", "로그인이 필요합니다");
+    } else if (!commentContent || commentContent.trim() === "") {
+      CustomAlert("info", "댓글", "댓글을 작성해주세요");
+    } else {
       writeComment(props.data, storedId, commentContent).then((res) => {
         router.refresh();
         setCommentBoxKey((prevKey) => prevKey + 1);
         setCommentContent("");
         // window.location.reload();
       });
-    } else {
-      CustomAlert("info", "댓글", "로그인이 필요합니다");
     }
   };
 
   return (
     <div className="board-post-body flex flex-col m-12">
       <div className="board-post-body__body w-full mb-12">
-        {/* <p className="">{props.data?.postContent}</p> */}
-        {/* <Viewer height="60rem" initialValue={props.data?.postContent} /> */}
-        {/* <ReactMarkdown
-          // eslint-disable-next-line react/no-children-prop
-          children={props.data?.postContent}
-          remarkPlugins={[remarkGfm]}
-        ></ReactMarkdown> */}
-        {/* {props.data?.postContent}.setHtml(); */}
         <div
           dangerouslySetInnerHTML={{
             __html: props.data?.postContent,
@@ -101,8 +95,6 @@ const BoardPostBodyComponent = (props: BoardPostBodyComponentProps) => {
         ></div>
       </div>
       <div className="board-post-body__status m-auto">
-        {/* 만약 like가 1이면 검정색 버튼 */}
-        {/* 만약 like가 0이면 회색 버튼 */}
         {like === 0 ? (
           <button
             className="border border-gray-400 h-10 text-gray-400 rounded transition hover:bg-brandcolor hover:text-white w-20 m-1"
@@ -118,12 +110,6 @@ const BoardPostBodyComponent = (props: BoardPostBodyComponentProps) => {
             <span className="">추천</span>
           </button>
         )}
-        {/* <button className="border border-black bg-brandcolor text-white">
-          공유
-        </button> */}
-        {/* <button className="border border-black bg-brandcolor text-white">
-          스크랩
-        </button> */}
       </div>
       <div className="board-post-body__comment">
         <div className="border-b w-full mt-4 dark:border-gray-700"></div>
@@ -133,7 +119,6 @@ const BoardPostBodyComponent = (props: BoardPostBodyComponentProps) => {
           data={props.data}
         ></CommentBoxComponent>
         <div className="w-full rounded-md px-4 border dark:border-gray-700 dark:bg-black">
-          {/* <span>니아이디props.id어쩌고</span> */}
           <div className="w-full h-36">
             <input
               className="w-full h-12 focus:outline-none dark:bg-black"
