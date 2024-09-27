@@ -1,9 +1,10 @@
 "use client";
-import { login } from "@/src/api/member.api";
+import { findMember, login } from "@/src/api/member.api";
 import Link from "@/src/common/components/Link";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import CustomAlert from "../../common/components/alert/CustomAlert";
+import { authLogin } from "@/src/api/auth.api";
 
 export default function Page() {
   const router = useRouter();
@@ -28,11 +29,9 @@ export default function Page() {
       .then((response) => {
         if (response.data.isSuccess === "T") {
           CustomAlert("success", "로그인", "로그인 성공.");
-
           sessionStorage.setItem("id", response.data.data.id);
           sessionStorage.setItem("memberId", response.data.data.memberId);
           sessionStorage.setItem("memberName", response.data.data.memberName);
-
           router.replace("/");
         } else {
           CustomAlert("warning", "로그인", "아이디 비밀번호를 확인해주세요.");
@@ -42,6 +41,20 @@ export default function Page() {
         CustomAlert("warning", "로그인", "아이디 비밀번호를 확인해주세요.");
         // CustomAlert("error", "로그인", "에러");
       });
+    // authLogin(memberId, memberPw)
+    //   .then((response) => {
+    //     console.log(response.data);
+    // findMember(memberId, response.data)
+    //   .then((response) => {
+    //     console.log(response);
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
+    // })
+    // .catch((error) => {
+    //   console.log(error);
+    // });
   };
 
   return (

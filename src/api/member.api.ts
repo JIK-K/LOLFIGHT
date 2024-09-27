@@ -132,3 +132,23 @@ export const deleteMember = async (
   url += queryParams;
   return await axios.delete(url);
 };
+
+export const updateMemberIcon = async (
+  memberDTO: MemberDTO,
+  memberIcon?: File | null
+): Promise<AxiosResponse<ResponseDTO<MemberDTO>>> => {
+  let url = `${baseUrl}/icon`;
+
+  const formData = new FormData();
+
+  formData.append("memberId", memberDTO.memberId);
+  formData.append("memberName", memberDTO.memberName);
+  if (memberIcon) {
+    formData.append("memberIcon", memberIcon);
+  }
+  return await axios.patch(url, formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+};
