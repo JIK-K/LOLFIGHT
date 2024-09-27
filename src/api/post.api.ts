@@ -40,6 +40,18 @@ export const getPostList = async (
   return await axios.get(url);
 };
 
+/**
+ * 게시글 최근 목록 조회
+ * @param boardId
+ * @returns
+ */
+export const getRecentPostList = async (
+  boardId: number
+): Promise<AxiosResponse<ResponseDTO<PostDTO[]>>> => {
+  let url = `${baseUrl}/recentlist` + `?boardId=${boardId}`;
+  return await axios.get(url);
+};
+
 /*
  * 게시글 내용 보기
  * @param board, postId

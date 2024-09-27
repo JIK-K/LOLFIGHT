@@ -17,6 +17,7 @@ export default function Page() {
     memberId: "",
     memberPw: "",
     memberName: "",
+    memberIcon: "",
     memberGuild: null,
     memberGame: null,
   });

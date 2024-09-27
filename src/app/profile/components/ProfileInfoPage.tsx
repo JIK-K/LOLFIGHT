@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { MemberDTO } from "@/src/common/DTOs/member/member.dto";
 import { updateMemberIcon } from "@/src/api/member.api";
@@ -13,6 +13,7 @@ const ProfileInfoPage = (props: Props) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [previewImage, setPreviewImage] = useState<string>("");
+
   const handleChangeIconClick = () => {
     setIsModalOpen(true);
   };
@@ -36,16 +37,24 @@ const ProfileInfoPage = (props: Props) => {
   };
 
   const handleSubmit = () => {
-    updateMemberIcon(props.member, selectedImage)
-      .then((response) => {
-        CustomAlert("success", "프로필 사진 변경", "변경이 완료되었습니다");
-        setSelectedImage(null);
-        setPreviewImage("");
-      })
-      .catch((error) => {
-        CustomAlert("error", "프로필 사진 변경", "변경 실패");
-      });
-    setIsModalOpen(false);
+    if (selectedImage) {
+      updateMemberIcon(props.member, selectedImage)
+        .then((response) => {
+          CustomAlert("success", "프로필 사진 변경", "변경이 완료되었습니다");
+          setSelectedImage(null);
+          setPreviewImage("");
+        })
+        .catch((error) => {
+          CustomAlert("error", "프로필 사진 변경", "변경 실패");
+        });
+      setIsModalOpen(false);
+    } else {
+      CustomAlert(
+        "warning",
+        "프로필 사진 변경",
+        "프로필 이미지를 등록해주세요"
+      );
+    }
   };
 
   return (
@@ -62,10 +71,13 @@ const ProfileInfoPage = (props: Props) => {
 
       <div className="flex mt-4">
         <div className="w-[128px] h-[128px] my-auto">
-          <img
-            src={`${constant.SERVER_URL}/public/member/${props.member.memberName}.png`}
-            alt="member Icon"
-            className="w-full h-full object-cover"
+          <Image
+            className="w-full h-full rounded-full mr-[20px]"
+            width={70}
+            height={70}
+            src={`${constant.SERVER_URL}/${props.member.memberIcon}`}
+            alt={"memberIcon"}
+            unoptimized
           />
         </div>
         <div className="info-container flex-col ml-8">
@@ -102,7 +114,7 @@ const ProfileInfoPage = (props: Props) => {
 
       {isModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg p-5">
+          <div className="bg-white rounded-lg p-5 dark:text-black">
             <h2 className="text-lg font-bold mb-4">프로필 사진 변경</h2>
             <div className="flex justify-center mb-4">
               {selectedImage === null ? (

@@ -4,6 +4,8 @@ import { getCommentList } from "@/src/api/comment.api";
 import { CommentDTO } from "@/src/common/DTOs/board/comment.dto";
 import { writeReplyComment } from "@/src/api/comment.api";
 import CustomAlert from "@/src/common/components/alert/CustomAlert";
+import constant from "@/src/common/constant/constant";
+import Image from "next/image";
 
 interface CommentBoxComponentProps {
   data: PostDTO;
@@ -16,6 +18,7 @@ const CommentBoxComponent = (props: CommentBoxComponentProps) => {
   const [replyCommentContent, setReplyCommentContent] = useState("");
   const [refresh, setRefresh] = useState(1);
   // const [commentBoxKey, setCommentBoxKey] = useState(0);
+  const [isImageError, setIsImageError] = useState<boolean>(false);
 
   useEffect(() => {
     if (props.data && props.data.id) {
@@ -109,7 +112,20 @@ const CommentBoxComponent = (props: CommentBoxComponentProps) => {
             <div className="border-b-2 border-l-2 border-brandcolor w-2 h-2 mr-4 dark:border-white" />
           )}
           <div className="w-full">
-            <div className="">
+            <div className="flex">
+              <Image
+                className="rounded-full mr-[5px]"
+                width={25}
+                height={25}
+                src={
+                  isImageError
+                    ? `${constant.SERVER_URL}/public/default.png`
+                    : `${constant.SERVER_URL}/public/member/${comment.writer}.png`
+                }
+                alt={"memberIcon"}
+                // onError={(e) => setIsImageError(true)}
+                unoptimized
+              />
               <span className="font-bold">{comment.writer}</span>
               <span className="text-gray-600 pl-4 font-normal">
                 {getDate(comment.commentDate)}

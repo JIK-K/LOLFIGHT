@@ -1,9 +1,11 @@
 import { deletePost } from "@/src/api/post.api";
 import React, { useEffect, useState } from "react";
+import Image from "next/image";
 import { PostDTO } from "@/src/common/DTOs/board/post.dto";
 import { useRouter } from "next/navigation";
 import ButtonAlert from "../../../../common/components/alert/ButtonAlert";
 import CustomAlert from "../../../../common/components/alert/CustomAlert";
+import constant from "@/src/common/constant/constant";
 
 interface BoardPostHeadComponentProps {
   post: PostDTO;
@@ -11,6 +13,7 @@ interface BoardPostHeadComponentProps {
 
 const BoardPostHeadComponent = (props: BoardPostHeadComponentProps) => {
   const [isMine, setIsMine] = useState(false);
+  const [isImageError, setIsImageError] = useState<boolean>(false);
   const router = useRouter();
   const postDateTime = new Date(props.post?.postDate);
   const year = postDateTime.getFullYear();
@@ -49,6 +52,19 @@ const BoardPostHeadComponent = (props: BoardPostHeadComponentProps) => {
       </div>
       <div className="text-sm board-post-head__status mt-8 flex justify-between">
         <div className="flex">
+          <Image
+            className="rounded-full mr-[5px]"
+            width={20}
+            height={20}
+            src={
+              isImageError
+                ? `${constant.SERVER_URL}/public/default.png`
+                : `${constant.SERVER_URL}/public/member/${props.post?.postWriter}.png`
+            }
+            alt={"memberIcon"}
+            // onError={(e) => setIsImageError(true)}
+            unoptimized
+          />
           <span className="text-black dark:text-gray-100">
             {props.post?.postWriter}
           </span>

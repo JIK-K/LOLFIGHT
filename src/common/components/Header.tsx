@@ -10,6 +10,8 @@ import Navigation from "./Navigation";
 import ThemeToggler from "../components/Desktop/ThemeToggler";
 import Search from "./Search";
 import constant from "@/src/common/constant/constant";
+import { PostDTO } from "../DTOs/board/post.dto";
+import { getRecentPostList } from "@/src/api/post.api";
 
 const Header = () => {
   const router = useRouter();
@@ -17,8 +19,18 @@ const Header = () => {
   const [memberName, setMemberName] = useState<string | null>(null);
   const [memberId, setMemberId] = useState<string | null>(null);
 
+  const [noticePostList, setNoticePostList] = useState<PostDTO[]>([]);
+  const [eventPostList, setEventPostList] = useState<PostDTO[]>([]);
+  const [freePostList, setFreePostList] = useState<PostDTO[]>([]);
+  const [joinPostList, setJoinPostList] = useState<PostDTO[]>([]);
+
   const [activeTabLeft, setActiveTabLeft] = useState("공지사항");
   const [activeTabRight, setActiveTabRight] = useState("자유게시판");
+
+  const [isImageError, setIsImageError] = useState<boolean>(false);
+
+  const guildJoinBoardId = 2;
+  const freeBoardId = 0;
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -30,16 +42,11 @@ const Header = () => {
     }
   }, []);
 
-  const actionList = (key: any) => {
-    switch (key) {
-      case "profile":
-        handleProfileClick();
-        break;
-      case "logout":
-        handleLogoutClick();
-        break;
-    }
-  };
+  useEffect(() => {
+    getRecentPostList(freeBoardId).then((response) => {
+      setFreePostList(response.data.data);
+    });
+  }, []);
 
   const handleLogoutClick = () => {
     sessionStorage.clear();
@@ -53,6 +60,14 @@ const Header = () => {
   };
   const handleProfileClick = () => {
     router.replace("/profile");
+  };
+
+  const handlePostClick = (postId: number) => {
+    if (activeTabRight === "자유게시판") {
+      router.push(`/board/free/${postId}`);
+    } else if (activeTabRight === "길드원 모집") {
+      router.push(`/rgm/${postId}`);
+    }
   };
   return (
     <header className="w-full top-0">
@@ -118,15 +133,41 @@ const Header = () => {
               <div className="px-4 py-2">
                 {activeTabLeft === "공지사항" && (
                   <div className="space-y-2">
-                    <p className="hover:underline hover:decoration-gray-400 hover:decoration-opacity-50">
-                      총 4개글
-                    </p>
+                    {noticePostList.length > 0 ? (
+                      noticePostList.map((post) => (
+                        <p
+                          key={post.id}
+                          className="w-fit hover:underline hover:decoration-gray-400 hover:decoration-opacity-50 cursor-pointer"
+                        >
+                          {post.postTitle}
+                          <span className="text-red-400 text-xs pl-1">
+                            [{post.postComments}]
+                          </span>
+                        </p>
+                      ))
+                    ) : (
+                      <p>공지사항이 없습니다</p>
+                    )}
                   </div>
                 )}
                 {activeTabLeft === "이벤트" && (
-                  <p className="hover:underline hover:decoration-gray-400 hover:decoration-opacity-50">
-                    이벤트
-                  </p>
+                  <div className="space-y-2">
+                    {eventPostList.length > 0 ? (
+                      eventPostList.map((post) => (
+                        <p
+                          key={post.id}
+                          className="w-fit hover:underline hover:decoration-gray-400 hover:decoration-opacity-50 cursor-pointer"
+                        >
+                          {post.postTitle}
+                          <span className="text-red-400 text-xs pl-1">
+                            [{post.postComments}]
+                          </span>
+                        </p>
+                      ))
+                    ) : (
+                      <p>진행중인 이벤트가 없습니다</p>
+                    )}
+                  </div>
                 )}
               </div>
             </div>
@@ -157,12 +198,45 @@ const Header = () => {
               <div className="px-4 py-2">
                 {activeTabRight === "자유게시판" && (
                   <div className="space-y-2">
-                    <p className="hover:underline hover:decoration-gray-400 hover:decoration-opacity-50">
-                      총 4개 글
-                    </p>
+                    {freePostList.length > 0 ? (
+                      freePostList.map((post) => (
+                        <p
+                          key={post.id}
+                          className="w-fit hover:underline hover:decoration-gray-400 hover:decoration-opacity-50 cursor-pointer"
+                          onClick={() => handlePostClick(post.id)}
+                        >
+                          {post.postTitle}
+                          <span className="text-red-400 text-xs pl-1">
+                            [{post.postComments}]
+                          </span>
+                        </p>
+                      ))
+                    ) : (
+                      <p>내용이 없습니다.</p>
+                    )}
                   </div>
                 )}
-                {activeTabRight === "길드원 모집" && <p>길드원 모집</p>}
+
+                {activeTabRight === "길드원 모집" && (
+                  <div className="space-y-2">
+                    {joinPostList.length > 0 ? (
+                      joinPostList.map((post) => (
+                        <p
+                          key={post.id}
+                          className="w-fit hover:underline hover:decoration-gray-400 hover:decoration-opacity-50 cursor-pointer"
+                          onClick={() => handlePostClick(post.id)}
+                        >
+                          {post.postTitle}
+                          <span className="text-red-400 text-xs pl-1">
+                            [{post.postComments}]
+                          </span>
+                        </p>
+                      ))
+                    ) : (
+                      <p>게시글이 없습니다</p>
+                    )}
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -175,8 +249,14 @@ const Header = () => {
                       className="rounded-full mr-[20px]"
                       width={70}
                       height={70}
-                      src={`${constant.SERVER_URL}/public/member/${memberName}.png`}
-                      alt={"testimg"}
+                      src={
+                        isImageError
+                          ? `${constant.SERVER_URL}/public/default.png`
+                          : `${constant.SERVER_URL}/public/member/${memberName}.png`
+                      }
+                      alt={"memberIcon"}
+                      onError={(e) => setIsImageError(true)}
+                      unoptimized
                     />
                     <div className="flex flex-col flex-grow">
                       <p className="font-extrabold text-lg">{memberName} 님</p>
