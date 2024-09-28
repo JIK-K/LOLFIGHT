@@ -5,6 +5,7 @@ import axios, { Axios, AxiosResponse } from "axios";
 import { ResponseDTO } from "../common/DTOs/response.dto";
 import { GuildDTO } from "../common/DTOs/guild/guild.dto";
 import { MemberGameDTO } from "../common/DTOs/member/member_game.dto";
+import api from "./interceptors/axiosInstance";
 
 const baseUrl = `${constant.SERVER_URL}/member`;
 
@@ -133,6 +134,12 @@ export const deleteMember = async (
   return await axios.delete(url);
 };
 
+/**
+ * member 아이콘 변경
+ * @param memberDTO
+ * @param memberIcon
+ * @returns
+ */
 export const updateMemberIcon = async (
   memberDTO: MemberDTO,
   memberIcon?: File | null

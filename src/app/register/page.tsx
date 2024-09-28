@@ -25,36 +25,26 @@ export default function Page() {
   };
 
   const handleLoginClick = () => {
-    login(memberId, memberPw)
+    authLogin(memberId, memberPw)
       .then((response) => {
-        if (response.data.isSuccess === "T") {
-          CustomAlert("success", "로그인", "로그인 성공.");
-          sessionStorage.setItem("id", response.data.data.id);
-          sessionStorage.setItem("memberId", response.data.data.memberId);
-          sessionStorage.setItem("memberName", response.data.data.memberName);
-          router.replace("/");
-        } else {
-          CustomAlert("warning", "로그인", "아이디 비밀번호를 확인해주세요.");
-        }
+        localStorage.setItem("accessToken", response.data);
+        findMember(memberId)
+          .then((response) => {
+            CustomAlert("success", "로그인", "로그인 성공.");
+            sessionStorage.setItem("id", response.data.data.id);
+            sessionStorage.setItem("memberId", response.data.data.memberId);
+            sessionStorage.setItem("memberName", response.data.data.memberName);
+            router.replace("/");
+          })
+          .catch((error) => {
+            console.log(error);
+            CustomAlert("warning", "로그인", "아이디 비밀번호를 확인해주세요.");
+          });
       })
       .catch((error) => {
         CustomAlert("warning", "로그인", "아이디 비밀번호를 확인해주세요.");
-        // CustomAlert("error", "로그인", "에러");
+        console.log(error);
       });
-    // authLogin(memberId, memberPw)
-    //   .then((response) => {
-    //     console.log(response.data);
-    // findMember(memberId, response.data)
-    //   .then((response) => {
-    //     console.log(response);
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
-    // })
-    // .catch((error) => {
-    //   console.log(error);
-    // });
   };
 
   return (

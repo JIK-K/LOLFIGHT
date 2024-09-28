@@ -12,6 +12,7 @@ import Search from "./Search";
 import constant from "@/src/common/constant/constant";
 import { PostDTO } from "../DTOs/board/post.dto";
 import { getRecentPostList } from "@/src/api/post.api";
+import { authLogout } from "@/src/api/auth.api";
 
 const Header = () => {
   const router = useRouter();
@@ -48,13 +49,28 @@ const Header = () => {
     });
   }, []);
 
-  const handleLogoutClick = () => {
-    sessionStorage.clear();
-    CustomAlert("success", "로그아웃", "로그아웃 되었습니다.");
-    setMemberName("");
-    router.replace("/");
-  };
+  const handleLogoutClick = async () => {
+    try {
+      const response = await authLogout();
+      console.log(response);
 
+      if (response.status === 200) {
+        // access token, sessionStorage 지우기
+        sessionStorage.clear();
+        localStorage.clear();
+
+        CustomAlert("success", "로그아웃", "로그아웃 되었습니다.");
+        setMemberName("");
+        router.replace("/");
+      }
+    } catch (error) {
+      CustomAlert(
+        "error",
+        "로그아웃 실패",
+        "로그아웃 처리 중 문제가 발생했습니다."
+      );
+    }
+  };
   const handleLoginClick = () => {
     router.replace("/register");
   };
