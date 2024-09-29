@@ -1,5 +1,5 @@
 "use client";
-import { findMember, login } from "@/src/api/member.api";
+import { findMember } from "@/src/api/member.api";
 import Link from "@/src/common/components/Link";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";

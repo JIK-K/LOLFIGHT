@@ -4,12 +4,13 @@ import constant from "../../common/constant/constant";
 // Axios 인스턴스 생성
 const api = axios.create({
   baseURL: constant.SERVER_URL,
+  withCredentials: true,
 });
 
 // Request Interceptor
 api.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("accessToken");
 
     if (token && config.headers) {
       config.headers["Authorization"] = `Bearer ${token}`;
@@ -33,11 +34,12 @@ api.interceptors.response.use(
       originalRequest._retry = true;
 
       // Refresh Token 요청
-      const res = await api.post("/auth/refresh");
+      const memberId = sessionStorage.getItem("memberId");
+      const res = await api.post("/auth/refresh", { id: memberId });
       const newAccessToken = res.data.accessToken;
 
       // 새로운 Access Token 저장
-      localStorage.setItem("token", newAccessToken);
+      localStorage.setItem("accessToken", newAccessToken);
 
       // 원래 요청에 새로운 Access Token 추가 후 재시도
       originalRequest.headers["Authorization"] = `Bearer ${newAccessToken}`;
