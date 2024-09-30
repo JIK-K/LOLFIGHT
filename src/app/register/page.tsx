@@ -5,11 +5,13 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import CustomAlert from "../../common/components/alert/CustomAlert";
 import { authLogin } from "@/src/api/auth.api";
+import { useMember } from "@/src/common/zustand/member.zustand";
 
 export default function Page() {
   const router = useRouter();
   const [memberId, setMemberId] = useState("");
   const [memberPw, setMemberPw] = useState("");
+  const { member, setMember } = useMember();
   const handleIdChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setMemberId(e.target.value);
   };
@@ -30,6 +32,7 @@ export default function Page() {
         localStorage.setItem("accessToken", response.data);
         findMember(memberId)
           .then((response) => {
+            setMember(response.data.data);
             CustomAlert("success", "로그인", "로그인 성공.");
             sessionStorage.setItem("id", response.data.data.id);
             sessionStorage.setItem("memberId", response.data.data.memberId);

@@ -1,7 +1,8 @@
 import { MemberDTO } from "@/src/common/DTOs/member/member.dto";
 import { useState } from "react";
 import CustomAlert from "../../../common/components/alert/CustomAlert";
-import { login, update } from "@/src/api/member.api";
+import { update } from "@/src/api/member.api";
+import { authLogin } from "@/src/api/auth.api";
 import { useRouter } from "next/navigation";
 
 interface Props {
@@ -19,7 +20,7 @@ const ChangePasswordPage = (props: Props) => {
   };
   const handleChangeButton = () => {
     if (currentPassword && newPassword) {
-      login(props.member.memberId, currentPassword)
+      authLogin(props.member.memberId, currentPassword)
         .then((response) => {
           if (response.data.isSuccess === "F") {
             CustomAlert("warning", "비밀번호 변경", "비밀번호를 확인해주세요.");

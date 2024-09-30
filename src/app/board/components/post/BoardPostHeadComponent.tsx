@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import ButtonAlert from "../../../../common/components/alert/ButtonAlert";
 import CustomAlert from "../../../../common/components/alert/CustomAlert";
 import constant from "@/src/common/constant/constant";
+import { findMember } from "@/src/api/member.api";
 
 interface BoardPostHeadComponentProps {
   post: PostDTO;
@@ -22,6 +23,7 @@ const BoardPostHeadComponent = (props: BoardPostHeadComponentProps) => {
 
   useEffect(() => {
     const storedName = sessionStorage.getItem("memberName")?.toString();
+
     if (storedName) {
       if (props.post?.postWriter === storedName) {
         setIsMine(true);
@@ -52,6 +54,7 @@ const BoardPostHeadComponent = (props: BoardPostHeadComponentProps) => {
       </div>
       <div className="text-sm board-post-head__status mt-8 flex justify-between">
         <div className="flex">
+          {/* @todo default이미지 */}
           <Image
             className="rounded-full mr-[5px]"
             width={20}

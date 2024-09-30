@@ -6,6 +6,7 @@ import { writeReplyComment } from "@/src/api/comment.api";
 import CustomAlert from "@/src/common/components/alert/CustomAlert";
 import constant from "@/src/common/constant/constant";
 import Image from "next/image";
+import { useMember } from "@/src/common/zustand/member.zustand";
 
 interface CommentBoxComponentProps {
   data: PostDTO;
@@ -19,6 +20,7 @@ const CommentBoxComponent = (props: CommentBoxComponentProps) => {
   const [refresh, setRefresh] = useState(1);
   // const [commentBoxKey, setCommentBoxKey] = useState(0);
   const [isImageError, setIsImageError] = useState<boolean>(false);
+  const { member } = useMember();
 
   useEffect(() => {
     if (props.data && props.data.id) {
@@ -100,6 +102,15 @@ const CommentBoxComponent = (props: CommentBoxComponentProps) => {
     };
   };
 
+  const isImageAvailable = async (imageUrl: string) => {
+    try {
+      const response = await fetch(imageUrl, { method: "HEAD" });
+      return response.ok; // HTTP 상태가 200번대인지 확인
+    } catch {
+      return false; // 에러 발생 시 false 반환
+    }
+  };
+
   return (
     <div className="comment_box">
       {commentList.map((comment) => (
@@ -113,6 +124,7 @@ const CommentBoxComponent = (props: CommentBoxComponentProps) => {
           )}
           <div className="w-full">
             <div className="flex">
+              {/* @todo default이미지 */}
               <Image
                 className="rounded-full mr-[5px]"
                 width={25}

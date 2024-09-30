@@ -13,6 +13,7 @@ import constant from "@/src/common/constant/constant";
 import { PostDTO } from "../DTOs/board/post.dto";
 import { getRecentPostList } from "@/src/api/post.api";
 import { authLogout } from "@/src/api/auth.api";
+import { useMember } from "../zustand/member.zustand";
 
 const Header = () => {
   const router = useRouter();
@@ -30,8 +31,10 @@ const Header = () => {
 
   const [isImageError, setIsImageError] = useState<boolean>(false);
 
-  const guildJoinBoardId = 2;
+  const rgmBoardId = 2;
   const freeBoardId = 0;
+  const noticeBoardId = 3;
+  const eventBoardId = 4;
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -46,6 +49,15 @@ const Header = () => {
   useEffect(() => {
     getRecentPostList(freeBoardId).then((response) => {
       setFreePostList(response.data.data);
+    });
+    getRecentPostList(rgmBoardId).then((response) => {
+      setJoinPostList(response.data.data);
+    });
+    getRecentPostList(noticeBoardId).then((response) => {
+      setNoticePostList(response.data.data);
+    });
+    getRecentPostList(eventBoardId).then((response) => {
+      setEventPostList(response.data.data);
     });
   }, []);
 
@@ -78,11 +90,18 @@ const Header = () => {
     router.replace("/profile");
   };
 
-  const handlePostClick = (postId: number) => {
+  const handleRightPostClick = (postId: number) => {
     if (activeTabRight === "자유게시판") {
       router.push(`/board/free/${postId}`);
     } else if (activeTabRight === "길드원 모집") {
-      router.push(`/rgm/${postId}`);
+      router.push(`/board/rgm/${postId}`);
+    }
+  };
+  const handleLeftPostClick = (postId: number) => {
+    if (activeTabLeft === "공지사항") {
+      router.push(`/board/notice/${postId}`);
+    } else if (activeTabLeft === "이벤트") {
+      router.push(`/board/event/${postId}`);
     }
   };
   return (
@@ -154,6 +173,7 @@ const Header = () => {
                         <p
                           key={post.id}
                           className="w-fit hover:underline hover:decoration-gray-400 hover:decoration-opacity-50 cursor-pointer"
+                          onClick={() => handleLeftPostClick(post.id)}
                         >
                           {post.postTitle}
                           <span className="text-red-400 text-xs pl-1">
@@ -173,6 +193,7 @@ const Header = () => {
                         <p
                           key={post.id}
                           className="w-fit hover:underline hover:decoration-gray-400 hover:decoration-opacity-50 cursor-pointer"
+                          onClick={() => handleLeftPostClick(post.id)}
                         >
                           {post.postTitle}
                           <span className="text-red-400 text-xs pl-1">
@@ -219,7 +240,7 @@ const Header = () => {
                         <p
                           key={post.id}
                           className="w-fit hover:underline hover:decoration-gray-400 hover:decoration-opacity-50 cursor-pointer"
-                          onClick={() => handlePostClick(post.id)}
+                          onClick={() => handleRightPostClick(post.id)}
                         >
                           {post.postTitle}
                           <span className="text-red-400 text-xs pl-1">
@@ -240,7 +261,7 @@ const Header = () => {
                         <p
                           key={post.id}
                           className="w-fit hover:underline hover:decoration-gray-400 hover:decoration-opacity-50 cursor-pointer"
-                          onClick={() => handlePostClick(post.id)}
+                          onClick={() => handleRightPostClick(post.id)}
                         >
                           {post.postTitle}
                           <span className="text-red-400 text-xs pl-1">
