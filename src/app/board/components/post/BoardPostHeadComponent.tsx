@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import ButtonAlert from "../../../../common/components/alert/ButtonAlert";
 import CustomAlert from "../../../../common/components/alert/CustomAlert";
 import constant from "@/src/common/constant/constant";
+import { findMember } from "@/src/api/member.api";
 
 interface BoardPostHeadComponentProps {
   post: PostDTO;
@@ -13,7 +14,7 @@ interface BoardPostHeadComponentProps {
 
 const BoardPostHeadComponent = (props: BoardPostHeadComponentProps) => {
   const [isMine, setIsMine] = useState(false);
-  const [isImageError, setIsImageError] = useState<boolean>(false);
+  const [isImageError, setIsImageError] = useState<Record<string, boolean>>({});
   const router = useRouter();
   const postDateTime = new Date(props.post?.postDate);
   const year = postDateTime.getFullYear();
@@ -22,6 +23,7 @@ const BoardPostHeadComponent = (props: BoardPostHeadComponentProps) => {
 
   useEffect(() => {
     const storedName = sessionStorage.getItem("memberName")?.toString();
+
     if (storedName) {
       if (props.post?.postWriter === storedName) {
         setIsMine(true);
@@ -45,6 +47,10 @@ const BoardPostHeadComponent = (props: BoardPostHeadComponentProps) => {
     );
   };
 
+  const handleImageError = () => {
+    setIsImageError((prev) => ({ ...prev, [props.post?.postWriter]: true }));
+  };
+
   return (
     <div className="board-post-head flex flex-col m-12">
       <div className="board-post-head__title flex justify-between">
@@ -57,12 +63,12 @@ const BoardPostHeadComponent = (props: BoardPostHeadComponentProps) => {
             width={20}
             height={20}
             src={
-              isImageError
+              isImageError[props.post?.postWriter] // 작성자 이름으로 이미지 오류 체크
                 ? `${constant.SERVER_URL}/public/default.png`
                 : `${constant.SERVER_URL}/public/member/${props.post?.postWriter}.png`
             }
-            alt={"memberIcon"}
-            // onError={(e) => setIsImageError(true)}
+            alt="memberIcon"
+            onError={handleImageError} // 오류 발생 시 핸들러 호출
             unoptimized
           />
           <span className="text-black dark:text-gray-100">

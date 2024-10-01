@@ -6,6 +6,8 @@ import { writeReplyComment } from "@/src/api/comment.api";
 import CustomAlert from "@/src/common/components/alert/CustomAlert";
 import constant from "@/src/common/constant/constant";
 import Image from "next/image";
+import { useMember } from "@/src/common/zustand/member.zustand";
+import { findMemberByName } from "@/src/api/member.api";
 
 interface CommentBoxComponentProps {
   data: PostDTO;
@@ -18,7 +20,7 @@ const CommentBoxComponent = (props: CommentBoxComponentProps) => {
   const [replyCommentContent, setReplyCommentContent] = useState("");
   const [refresh, setRefresh] = useState(1);
   // const [commentBoxKey, setCommentBoxKey] = useState(0);
-  const [isImageError, setIsImageError] = useState<boolean>(false);
+  const [isImageError, setIsImageError] = useState<Record<string, boolean>>({});
 
   useEffect(() => {
     if (props.data && props.data.id) {
@@ -100,6 +102,10 @@ const CommentBoxComponent = (props: CommentBoxComponentProps) => {
     };
   };
 
+  const handleImageError = (id: string) => {
+    setIsImageError((prev) => ({ ...prev, [id]: true }));
+  };
+
   return (
     <div className="comment_box">
       {commentList.map((comment) => (
@@ -118,12 +124,12 @@ const CommentBoxComponent = (props: CommentBoxComponentProps) => {
                 width={25}
                 height={25}
                 src={
-                  isImageError
+                  isImageError[comment.id as string] // 타입 단언을 사용하여 오류 방지
                     ? `${constant.SERVER_URL}/public/default.png`
                     : `${constant.SERVER_URL}/public/member/${comment.writer}.png`
                 }
-                alt={"memberIcon"}
-                // onError={(e) => setIsImageError(true)}
+                alt="memberIcon"
+                onError={() => handleImageError(comment.id as string)}
                 unoptimized
               />
               <span className="font-bold">{comment.writer}</span>

@@ -5,44 +5,45 @@ import axios, { Axios, AxiosResponse } from "axios";
 import { ResponseDTO } from "../common/DTOs/response.dto";
 import { GuildDTO } from "../common/DTOs/guild/guild.dto";
 import { MemberGameDTO } from "../common/DTOs/member/member_game.dto";
+import api from "./interceptors/axiosInstance";
 
 const baseUrl = `${constant.SERVER_URL}/member`;
 
-/**
- * member 회원가입
- * @param memberDTO
- * @returns
- */
-export const signUp = async (
-  memberDTO: MemberDTO
-): Promise<AxiosResponse<ResponseDTO<MemberDTO>>> => {
-  let url = `${baseUrl}`;
-  const body = {
-    memberId: memberDTO.memberId,
-    memberPw: memberDTO.memberPw,
-    memberName: memberDTO.memberName,
-  };
+// /**
+//  * member 회원가입
+//  * @param memberDTO
+//  * @returns
+//  */
+// export const signUp = async (
+//   memberDTO: MemberDTO
+// ): Promise<AxiosResponse<ResponseDTO<MemberDTO>>> => {
+//   let url = `${baseUrl}`;
+//   const body = {
+//     memberId: memberDTO.memberId,
+//     memberPw: memberDTO.memberPw,
+//     memberName: memberDTO.memberName,
+//   };
 
-  return await axios.post(url, body);
-};
+//   return await axios.post(url, body);
+// };
 
-/**
- * member 로그인
- * @param id
- * @param pw
- * @returns
- */
-export const login = async (
-  id: string,
-  pw: string
-): Promise<AxiosResponse<ResponseDTO<MemberDTO>>> => {
-  let url = `${baseUrl}/login`;
+// /**
+//  * member 로그인
+//  * @param id
+//  * @param pw
+//  * @returns
+//  */
+// export const login = async (
+//   id: string,
+//   pw: string
+// ): Promise<AxiosResponse<ResponseDTO<MemberDTO>>> => {
+//   let url = `${baseUrl}/login`;
 
-  let queryParams = `?id=${id}&pw=${pw}`;
-  url += queryParams;
+//   let queryParams = `?id=${id}&pw=${pw}`;
+//   url += queryParams;
 
-  return await axios.get(url);
-};
+//   return await axios.get(url);
+// };
 
 /**
  * member 정보변경
@@ -68,7 +69,7 @@ export const update = async (
     memberGame: memberGame,
   };
 
-  return await axios.patch(url, body);
+  return await api.patch(url, body);
 };
 
 /**
@@ -85,7 +86,7 @@ export const leaveMember = async (
 
   url += queryParams;
 
-  return axios.patch(url);
+  return api.patch(url);
 };
 
 /**
@@ -100,7 +101,7 @@ export const findMember = async (
 
   let queryParams = `?id=${id}`;
   url += queryParams;
-  return await axios.get(url);
+  return await api.get(url);
 };
 
 /**
@@ -115,7 +116,7 @@ export const findMemberByName = async (
 
   let queryParams = `?name=${name}`;
   url += queryParams;
-  return await axios.get(url);
+  return await api.get(url);
 };
 
 /**
@@ -130,9 +131,15 @@ export const deleteMember = async (
 
   let queryParams = `?id=${id}`;
   url += queryParams;
-  return await axios.delete(url);
+  return await api.delete(url);
 };
 
+/**
+ * member 아이콘 변경
+ * @param memberDTO
+ * @param memberIcon
+ * @returns
+ */
 export const updateMemberIcon = async (
   memberDTO: MemberDTO,
   memberIcon?: File | null
@@ -146,7 +153,7 @@ export const updateMemberIcon = async (
   if (memberIcon) {
     formData.append("memberIcon", memberIcon);
   }
-  return await axios.patch(url, formData, {
+  return await api.patch(url, formData, {
     headers: {
       "Content-Type": "multipart/form-data",
     },

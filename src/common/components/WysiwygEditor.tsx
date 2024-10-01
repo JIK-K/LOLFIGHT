@@ -15,6 +15,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
 import CustomAlert from "./alert/CustomAlert";
+import { jwtDecode } from "jwt-decode";
 
 const WysiwygEditor = () => {
   const router = useRouter();
@@ -32,6 +33,7 @@ const WysiwygEditor = () => {
     ["scrollSync"],
   ];
   const { theme } = useTheme();
+  const [isAdminUser, setIsAdminUser] = useState<boolean>(false);
 
   useEffect(() => {
     if (editorRef.current) {
@@ -41,6 +43,14 @@ const WysiwygEditor = () => {
         .addHook("addImageBlobHook", (blob: any, callback: any) => {
           onUploadImage(blob, callback);
         });
+    }
+
+    if (typeof window !== "undefined") {
+      const token = localStorage.getItem("accessToken");
+      if (token) {
+        const decoded: any = jwtDecode(token);
+        setIsAdminUser(decoded.admin || false);
+      }
     }
   }, [editorRef]);
 
@@ -102,8 +112,20 @@ const WysiwygEditor = () => {
         className="w-32 h-10 border rounded-md mb-4 dark:border-gray-700"
         onChange={handleCategoryChange}
       >
-        {boardNavLinks
+        {/* {boardNavLinks
           .filter((link) => link.href !== "/" && link.title !== "전체")
+          .map((link) => (
+            <option key={link.title} value={link.title}>
+              {link.title}
+            </option>
+          ))} */}
+        {boardNavLinks
+          .filter((link) => {
+            if (!isAdminUser) {
+              return link.title !== "공지사항" && link.title !== "이벤트";
+            }
+            return link.href !== "/" && link.title !== "전체";
+          })
           .map((link) => (
             <option key={link.title} value={link.title}>
               {link.title}

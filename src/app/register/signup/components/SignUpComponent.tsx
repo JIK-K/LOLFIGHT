@@ -1,6 +1,6 @@
 "use client";
 import { giveMailCode, sendMailAuth } from "@/src/api/mail.api";
-import { signUp } from "@/src/api/member.api";
+import { signUp } from "@/src/api/auth.api";
 import { MailDTO } from "@/src/common/DTOs/mail/mail.dto";
 import { MemberDTO } from "@/src/common/DTOs/member/member.dto";
 import React, { useEffect, useState } from "react";
@@ -39,6 +39,7 @@ const SignUpComponent = () => {
     memberId: "",
     memberPw: "",
     memberName: "",
+    memberIcon: "",
     memberGuild: null,
     memberGame: null,
   });

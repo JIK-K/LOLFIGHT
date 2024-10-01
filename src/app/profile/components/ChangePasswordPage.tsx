@@ -1,7 +1,8 @@
 import { MemberDTO } from "@/src/common/DTOs/member/member.dto";
 import { useState } from "react";
 import CustomAlert from "../../../common/components/alert/CustomAlert";
-import { login, update } from "@/src/api/member.api";
+import { update } from "@/src/api/member.api";
+import { authLogin } from "@/src/api/auth.api";
 import { useRouter } from "next/navigation";
 
 interface Props {
@@ -19,47 +20,42 @@ const ChangePasswordPage = (props: Props) => {
   };
   const handleChangeButton = () => {
     if (currentPassword && newPassword) {
-      login(props.member.memberId, currentPassword)
+      authLogin(props.member.memberId, currentPassword)
         .then((response) => {
-          if (response.data.isSuccess === "F") {
-            CustomAlert("warning", "비밀번호 변경", "비밀번호를 확인해주세요.");
+          if (newPassword.length < 8) {
+            CustomAlert(
+              "warning",
+              "비밀번호 변경",
+              "비밀번호는 8글자 이상 작성해주세요."
+            );
             return;
           } else {
-            if (newPassword.length < 8) {
-              CustomAlert(
-                "warning",
-                "비밀번호 변경",
-                "비밀번호는 8글자 이상 작성해주세요."
-              );
-              return;
-            } else {
-              const member: MemberDTO = props.member;
-              member.memberPw = newPassword;
-              update(
-                member.id,
-                member.memberId,
-                member.memberPw,
-                member.memberName,
-                member.memberGuild,
-                member.memberGame
-              )
-                .then((response) => {
-                  CustomAlert(
-                    "success",
-                    "비밀번호 변경",
-                    "성공적으로 비밀번호를 변경했습니다."
-                  );
-                  sessionStorage.clear();
-                  router.replace("/register");
-                })
-                .catch((error) => {
-                  CustomAlert("error", "비밀번호 변경", "에러2");
-                });
-            }
+            const member: MemberDTO = props.member;
+            member.memberPw = newPassword;
+            update(
+              member.id,
+              member.memberId,
+              member.memberPw,
+              member.memberName,
+              member.memberGuild,
+              member.memberGame
+            )
+              .then((response) => {
+                CustomAlert(
+                  "success",
+                  "비밀번호 변경",
+                  "성공적으로 비밀번호를 변경했습니다."
+                );
+                sessionStorage.clear();
+                router.replace("/register");
+              })
+              .catch((error) => {
+                CustomAlert("error", "비밀번호 변경", "에러2");
+              });
           }
         })
         .catch((error) => {
-          CustomAlert("error", "비밀번호 변경", "에러");
+          CustomAlert("error", "비밀번호 변경", "비밀번호를 확인해주세요");
         });
     } else {
       CustomAlert("warning", "비밀번호 변경", "정보를 모두 작성해주세요.");
