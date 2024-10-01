@@ -239,7 +239,7 @@ const Header = () => {
                   <div className="space-y-2">
                     {noticePostList.length > 0 ? (
                       noticePostList.map((post) => (
-                        <div className="flex gap-1">
+                        <div key={post.id} className="flex gap-1">
                           {containsImage(post.postContent) ? (
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
@@ -294,7 +294,7 @@ const Header = () => {
                   <div className="space-y-2">
                     {eventPostList.length > 0 ? (
                       eventPostList.map((post) => (
-                        <div className="flex gap-1">
+                        <div key={post.id} className="flex gap-1">
                           {containsImage(post.postContent) ? (
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
@@ -376,7 +376,7 @@ const Header = () => {
                   <div className="space-y-2">
                     {freePostList.length > 0 ? (
                       freePostList.map((post) => (
-                        <div className="flex gap-1">
+                        <div key={post.id} className="flex gap-1">
                           {containsImage(post.postContent) ? (
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
@@ -432,7 +432,7 @@ const Header = () => {
                   <div className="space-y-2">
                     {joinPostList.length > 0 ? (
                       joinPostList.map((post) => (
-                        <div className="flex gap-1">
+                        <div key={post.id} className="flex gap-1">
                           {containsImage(post.postContent) ? (
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
