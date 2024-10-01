@@ -14,7 +14,7 @@ interface BoardPostHeadComponentProps {
 
 const BoardPostHeadComponent = (props: BoardPostHeadComponentProps) => {
   const [isMine, setIsMine] = useState(false);
-  const [isImageError, setIsImageError] = useState<boolean>(false);
+  const [isImageError, setIsImageError] = useState<Record<string, boolean>>({});
   const router = useRouter();
   const postDateTime = new Date(props.post?.postDate);
   const year = postDateTime.getFullYear();
@@ -47,6 +47,10 @@ const BoardPostHeadComponent = (props: BoardPostHeadComponentProps) => {
     );
   };
 
+  const handleImageError = () => {
+    setIsImageError((prev) => ({ ...prev, [props.post?.postWriter]: true }));
+  };
+
   return (
     <div className="board-post-head flex flex-col m-12">
       <div className="board-post-head__title flex justify-between">
@@ -54,18 +58,17 @@ const BoardPostHeadComponent = (props: BoardPostHeadComponentProps) => {
       </div>
       <div className="text-sm board-post-head__status mt-8 flex justify-between">
         <div className="flex">
-          {/* @todo default이미지 */}
           <Image
             className="rounded-full mr-[5px]"
             width={20}
             height={20}
             src={
-              isImageError
+              isImageError[props.post?.postWriter] // 작성자 이름으로 이미지 오류 체크
                 ? `${constant.SERVER_URL}/public/default.png`
                 : `${constant.SERVER_URL}/public/member/${props.post?.postWriter}.png`
             }
-            alt={"memberIcon"}
-            // onError={(e) => setIsImageError(true)}
+            alt="memberIcon"
+            onError={handleImageError} // 오류 발생 시 핸들러 호출
             unoptimized
           />
           <span className="text-black dark:text-gray-100">

@@ -6,6 +6,7 @@ import React, { useEffect, useState } from "react";
 import CustomAlert from "../../../common/components/alert/CustomAlert";
 import { giveMailCode, sendMailAuth } from "@/src/api/mail.api";
 import { findMember, update } from "@/src/api/member.api";
+import { findPassword } from "@/src/api/auth.api";
 
 export default function Page() {
   const router = useRouter();
@@ -132,8 +133,9 @@ export default function Page() {
         );
         return;
       }
-      findMember(mail.mailAddr)
+      findPassword(mail.mailAddr)
         .then((response) => {
+          localStorage.setItem("accessToken", response.data.accessToken);
           giveMailCode(mail); //메일 확인 코드발급 API
           setShowVerification(!showVerification);
           setButtonText(showVerification ? "인증하기" : "인증확인");
