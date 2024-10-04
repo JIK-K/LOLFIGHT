@@ -186,7 +186,7 @@ export default function Page() {
                     style={{
                       width: "62%",
                       background:
-                        "linear-gradient(to right, rgba(37, 99, 235, 0.5) 0%, rgba(37, 99, 235, 1) 50%)",
+                        "linear-gradient(to left, rgba(37, 99, 235, 0.5) 0%, rgba(37, 99, 235, 1) 50%)",
                     }} // 왼쪽 팀
                   ></div>
                   <div
@@ -194,7 +194,7 @@ export default function Page() {
                     style={{
                       width: "38%",
                       background:
-                        "linear-gradient(to left, rgba(255, 0, 0, 0.5) 0%, rgba(255, 0, 0, 1) 50%)",
+                        "linear-gradient(to right, rgba(255, 0, 0, 0.5) 0%, rgba(255, 0, 0, 1) 50%)",
                     }} // 오른쪽 팀
                   ></div>
                 </div>
