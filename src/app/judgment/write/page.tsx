@@ -5,6 +5,8 @@ import React, { useState } from "react";
 import championData from "../../../common/constant/champion_id_name_map.json";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { createJudgment } from "@/src/api/judgment.api";
+import { JudgmentDTO } from "@/src/common/DTOs/judgment/judgment.dto";
 
 interface ChampionsMap {
   [key: string]: string;
@@ -18,8 +20,23 @@ interface Summoner {
 export default function Page() {
   const router = useRouter();
 
-  const [title, setTitle] = useState<string>();
-  const [description, setDescription] = useState<string>();
+  const [judgment, setJudgment] = useState<JudgmentDTO>({
+    id: "",
+    judgmentWriter: "",
+    judgmentTitle: "",
+    judgmentDesc: "",
+    judgmentLeftChampion: "",
+    judgmentLeftName: "",
+    judgmentLeftTier: "",
+    judgmentLeftLine: "",
+    judgmentLeftLike: 0,
+    judgmentRightChampion: "",
+    judgmentRightName: "",
+    judgmentRightTier: "",
+    judgmentRightLine: "",
+    judgmentRightLike: 0,
+    judgmentVideo: "",
+  });
 
   const [leftSummoner, setLeftSummoner] = useState<Summoner>({
     name: "",
@@ -33,9 +50,12 @@ export default function Page() {
   });
 
   const [champions] = useState<ChampionsMap>(championData);
+
   const [leftShowImages, setLeftShowImages] = useState<boolean>(false);
   const [rightShowImages, setRightShowImages] = useState<boolean>(false);
+
   const [searchTerm, setSearchTerm] = useState<string>("");
+
   const [selectedLeftChampion, setSelectedLeftChampion] = useState<string>("1");
   const [selectedRightChampion, setSelectedRightChampion] =
     useState<string>("2");
@@ -48,10 +68,16 @@ export default function Page() {
   );
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTitle(e.target.value);
+    setJudgment((prevJudgment) => ({
+      ...prevJudgment,
+      judgmentTitle: e.target.value,
+    }));
   };
   const handleDescChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setDescription(e.target.value);
+    setJudgment((prevJudgment) => ({
+      ...prevJudgment,
+      judgmentDesc: e.target.value,
+    }));
   };
   const handleSummonerChange = (
     side: "left" | "right",
@@ -59,9 +85,39 @@ export default function Page() {
     value: string
   ) => {
     if (side === "left") {
-      setLeftSummoner((prev) => ({ ...prev, [field]: value }));
+      // setLeftSummoner((prev) => ({ ...prev, [field]: value }));
+      setJudgment((prevJudgment) => ({
+        ...prevJudgment,
+        judgmentLeftName:
+          side === "left" && field === "name"
+            ? value
+            : prevJudgment.judgmentLeftName,
+        judgmentLeftLine:
+          side === "left" && field === "line"
+            ? value
+            : prevJudgment.judgmentLeftLine,
+        judgmentLeftTier:
+          side === "left" && field === "tier"
+            ? value
+            : prevJudgment.judgmentLeftTier,
+      }));
     } else {
-      setRightSummoner((prev) => ({ ...prev, [field]: value }));
+      // setRightSummoner((prev) => ({ ...prev, [field]: value }));
+      setJudgment((prevJudgment) => ({
+        ...prevJudgment,
+        judgmentRightName:
+          side === "right" && field === "name"
+            ? value
+            : prevJudgment.judgmentRightName,
+        judgmentRightLine:
+          side === "right" && field === "line"
+            ? value
+            : prevJudgment.judgmentRightLine,
+        judgmentRightTier:
+          side === "right" && field === "tier"
+            ? value
+            : prevJudgment.judgmentRightTier,
+      }));
     }
   };
 
@@ -80,14 +136,20 @@ export default function Page() {
   };
 
   const handleSaveClick = () => {
-    console.log(
-      `title: ${title}
-  desc: ${description}
-  leftSummoner: ${JSON.stringify(leftSummoner, null, 2)}
-  rightSummoner: ${JSON.stringify(rightSummoner, null, 2)}` +
-        `leftChampion:${selectedLeftChampion}` +
-        `rightChampion:${selectedRightChampion}`
-    );
+    const storedMemberName = sessionStorage.getItem("memberName")!.toString();
+    setJudgment((prevJudgment) => ({
+      ...prevJudgment,
+      judgmentWriter: storedMemberName,
+    }));
+    console.log(judgment, videoFile);
+
+    createJudgment(judgment, videoFile)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   const handleCancelClick = () => {
@@ -110,8 +172,16 @@ export default function Page() {
 
   const handleChampionSelect = (id: string, isLeft: boolean) => {
     if (isLeft) {
+      setJudgment((prevJudgment) => ({
+        ...prevJudgment,
+        judgmentLeftChampion: id,
+      }));
       setSelectedLeftChampion(id);
     } else {
+      setJudgment((prevJudgment) => ({
+        ...prevJudgment,
+        judgmentRightChampion: id,
+      }));
       setSelectedRightChampion(id);
     }
     setLeftShowImages(false);
@@ -131,7 +201,7 @@ export default function Page() {
           />
           <div className="flex w-full items-center justify-between">
             {/* left */}
-            <div className="flex w-[500px] h-[130px] border dark:border-gray-700 rounded-md px-2 bg-gray-100 dark:bg-black items-center justify-center">
+            <div className="flex w-[450px] h-[130px] border dark:border-gray-700 rounded-md px-2 bg-gray-100 dark:bg-black items-center justify-center">
               <Image
                 width={70}
                 height={70}
@@ -186,7 +256,7 @@ export default function Page() {
             <div className="px-10 text-lg font-bold">VS</div>
 
             {/* right */}
-            <div className="flex w-[500px] h-[130px] border dark:border-gray-700 rounded-md px-2 bg-gray-100 dark:bg-black items-center justify-center">
+            <div className="flex w-[450px] h-[130px] border dark:border-gray-700 rounded-md px-2 bg-gray-100 dark:bg-black items-center justify-center">
               <div className="flex flex-col">
                 <div className="flex flex-col w-[300px] justify-center text-sm mr-5">
                   <div className="flex justify-between items-center mb-2">

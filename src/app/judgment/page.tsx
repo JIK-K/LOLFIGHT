@@ -9,6 +9,9 @@ import { useRouter } from "next/navigation";
 export default function Page() {
   const router = useRouter();
 
+  const leftpercent = 55;
+  const rightpercent = 65;
+
   const handleClickJudgment = () => {
     alert("클릭했다오마리드");
   };
@@ -73,7 +76,7 @@ export default function Page() {
                     <Image
                       width={25}
                       height={25}
-                      src={`${constant.SERVER_URL}/public/member/Jihong2_.png`}
+                      src={`${constant.SERVER_URL}/public/member/테스터손상.png`}
                       alt="light logo"
                     />
                     LOLFIGHT
@@ -82,13 +85,15 @@ export default function Page() {
               </div>
 
               <div
-                className="judgment_summation flex w-full mt-10 justify-center items-center rounded-lg"
+                className="judgment_summation flex w-full mt-10 justify-around items-center rounded-lg"
                 style={{
-                  background:
-                    "linear-gradient(to right, rgba(59, 130, 246, 1) 0%, rgba(59, 130, 246, 0) 50%, rgba(239, 68, 68, 0) 50%, rgba(239, 68, 68, 1) 100%)",
+                  background: `linear-gradient(to right, rgba(59, 130, 246, 1) 0%, rgba(59, 130, 246, 0) ${leftpercent}%, rgba(239, 68, 68, 0) ${leftpercent}%, rgba(239, 68, 68, 1) 100%)`,
                 }}
               >
                 {/* Left side */}
+                <div className="font-bold text-[28px] text-white drop-shadow-md">
+                  {leftpercent}%
+                </div>
                 <div className="flex items-center">
                   <div className="flex flex-col w-[300px] justify-center text-sm mr-5 rounded-lg p-4">
                     <div className="flex justify-between items-center mb-2">
@@ -135,7 +140,7 @@ export default function Page() {
                 {/* VS in the center */}
                 <div className="px-10 text-lg font-bold">VS</div>
 
-                {/* Right side (mirrored) */}
+                {/* Right side */}
                 <div className="flex items-center">
                   <Image
                     className="rounded-full"
@@ -144,7 +149,7 @@ export default function Page() {
                     src={`${constant.SERVER_URL}/public/champions/23.png`}
                     alt="dark logo"
                   />
-                  <div className="flex flex-col w-[300px] justify-center text-sm ml-5">
+                  <div className="flex flex-col w-[300px] justify-center text-sm ml-5 p-4">
                     <div className="flex justify-between items-center mb-2">
                       <p className="font-semibold text-gray-700 dark:text-gray-400">
                         소환사명:
@@ -177,30 +182,8 @@ export default function Page() {
                     </div>
                   </div>
                 </div>
-              </div>
-
-              <div className="w-full mt-5">
-                <div className="flex h-4 w-full bg-gray-300 rounded-lg overflow-hidden shadow-lg">
-                  <div
-                    className="h-full transition-all duration-300 ease-in-out"
-                    style={{
-                      width: "62%",
-                      background:
-                        "linear-gradient(to left, rgba(37, 99, 235, 0.5) 0%, rgba(37, 99, 235, 1) 50%)",
-                    }} // 왼쪽 팀
-                  ></div>
-                  <div
-                    className="h-full transition-all duration-300 ease-in-out"
-                    style={{
-                      width: "38%",
-                      background:
-                        "linear-gradient(to right, rgba(255, 0, 0, 0.5) 0%, rgba(255, 0, 0, 1) 50%)",
-                    }} // 오른쪽 팀
-                  ></div>
-                </div>
-                <div className="flex justify-between text-sm mt-1">
-                  <span className="font-bold text-blue-600">50%</span>
-                  <span className="font-bold text-red-600">50%</span>
+                <div className="font-bold text-[28px] text-white drop-shadow-md">
+                  {100 - leftpercent}%
                 </div>
               </div>
             </div>
