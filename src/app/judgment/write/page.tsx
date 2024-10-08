@@ -7,6 +7,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { createJudgment } from "@/src/api/judgment.api";
 import { JudgmentDTO } from "@/src/common/DTOs/judgment/judgment.dto";
+import CustomAlert from "@/src/common/components/alert/CustomAlert";
 
 interface ChampionsMap {
   [key: string]: string;
@@ -25,28 +26,19 @@ export default function Page() {
     judgmentWriter: "",
     judgmentTitle: "",
     judgmentDesc: "",
-    judgmentLeftChampion: "",
+    judgmentLike: 0,
+    judgmentView: 0,
+    judgmentLeftChampion: "1",
     judgmentLeftName: "",
     judgmentLeftTier: "",
     judgmentLeftLine: "",
     judgmentLeftLike: 0,
-    judgmentRightChampion: "",
+    judgmentRightChampion: "2",
     judgmentRightName: "",
     judgmentRightTier: "",
     judgmentRightLine: "",
     judgmentRightLike: 0,
     judgmentVideo: "",
-  });
-
-  const [leftSummoner, setLeftSummoner] = useState<Summoner>({
-    name: "",
-    line: "",
-    tier: "",
-  });
-  const [rightSummoner, setRightSummoner] = useState<Summoner>({
-    name: "",
-    line: "",
-    tier: "",
   });
 
   const [champions] = useState<ChampionsMap>(championData);
@@ -141,15 +133,50 @@ export default function Page() {
       ...prevJudgment,
       judgmentWriter: storedMemberName,
     }));
-    console.log(judgment, videoFile);
+    console.log(judgment);
 
-    createJudgment(judgment, videoFile)
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    if (!judgment.judgmentTitle || !judgment.judgmentDesc) {
+      CustomAlert(
+        "warning",
+        "롤로세움",
+        "해당 논쟁의 제목과 부가 설명을 작성해주세요"
+      );
+    } else if (
+      !judgment.judgmentLeftName ||
+      !judgment.judgmentLeftTier ||
+      !judgment.judgmentLeftLine ||
+      !judgment.judgmentRightName ||
+      !judgment.judgmentRightTier ||
+      !judgment.judgmentRightLine
+    ) {
+      CustomAlert(
+        "warning",
+        "롤로세움",
+        "양쪽 소환사의 정보가 모두 입력되어야 합니다."
+      );
+    } else if (!videoFile) {
+      CustomAlert(
+        "warning",
+        "롤로세움",
+        "해당 논쟁의 영상을 업로드 해주세요 (최대 5분)"
+      );
+    } else {
+      console.log(judgment, videoFile);
+
+      createJudgment(judgment, videoFile)
+        .then((response) => {
+          CustomAlert(
+            "success",
+            "롤로세움",
+            "롤로세움 투기장 작성이 완료되었습니다"
+          );
+          router.replace("/judgment");
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   };
 
   const handleCancelClick = () => {
@@ -228,25 +255,76 @@ export default function Page() {
                     <p className="font-semibold text-gray-700 dark:text-gray-400">
                       라인:
                     </p>
-                    <input
+                    <select
                       className="text-right border rounded-md px-2 bg-gray-200 dark:bg-black dark:border-gray-700"
-                      placeholder="미드"
                       onChange={(e) =>
                         handleSummonerChange("left", "line", e.target.value)
                       }
-                    />
+                    >
+                      <option disabled hidden selected>
+                        라인을 선택해주세요
+                      </option>
+                      <option value="탑">탑</option>
+                      <option value="정글">정글</option>
+                      <option value="미드">미드</option>
+                      <option value="원딜">원딜</option>
+                      <option value="서폿">서폿</option>
+                    </select>
                   </div>
                   <div className="flex justify-between items-center mb-2">
                     <p className="font-semibold text-gray-700 dark:text-gray-400">
                       티어:
                     </p>
-                    <input
+                    <select
                       className="text-right border rounded-md px-2 bg-gray-200 dark:bg-black dark:border-gray-700"
-                      placeholder="골드 III"
                       onChange={(e) =>
                         handleSummonerChange("left", "tier", e.target.value)
                       }
-                    />
+                    >
+                      <option disabled hidden selected>
+                        해당 티어를 선택해주세요
+                      </option>
+                      {/* BRONZE */}
+                      <option value="BRONZE I">BRONZE I</option>
+                      <option value="BRONZE II">BRONZE II</option>
+                      <option value="BRONZE III">BRONZE III</option>
+                      <option value="BRONZE IV">BRONZE IV</option>
+
+                      {/* SILVER */}
+                      <option value="SILVER I">SILVER I</option>
+                      <option value="SILVER II">SILVER II</option>
+                      <option value="SILVER III">SILVER III</option>
+                      <option value="SILVER IV">SILVER IV</option>
+
+                      {/* GOLD */}
+                      <option value="GOLD I">GOLD I</option>
+                      <option value="GOLD II">GOLD II</option>
+                      <option value="GOLD III">GOLD III</option>
+                      <option value="GOLD IV">GOLD IV</option>
+
+                      {/* PLATINUM */}
+                      <option value="PLATINUM I">PLATINUM I</option>
+                      <option value="PLATINUM II">PLATINUM II</option>
+                      <option value="PLATINUM III">PLATINUM III</option>
+                      <option value="PLATINUM IV">PLATINUM IV</option>
+
+                      {/* EMERALD */}
+                      <option value="EMERALD I">EMERALD I</option>
+                      <option value="EMERALD II">EMERALD II</option>
+                      <option value="EMERALD III">EMERALD III</option>
+                      <option value="EMERALD IV">EMERALD IV</option>
+
+                      {/* DIAMOND */}
+                      <option value="DIAMOND I">DIAMOND I</option>
+                      <option value="DIAMOND II">DIAMOND II</option>
+                      <option value="DIAMOND III">DIAMOND III</option>
+                      <option value="DIAMOND IV">DIAMOND IV</option>
+
+                      {/* MASTER, GRANDMASTER, CHALLENGER */}
+                      <option value="MASTER">MASTER</option>
+                      <option value="GRANDMASTER">GRANDMASTER</option>
+                      <option value="CHALLENGER">CHALLENGER</option>
+                    </select>
                   </div>
                 </div>
               </div>
@@ -275,25 +353,76 @@ export default function Page() {
                     <p className="font-semibold text-gray-700 dark:text-gray-400">
                       라인:
                     </p>
-                    <input
+                    <select
                       className="text-right border rounded-md px-2 bg-gray-200 dark:bg-black dark:border-gray-700"
-                      placeholder="미드"
                       onChange={(e) =>
                         handleSummonerChange("right", "line", e.target.value)
                       }
-                    />
+                    >
+                      <option disabled hidden selected>
+                        라인을 선택해주세요
+                      </option>
+                      <option value="탑">탑</option>
+                      <option value="정글">정글</option>
+                      <option value="미드">미드</option>
+                      <option value="원딜">원딜</option>
+                      <option value="서폿">서폿</option>
+                    </select>
                   </div>
                   <div className="flex justify-between items-center mb-2">
                     <p className="font-semibold text-gray-700 dark:text-gray-400">
                       티어:
                     </p>
-                    <input
+                    <select
                       className="text-right border rounded-md px-2 bg-gray-200 dark:bg-black dark:border-gray-700"
-                      placeholder="골드 III"
                       onChange={(e) =>
                         handleSummonerChange("right", "tier", e.target.value)
                       }
-                    />
+                    >
+                      <option disabled hidden selected>
+                        해당 티어를 선택해주세요
+                      </option>
+                      {/* BRONZE */}
+                      <option value="BRONZE I">BRONZE I</option>
+                      <option value="BRONZE II">BRONZE II</option>
+                      <option value="BRONZE III">BRONZE III</option>
+                      <option value="BRONZE IV">BRONZE IV</option>
+
+                      {/* SILVER */}
+                      <option value="SILVER I">SILVER I</option>
+                      <option value="SILVER II">SILVER II</option>
+                      <option value="SILVER III">SILVER III</option>
+                      <option value="SILVER IV">SILVER IV</option>
+
+                      {/* GOLD */}
+                      <option value="GOLD I">GOLD I</option>
+                      <option value="GOLD II">GOLD II</option>
+                      <option value="GOLD III">GOLD III</option>
+                      <option value="GOLD IV">GOLD IV</option>
+
+                      {/* PLATINUM */}
+                      <option value="PLATINUM I">PLATINUM I</option>
+                      <option value="PLATINUM II">PLATINUM II</option>
+                      <option value="PLATINUM III">PLATINUM III</option>
+                      <option value="PLATINUM IV">PLATINUM IV</option>
+
+                      {/* EMERALD */}
+                      <option value="EMERALD I">EMERALD I</option>
+                      <option value="EMERALD II">EMERALD II</option>
+                      <option value="EMERALD III">EMERALD III</option>
+                      <option value="EMERALD IV">EMERALD IV</option>
+
+                      {/* DIAMOND */}
+                      <option value="DIAMOND I">DIAMOND I</option>
+                      <option value="DIAMOND II">DIAMOND II</option>
+                      <option value="DIAMOND III">DIAMOND III</option>
+                      <option value="DIAMOND IV">DIAMOND IV</option>
+
+                      {/* MASTER, GRANDMASTER, CHALLENGER */}
+                      <option value="MASTER">MASTER</option>
+                      <option value="GRANDMASTER">GRANDMASTER</option>
+                      <option value="CHALLENGER">CHALLENGER</option>
+                    </select>
                   </div>
                 </div>
               </div>

@@ -5,16 +5,28 @@ import { Image } from "@nextui-org/react";
 import constant from "@/src/common/constant/constant";
 import CustomAlert from "@/src/common/components/alert/CustomAlert";
 import { useRouter } from "next/navigation";
+import { getJudgmentList } from "@/src/api/judgment.api";
+import { JudgmentDTO } from "@/src/common/DTOs/judgment/judgment.dto";
+import JudgmentBox from "./components/JudgmentBox";
+import Pagination from "@mui/material/Pagination";
 
 export default function Page() {
   const router = useRouter();
+  const [judgmentList, setJudgmentList] = useState<JudgmentDTO[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  const judgmentPerPage = 5;
 
-  const leftpercent = 55;
-  const rightpercent = 65;
+  const filteredJudgments = judgmentList.filter((judgment) =>
+    judgment.judgmentTitle.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
-  const handleClickJudgment = () => {
-    alert("클릭했다오마리드");
-  };
+  const paginatedGuilds = filteredJudgments.slice(
+    (currentPage - 1) * judgmentPerPage,
+    currentPage * judgmentPerPage
+  );
+
   const handleWriteClick = () => {
     const storedId = sessionStorage.getItem("id")?.toString();
     if (storedId) {
@@ -23,6 +35,21 @@ export default function Page() {
       CustomAlert("info", "글쓰기", "로그인이 필요합니다");
     }
   };
+
+  const handlePageClick = (
+    event: React.ChangeEvent<unknown>,
+    pageNumber: number
+  ) => {
+    setCurrentPage(pageNumber);
+  };
+
+  useEffect(() => {
+    getJudgmentList().then((response) => {
+      console.log(response);
+      setJudgmentList(response.data.data);
+      setTotalPages(Math.ceil(response.data.data.length / judgmentPerPage));
+    });
+  }, []);
   return (
     <div className="w-full my-16">
       <div className="w-1200px mx-auto mb-16">
@@ -50,7 +77,7 @@ export default function Page() {
                   className="w-full h-10 rounded-md px-2 bg-gray-100 focus:outline-none dark:bg-black font-normal"
                   type="text"
                   placeholder="검색"
-                  //   onChange={(e) => props.setSearchTerm(e.target.value)}
+                  onChange={(e) => setSearchTerm(e.target.value)}
                 />
               </div>
             </div>
@@ -58,136 +85,33 @@ export default function Page() {
 
           <div className="w-full h-[10px] text-sm flex border-t border-b border-slate-500 dark:bg-branddark" />
           <div className="flex flex-col w-full h-full p-[20px] gap-5">
-            <div
-              className="judgment_box flex-col border dark:border-gray-500 hover:border-brandcolor rounded-lg shadow-lg p-[20px]"
-              onClick={handleClickJudgment}
-            >
-              <div className="judgment_title flex items-center justify-between">
-                <p className="font-bold text-[20px]">
-                  미드 vs 정글 3분 바위게 타이밍
-                </p>
-                <div className="flex items-end text-sm font-normal gap-3">
-                  <p>조회수: 1</p>
-                  <span className="text-gray-300">|</span>
-                  <p>추천수: 20</p>
-                  <span className="text-gray-300">|</span>
-                  <div className="flex items-end gap-1">
-                    작성자:
-                    <Image
-                      width={25}
-                      height={25}
-                      src={`${constant.SERVER_URL}/public/member/테스터손상.png`}
-                      alt="light logo"
-                    />
-                    LOLFIGHT
-                  </div>
-                </div>
-              </div>
-
-              <div
-                className="judgment_summation flex w-full mt-10 justify-around items-center rounded-lg"
-                style={{
-                  background: `linear-gradient(to right, rgba(59, 130, 246, 1) 0%, rgba(59, 130, 246, 0) ${leftpercent}%, rgba(239, 68, 68, 0) ${leftpercent}%, rgba(239, 68, 68, 1) 100%)`,
-                }}
-              >
-                {/* Left side */}
-                <div className="font-bold text-[28px] text-white drop-shadow-md">
-                  {leftpercent}%
-                </div>
-                <div className="flex items-center">
-                  <div className="flex flex-col w-[300px] justify-center text-sm mr-5 rounded-lg p-4">
-                    <div className="flex justify-between items-center mb-2">
-                      <p className="font-semibold text-gray-700 dark:text-gray-400">
-                        소환사명:
-                      </p>
-                      <p className="text-right font-bold transition duration-300">
-                        반림동박치기공룡#세글자
-                      </p>
-                    </div>
-                    <div className="flex justify-between items-center mb-2">
-                      <p className="font-semibold text-gray-700 dark:text-gray-400">
-                        라인:
-                      </p>
-                      <p className="text-right font-bold transition duration-300">
-                        미드
-                      </p>
-                    </div>
-                    <div className="flex justify-between items-center mb-2">
-                      <p className="font-semibold text-gray-700 dark:text-gray-400">
-                        티어:
-                      </p>
-                      <div className="flex items-center text-right font-bold transition duration-300 gap-1">
-                        GOLD I
-                        <Image
-                          width={25}
-                          height={25}
-                          src={`${constant.SERVER_URL}/public/rank/GOLD.png`}
-                          alt="light logo"
-                        />
-                      </div>
-                    </div>
-                  </div>
-
-                  <Image
-                    className="rounded-full"
-                    width={70}
-                    height={70}
-                    src={`${constant.SERVER_URL}/public/champions/22.png`}
-                    alt="light logo"
-                  />
-                </div>
-
-                {/* VS in the center */}
-                <div className="px-10 text-lg font-bold">VS</div>
-
-                {/* Right side */}
-                <div className="flex items-center">
-                  <Image
-                    className="rounded-full"
-                    width={70}
-                    height={70}
-                    src={`${constant.SERVER_URL}/public/champions/23.png`}
-                    alt="dark logo"
-                  />
-                  <div className="flex flex-col w-[300px] justify-center text-sm ml-5 p-4">
-                    <div className="flex justify-between items-center mb-2">
-                      <p className="font-semibold text-gray-700 dark:text-gray-400">
-                        소환사명:
-                      </p>
-                      <p className="text-right font-bold transition duration-300">
-                        반림동박치기공룡#세글자
-                      </p>
-                    </div>
-                    <div className="flex justify-between items-center mb-2">
-                      <p className="font-semibold text-gray-700 dark:text-gray-400">
-                        라인:
-                      </p>
-                      <p className="text-right font-bold transition duration-300">
-                        미드
-                      </p>
-                    </div>
-                    <div className="flex justify-between items-center mb-2">
-                      <p className="font-semibold text-gray-700 dark:text-gray-400">
-                        티어:
-                      </p>
-                      <div className="flex items-center text-right font-bold transition duration-300 gap-1">
-                        GOLD I
-                        <Image
-                          width={25}
-                          height={25}
-                          src={`${constant.SERVER_URL}/public/rank/CHALLENGER.png`}
-                          alt="light logo"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="font-bold text-[28px] text-white drop-shadow-md">
-                  {100 - leftpercent}%
-                </div>
-              </div>
-            </div>
+            {paginatedGuilds.map((judgment) => (
+              <JudgmentBox key={judgment.id} judgment={judgment} />
+            ))}
           </div>
+        </div>
+        <div className="w-full flex justify-center mt-1 p-3">
+          <Pagination
+            count={totalPages}
+            shape="rounded"
+            boundaryCount={2}
+            onChange={(event, page) => handlePageClick(event, page)}
+            sx={{
+              ".dark & .Mui-selected": {
+                backgroundColor: "#4C4C4C",
+                color: "#CACACA", // 텍스트 색상
+                "&:hover": {
+                  backgroundColor: "#707070", // 호버 시 색상
+                },
+              },
+              ".dark & .MuiPaginationItem-root": {
+                color: "#EEEEEE", // 선택되지 않은 아이템의 기본 텍스트 색상
+              },
+              ".dark & .MuiPaginationItem-icon": {
+                color: "#EEEEEE", // 텍스트 색상
+              },
+            }}
+          />
         </div>
       </div>
     </div>

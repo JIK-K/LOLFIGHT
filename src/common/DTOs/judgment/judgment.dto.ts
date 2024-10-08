@@ -5,6 +5,8 @@ export interface JudgmentDTO extends BaseDTO {
   judgmentWriter: string;
   judgmentTitle: string;
   judgmentDesc: string;
+  judgmentView: number;
+  judgmentLike: number;
   judgmentLeftChampion: string;
   judgmentLeftName: string;
   judgmentLeftTier: string;

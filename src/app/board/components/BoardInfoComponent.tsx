@@ -47,9 +47,10 @@ const BoardInfoComponent = (props: BoardInfoComponentProps) => {
       // const formattedDate = `${postDateTime.getFullYear()}-${
       //   postDateTime.getMonth() + 1
       // }-${postDateTime.getDate()}`;
+      const year = postDateTime.getFullYear().toString().padStart(2, "0");
       const month = (postDateTime.getMonth() + 1).toString().padStart(2, "0");
       const day = postDateTime.getDate().toString().padStart(2, "0");
-      return `${month}.${day}`; // 오늘이 아니면 MM.DD 형태로 출력
+      return `${year}-${month}-${day}`;
     }
   };
 

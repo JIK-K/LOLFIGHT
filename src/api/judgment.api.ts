@@ -1,5 +1,5 @@
 import constant from "../common/constant/constant";
-import { AxiosResponse } from "axios";
+import axios, { AxiosResponse } from "axios";
 import { ResponseDTO } from "../common/DTOs/response.dto";
 import { JudgmentDTO } from "../common/DTOs/judgment/judgment.dto";
 import api from "./interceptors/axiosInstance";
@@ -43,4 +43,15 @@ export const createJudgment = async (
       "Content-Type": "multipart/form-data",
     },
   });
+};
+
+/**
+ * Judgment get List
+ * @returns
+ */
+export const getJudgmentList = async (): Promise<
+  AxiosResponse<ResponseDTO<JudgmentDTO[]>>
+> => {
+  const url = `${baseUrl}/list`;
+  return await axios.get(url);
 };
