@@ -1,7 +1,7 @@
 import { BaseDTO } from "../base.dto";
 
 export interface JudgmentDTO extends BaseDTO {
-  id: string;
+  id: number;
   judgmentWriter: string;
   judgmentTitle: string;
   judgmentDesc: string;

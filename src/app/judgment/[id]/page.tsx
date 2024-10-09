@@ -2,18 +2,40 @@
 
 import { JudgmentDTO } from "@/src/common/DTOs/judgment/judgment.dto";
 import React, { useEffect, useState } from "react";
+import JudgmentHeadComponet from "../components/JudgmentHeadComponet";
+import { getJudgment } from "@/src/api/judgment.api";
+import JudgmentBodyComponent from "../components/JudgmentBodyComponent";
 
 type PageProps = {
-  id: string;
+  id: number;
 };
 
 export default function Page({ params }: { params: PageProps }) {
   const [judgment, setJudgment] = useState<JudgmentDTO>();
+
+  useEffect(() => {
+    if (!judgment) {
+      getJudgment(params.id)
+        .then((response) => {
+          setJudgment(response.data.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }, []);
   return (
     <>
       <div className="w-full my-16">
         <div className="w-1200px mx-auto flex">
-          <div>{params.id}</div>
+          <div className="w-full bg-white dark:bg-dark shadow-md">
+            <div className="head">
+              <JudgmentHeadComponet judgment={judgment!} />
+            </div>
+            <div className="body">
+              <JudgmentBodyComponent judgment={judgment!} />
+            </div>
+          </div>
         </div>
       </div>
     </>

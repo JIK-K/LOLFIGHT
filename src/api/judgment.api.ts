@@ -55,3 +55,18 @@ export const getJudgmentList = async (): Promise<
   const url = `${baseUrl}/list`;
   return await axios.get(url);
 };
+
+/**
+ * Judgment get post
+ * @param id
+ * @returns
+ */
+export const getJudgment = async (
+  id: number
+): Promise<AxiosResponse<ResponseDTO<JudgmentDTO>>> => {
+  let url = `${baseUrl}/post`;
+  let queryParams = `?id=${id}`;
+
+  url += queryParams;
+  return await axios.get(url);
+};

@@ -45,7 +45,6 @@ export default function Page() {
 
   useEffect(() => {
     getJudgmentList().then((response) => {
-      console.log(response);
       setJudgmentList(response.data.data);
       setTotalPages(Math.ceil(response.data.data.length / judgmentPerPage));
     });
