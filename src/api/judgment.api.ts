@@ -1,5 +1,5 @@
 import constant from "../common/constant/constant";
-import axios, { AxiosResponse } from "axios";
+import axios, { Axios, AxiosResponse } from "axios";
 import { ResponseDTO } from "../common/DTOs/response.dto";
 import { JudgmentDTO } from "../common/DTOs/judgment/judgment.dto";
 import api from "./interceptors/axiosInstance";
@@ -46,7 +46,7 @@ export const createJudgment = async (
 };
 
 /**
- * Judgment get List
+ * Judgment 게시글 리스트 조회
  * @returns
  */
 export const getJudgmentList = async (): Promise<
@@ -57,7 +57,7 @@ export const getJudgmentList = async (): Promise<
 };
 
 /**
- * Judgment get post
+ * Judgment 게시글 조회
  * @param id
  * @returns
  */
@@ -69,4 +69,30 @@ export const getJudgment = async (
 
   url += queryParams;
   return await axios.get(url);
+};
+
+/**
+ * Judgment 게시글 조회수 증가
+ * @param Judgment
+ * @returns
+ */
+export const increaseJudgment = async (
+  Judgment: JudgmentDTO
+): Promise<AxiosResponse<ResponseDTO<boolean>>> => {
+  let url = `${baseUrl}/view`;
+  return await axios.patch(url, Judgment);
+};
+
+// @todo 추천수 증가와 같이 한번씩만 누를 수 있도록 변경
+export const voteFactionJudgment = async (
+  faction: string,
+  judgmentId: number
+): Promise<AxiosResponse<ResponseDTO<boolean>>> => {
+  let url = `${baseUrl}/vote`;
+  const data = {
+    faction: faction,
+    judgmentId: judgmentId,
+  };
+
+  return await api.patch(url, data);
 };

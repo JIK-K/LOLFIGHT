@@ -7,6 +7,7 @@ import { JudgmentDTO } from "@/src/common/DTOs/judgment/judgment.dto";
 import Image from "next/image";
 import JudgmentDataCard from "./JudgmentDataCard";
 import constant from "@/src/common/constant/constant";
+import { voteFactionJudgment } from "@/src/api/judgment.api";
 
 interface JudgmentBodyComponentProp {
   judgment: JudgmentDTO;
@@ -72,18 +73,38 @@ const JudgmentBodyComponent = (props: JudgmentBodyComponentProp) => {
     }
   };
 
+  const handleFactionVoteClick = (side: string) => {
+    const storedId = sessionStorage.getItem("id")?.toString();
+    if (!storedId) {
+      CustomAlert("info", "투표", "로그인이 필요합니다");
+    } else {
+      if (side === "left") {
+        voteFactionJudgment("left", props.judgment.id)
+          .then((response) => {
+            console.log(response);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+        CustomAlert("success", "투표", "투표가 완료되었습니다.");
+      } else {
+        voteFactionJudgment("right", props.judgment.id)
+          .then((response) => {
+            console.log(response);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+        CustomAlert("success", "투표", "투표가 완료되었습니다.");
+      }
+    }
+  };
+
   return (
     <div className="flex flex-col m-12 gap-12">
       <div className="flex flex-col gap-2">
         <div className="text-[22px] font-bold">재판 상황</div>
         <JudgmentDataCard judgment={props.judgment} />
-      </div>
-
-      <div className="flex flex-col gap-2 ">
-        <div className="text-[22px] font-bold">상황 설명</div>
-        <div className="border rounded-lg p-2">
-          {props.judgment?.judgmentDesc}
-        </div>
       </div>
 
       <div className="flex flex-col gap-2">
@@ -101,15 +122,28 @@ const JudgmentBodyComponent = (props: JudgmentBodyComponentProp) => {
         )}
       </div>
 
+      <div className="flex flex-col gap-2 ">
+        <div className="text-[22px] font-bold">상황 설명</div>
+        <div className="border rounded-lg p-2">
+          {props.judgment?.judgmentDesc}
+        </div>
+      </div>
+
       <div className="flex flex-col gap-4">
         <div className="text-[22px] font-bold">투표 하기</div>
 
         <div className="flex justify-between gap-4">
-          <button className="w-1/2 p-4 text-white font-semibold rounded-lg bg-blue-500 hover:bg-blue-600 transition duration-300">
+          <button
+            className="w-1/2 p-4 text-white font-semibold rounded-lg bg-blue-500 hover:bg-blue-600 transition duration-300"
+            onClick={() => handleFactionVoteClick("left")}
+          >
             무죄
           </button>
 
-          <button className="w-1/2 p-4 text-white font-semibold rounded-lg bg-red-500 hover:bg-red-600 transition duration-300">
+          <button
+            className="w-1/2 p-4 text-white font-semibold rounded-lg bg-red-500 hover:bg-red-600 transition duration-300"
+            onClick={() => handleFactionVoteClick("right")}
+          >
             무죄
           </button>
         </div>

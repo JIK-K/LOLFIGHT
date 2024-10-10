@@ -3,7 +3,7 @@
 import { JudgmentDTO } from "@/src/common/DTOs/judgment/judgment.dto";
 import React, { useEffect, useState } from "react";
 import JudgmentHeadComponet from "../components/JudgmentHeadComponet";
-import { getJudgment } from "@/src/api/judgment.api";
+import { getJudgment, increaseJudgment } from "@/src/api/judgment.api";
 import JudgmentBodyComponent from "../components/JudgmentBodyComponent";
 
 type PageProps = {
@@ -24,6 +24,12 @@ export default function Page({ params }: { params: PageProps }) {
         });
     }
   }, []);
+
+  useEffect(() => {
+    if (judgment) {
+      increaseJudgment(judgment);
+    }
+  }, [judgment]);
   return (
     <>
       <div className="w-full my-16">

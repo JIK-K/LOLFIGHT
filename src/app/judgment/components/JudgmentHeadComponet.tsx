@@ -70,13 +70,13 @@ const JudgmentHeadComponet = (props: JudgmentHeadComponetProps) => {
   };
 
   return (
-    <div className="board-post-head flex flex-col m-12">
-      <div className="board-post-head__title flex justify-between">
+    <div className="flex flex-col m-12">
+      <div className="flex justify-between">
         <span className="text-3xl font-bold">
           {props.judgment?.judgmentTitle}
         </span>
       </div>
-      <div className="text-sm board-post-head__status mt-8 flex justify-between">
+      <div className="text-sm mt-8 flex justify-between">
         <div className="flex">
           <Image
             className="rounded-full mr-[5px]"
@@ -103,7 +103,7 @@ const JudgmentHeadComponet = (props: JudgmentHeadComponetProps) => {
           <span className="mx-1"></span>
 
           <span className="text-gray-400">
-            조회수 : {props.judgment?.judgmentLike}
+            조회수 : {props.judgment?.judgmentView}
           </span>
         </div>
         {isMine && (
